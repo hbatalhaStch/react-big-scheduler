@@ -65,7 +65,6 @@ class Scheduler extends Component {
         this.state = {
             visible: false,
             dndContext: dndContext,
-            contentHeight: schedulerData.getSchedulerContentDesiredHeight(),
             contentScrollbarHeight: 17,
             contentScrollbarWidth: 17,
             resourceScrollbarHeight: 17,
@@ -192,7 +191,7 @@ class Scheduler extends Component {
                 contentScrollbarWidth = this.state.contentScrollbarWidth,
                 resourceScrollbarHeight = this.state.resourceScrollbarHeight,
                 resourceScrollbarWidth = this.state.resourceScrollbarWidth,
-                contentHeight = this.state.contentHeight;
+                contentHeight = config.schedulerContentHeight;
             let resourcePaddingBottom = resourceScrollbarHeight === 0 ? contentScrollbarHeight : 0;
             let contentPaddingBottom = contentScrollbarHeight === 0 ? resourceScrollbarHeight : 0;
             let schedulerContentStyle = { overflow: 'auto', margin: "0px", position: "relative", paddingBottom: contentPaddingBottom };
@@ -322,8 +321,7 @@ class Scheduler extends Component {
         let contentScrollbarHeight = 17,
             contentScrollbarWidth = 17,
             resourceScrollbarHeight = 17,
-            resourceScrollbarWidth = 17,
-            contentHeight = schedulerData.getSchedulerContentDesiredHeight();
+            resourceScrollbarWidth = 17;
         if (!!this.schedulerContent) {
             contentScrollbarHeight = this.schedulerContent.offsetHeight - this.schedulerContent.clientHeight;
             contentScrollbarWidth = this.schedulerContent.offsetWidth - this.schedulerContent.clientWidth;
@@ -331,10 +329,7 @@ class Scheduler extends Component {
         if (!!this.schedulerResource) {
             resourceScrollbarHeight = this.schedulerResource.offsetHeight - this.schedulerResource.clientHeight;
             resourceScrollbarWidth = this.schedulerResource.offsetWidth - this.schedulerResource.clientWidth;
-        }
-        if (!!this.schedulerContentBgTable && !!this.schedulerContentBgTable.offsetHeight) {
-            contentHeight = this.schedulerContentBgTable.offsetHeight;
-        }
+        }        
 
         let tmpState = {};
         let needSet = false;
@@ -345,11 +340,7 @@ class Scheduler extends Component {
         if (contentScrollbarWidth != this.state.contentScrollbarWidth) {
             tmpState = { ...tmpState, contentScrollbarWidth: contentScrollbarWidth };
             needSet = true;
-        }
-        if (contentHeight != this.state.contentHeight) {
-            tmpState = { ...tmpState, contentHeight: contentHeight };
-            needSet = true;
-        }
+        }        
         if (resourceScrollbarHeight != this.state.resourceScrollbarHeight) {
             tmpState = { ...tmpState, resourceScrollbarHeight: resourceScrollbarHeight };
             needSet = true;
