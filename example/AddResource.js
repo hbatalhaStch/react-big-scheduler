@@ -5,11 +5,6 @@ import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
 import AddResourceForm from './AddResourceForm'
-import 'antd/lib/style/index.css';
-import 'antd/lib/modal/style/index.css';
-import 'antd/lib/button/style/index.css'
-import 'antd/lib/form/style/index.css'
-import 'antd/lib/input/style/index.css'
 class AddResource extends Component{
     constructor(props){
         super(props);
@@ -63,7 +58,7 @@ class AddResource extends Component{
 
         return (
             <div>
-                <Nav />
+                
                 <div>
                     <h3 style={{textAlign: 'center'}}>Add resource<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/AddResource.js" /></h3>
                     <Scheduler schedulerData={viewModel}

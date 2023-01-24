@@ -10,7 +10,7 @@ class ComingSoon extends Component{
     render(){
         return (
             <div>
-                <Nav />
+                
                 <div>
                     <h3 style={{textAlign: 'center'}}>Sorry, the example is on the way~</h3>
                 </div>

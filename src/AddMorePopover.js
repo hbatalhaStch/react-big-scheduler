@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
 import {PropTypes} from 'prop-types'
-import Col from 'antd/lib/col'
-import Row from 'antd/lib/row'
-import Icon from 'antd/lib/icon'
-import 'antd/lib/grid/style/index.css'
+import { Col, Row } from 'antd'
+import {CloseOutlined } from '@ant-design/icons';
 import EventItem from './EventItem'
 import DnDSource from './DnDSource'
 
@@ -37,8 +35,8 @@ class AddMorePopover extends Component {
         const {headerItem, left, top, height, closeAction, schedulerData} = this.props;
         const {config, localeMoment} = schedulerData;
         const {time, start, end, events} = headerItem;
-        let header = localeMoment(time).format(config.addMorePopoverHeaderFormat);
-        let durationStart = localeMoment(start);
+        let header = localeMoment(new Date(time)).format(config.addMorePopoverHeaderFormat);
+        let durationStart = localeMoment(new Date(start));
         let durationEnd = localeMoment(end);
         let eventList = [];
         let i = 0;
@@ -77,7 +75,7 @@ class AddMorePopover extends Component {
                         <span className="base-text">{header}</span>
                     </Col>
                     <Col span="2">
-                        <span onClick={() => {closeAction(undefined);}}><Icon type="cross"></Icon></span>
+                        <span onClick={() => {closeAction(undefined);}}><CloseOutlined /></span>
                     </Col>
                 </Row>
                 {eventList}

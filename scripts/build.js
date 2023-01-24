@@ -42,31 +42,14 @@ async function build() {
     process.stdout.write('Transpiling js with babel... \n');
     const jsResult = await exec(`babel ${sourceDir} --out-dir ${jsTarget}`);
 
+    // TODO: copy the style.css file to lib css foder
     // copy css
-    process.stdout.write('Copying library style definitions... \n');
-    const cssResult = await exec(`cpy ${sourceDir}/css/style.css ${cssTarget}`);
-
-    // compile antd-hack less into css and copy it into lib
-    process.stdout.write('Implementing antd hack... \n');
-    const heckResult = await exec(
-      `lessc --js ${hackFileSource} ${hackFileOutputPath}`
-    );
-    // append lib/index.js with line importing antd-hack
-    const linesToBeAdded = [
-      '',
-      '',
-      '// this line has been added by scripts/build.js',
-      "require('./css/antd-globals-hiding-hack.css');",
-      '',
-    ]
-    await appendFile(
-      `${targetDir}/index.js`,
-      linesToBeAdded.join('\n')
-    );
-
+    // process.stdout.write('Copying library style definitions... \n');
+    // const cssResult = await exec(`cpy ${sourceDir}/css/style.css ${cssTarget}`);
+    
     process.stdout.write('Success! \n');
   } catch (e) {
-    process.stderr.write(e)
+    console.log(e)
     process.exit()
   }
 }

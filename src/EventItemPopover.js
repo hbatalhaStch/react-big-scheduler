@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {PropTypes} from 'prop-types'
-import Col from 'antd/lib/col'
-import Row from 'antd/lib/row'
-import 'antd/lib/grid/style/index.css'
+import { Col, Row } from 'antd'
 
 class EventItemPopover extends Component {
     constructor(props) {
@@ -27,7 +25,7 @@ class EventItemPopover extends Component {
     render(){
         const {schedulerData, eventItem, title, startTime, endTime, statusColor,subtitleGetter, viewEventClick, viewEventText, viewEvent2Click, viewEvent2Text, eventItemPopoverTemplateResolver} = this.props;
         const {localeMoment, config} = schedulerData;
-        let start = localeMoment(startTime), end = localeMoment(endTime);
+        let start = localeMoment(new Date(startTime)), end = localeMoment(new Date(endTime));
 
         if (eventItemPopoverTemplateResolver != undefined) {
             return eventItemPopoverTemplateResolver(schedulerData, eventItem, title, start, end, statusColor);
@@ -96,7 +94,7 @@ class EventItemPopover extends Component {
                             <div className="status-dot" style={{backgroundColor: statusColor}} />
                         </Col>
                         <Col span={22} className="overflow-text">
-                            <span className="header2-text" title={title}>{title}</span>
+                            <span className="header2-text" title={title}>{`${eventItem.id} - ${title}`}</span>
                         </Col>
                     </Row>
                     {subtitleRow}

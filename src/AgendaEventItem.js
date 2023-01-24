@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {PropTypes} from 'prop-types'
-import Popover from 'antd/lib/popover'
-import 'antd/lib/popover/style/index.css'
+import { Popover } from 'antd'
 import EventItemPopover from './EventItemPopover'
 
 class AgendaEventItem extends Component {

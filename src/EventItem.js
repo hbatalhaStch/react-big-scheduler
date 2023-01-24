@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {PropTypes} from 'prop-types'
-import Popover from 'antd/lib/popover'
-import 'antd/lib/popover/style/index.css'
+import { Popover } from 'antd'
 import EventItemPopover from './EventItemPopover'
 import {CellUnits, DATETIME_FORMAT} from './index'
 import {DnDTypes} from './DnDTypes'
@@ -176,13 +175,13 @@ class EventItem extends Component {
             count = rightIndex - leftIndex - 1;
         else if (newWidth > maxWidth)
             count = -leftIndex;
-        let newStart = localeMoment(eventItem.start).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
+        let newStart = localeMoment(new Date(eventItem.start)).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
         if(count !== 0 && cellUnit !== CellUnits.Hour && config.displayWeekend === false) {
             if(count > 0) {
                 let tempCount = 0, i = 0;
                 while (true) {
                     i++;
-                    let tempStart = localeMoment(eventItem.start).add(i, 'days');
+                    let tempStart = localeMoment(new Date(eventItem.start)).add(i, 'days');
                     let dayOfWeek = tempStart.weekday();
                     if(dayOfWeek !== 0 && dayOfWeek !== 6) {
                         tempCount ++;
@@ -197,7 +196,7 @@ class EventItem extends Component {
                 let tempCount = 0, i = 0;
                 while (true) {
                     i--;
-                    let tempStart = localeMoment(eventItem.start).add(i, 'days');
+                    let tempStart = localeMoment(new Date(eventItem.start)).add(i, 'days');
                     let dayOfWeek = tempStart.weekday();
                     if(dayOfWeek !== 0 && dayOfWeek !== 6) {
                         tempCount --;
@@ -217,13 +216,13 @@ class EventItem extends Component {
         if(!!slot)
             slotName = slot.name;
         if (config.checkConflict) {
-            let start = localeMoment(newStart),
-                end = localeMoment(eventItem.end);
+            let start = localeMoment(new Date(newStart)),
+                end = localeMoment(new Date(eventItem.end));
 
             events.forEach((e) => {
                 if (schedulerData._getEventSlotId(e) === slotId && e.id !== eventItem.id) {
-                    let eStart = localeMoment(e.start),
-                        eEnd = localeMoment(e.end);
+                    let eStart = localeMoment(new Date(e.start)),
+                        eEnd = localeMoment(new Date(e.end));
                     if ((start >= eStart && start < eEnd) || (end > eStart && end <= eEnd) || (eStart >= start && eStart < end) || (eEnd > start && eEnd <= end))
                         hasConflict = true;
                 }
@@ -380,13 +379,13 @@ class EventItem extends Component {
             count = leftIndex - rightIndex + 1;
         else if (newWidth > maxWidth)
             count = headers.length - rightIndex;
-        let newEnd = localeMoment(eventItem.end).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
+        let newEnd = localeMoment(new Date(eventItem.end)).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
         if(count !== 0 && cellUnit !== CellUnits.Hour && config.displayWeekend === false) {
             if(count > 0) {
                 let tempCount = 0, i = 0;
                 while (true) {
                     i++;
-                    let tempEnd = localeMoment(eventItem.end).add(i, 'days');
+                    let tempEnd = localeMoment(new Date(eventItem.end)).add(i, 'days');
                     let dayOfWeek = tempEnd.weekday();
                     if(dayOfWeek !== 0 && dayOfWeek !== 6) {
                         tempCount ++;
@@ -401,7 +400,7 @@ class EventItem extends Component {
                 let tempCount = 0, i = 0;
                 while (true) {
                     i--;
-                    let tempEnd = localeMoment(eventItem.end).add(i, 'days');
+                    let tempEnd = localeMoment(new Date(eventItem.end)).add(i, 'days');
                     let dayOfWeek = tempEnd.weekday();
                     if(dayOfWeek !== 0 && dayOfWeek !== 6) {
                         tempCount --;
@@ -421,13 +420,13 @@ class EventItem extends Component {
         if(!!slot)
             slotName = slot.name;
         if (config.checkConflict) {
-            let start = localeMoment(eventItem.start),
-                end = localeMoment(newEnd);
+            let start = localeMoment(new Date(eventItem.start)),
+                end = localeMoment(new Date(newEnd));
 
             events.forEach((e) => {
                 if (schedulerData._getEventSlotId(e) === slotId && e.id !== eventItem.id) {
-                    let eStart = localeMoment(e.start),
-                        eEnd = localeMoment(e.end);
+                    let eStart = localeMoment(new Date(e.start)),
+                        eEnd = localeMoment(new Date(e.end));
                     if ((start >= eStart && start < eEnd) || (end > eStart && end <= eEnd) || (eStart >= start && eStart < end) || (eEnd > start && eEnd <= end))
                         hasConflict = true;
                 }
@@ -492,7 +491,7 @@ class EventItem extends Component {
                 statusColor={bgColor}/>
         );
 
-        let start = localeMoment(eventItem.start);
+        let start = localeMoment(new Date(eventItem.start));
         let eventTitle = isInPopover ? `${start.format('HH:mm')} ${titleText}` : titleText;
         let startResizeDiv = <div />;
         if (this.startResizable(this.props))

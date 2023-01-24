@@ -173,7 +173,7 @@ class ResourceEvents extends Component {
         let startTime = headers[leftIndex].time;
         let endTime = resourceEvents.headerItems[rightIndex - 1].end;
         if(cellUnit !== CellUnits.Hour)
-            endTime = localeMoment(resourceEvents.headerItems[rightIndex - 1].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+            endTime = localeMoment(new Date(resourceEvents.headerItems)[rightIndex - 1].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
         let slotId = resourceEvents.slotId;
         let slotName = resourceEvents.slotName;
 
@@ -188,7 +188,7 @@ class ResourceEvents extends Component {
 
         let hasConflict = false;
         if(config.checkConflict){
-            let start = localeMoment(startTime),
+            let start = localeMoment(new Date(startTime)),
                 end = localeMoment(endTime);
 
             events.forEach((e) =>{
@@ -266,10 +266,10 @@ class ResourceEvents extends Component {
 
                 headerItem.events.forEach((evt, idx) => {
                     if(idx < renderEventsMaxIndex && evt !== undefined && evt.render) {
-                        let durationStart = localeMoment(startDate);
+                        let durationStart = localeMoment(new Date(startDate));
                         let durationEnd = localeMoment(endDate).add(1, 'days');
                         if(cellUnit === CellUnits.Hour){
-                            durationStart = localeMoment(startDate).add(config.dayStartFrom, 'hours');
+                            durationStart = localeMoment(new Date(startDate)).add(config.dayStartFrom, 'hours');
                             durationEnd = localeMoment(endDate).add(config.dayStopTo + 1, 'hours');
                         }
                         let eventStart = localeMoment(evt.eventItem.start);

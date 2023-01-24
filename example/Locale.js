@@ -11,11 +11,8 @@ class Locale extends Component{
         super(props);
 
         moment.locale('zh-cn');
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week, false, false, {
-            dayMaxEvents: 2,
-            weekMaxEvents: 4,
-            monthMaxEvents: 4,
-            yearMaxEvents: 4,
+        let schedulerData = new SchedulerData('2017-01-02', ViewTypes.Month, false, false, {
+        
             resourceName: '资源名称',
             taskName: '任务名称',
             agendaViewHeader: '工作事项',
@@ -59,7 +56,7 @@ class Locale extends Component{
         }
         return (
             <div>
-                <Nav />
+                
                 <div>
                     <h3 style={{textAlign: 'center'}}>Locale<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Locale.js" /></h3>
                     <Scheduler schedulerData={viewModel}

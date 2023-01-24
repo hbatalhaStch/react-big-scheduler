@@ -24,7 +24,7 @@ class Basic extends Component{
         const {viewModel} = this.state;
         return (
             <div>
-                <Nav />
+                
                 <div>
                     <h3 style={{textAlign: 'center'}}>No cross-slot move<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/NoCrossSlotMove.js" /></h3>
                     <Scheduler schedulerData={viewModel}

@@ -28,14 +28,14 @@ export default class DnDContext {
                     initialStartTime = resourceEvents.headerItems[initialLeftIndex].start;
                     initialEndTime = resourceEvents.headerItems[initialLeftIndex].end;
                     if(cellUnit !== CellUnits.Hour)
-                        initialEndTime = localeMoment(resourceEvents.headerItems[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                        initialEndTime = localeMoment(new Date(resourceEvents.headerItems)[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 }
                 const point = monitor.getClientOffset();                
                 let leftIndex = Math.floor((point.x - pos.x)/cellWidth);
                 let startTime = resourceEvents.headerItems[leftIndex].start;
                 let endTime = resourceEvents.headerItems[leftIndex].end;
                 if(cellUnit !== CellUnits.Hour)
-                    endTime = localeMoment(resourceEvents.headerItems[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                    endTime = localeMoment(new Date(resourceEvents.headerItems)[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
 
                 return {
                     slotId: resourceEvents.slotId,
@@ -61,7 +61,7 @@ export default class DnDContext {
                     initialStart = resourceEvents.headerItems[initialLeftIndex].start;
                     initialEnd = resourceEvents.headerItems[initialLeftIndex].end;
                     if(cellUnit !== CellUnits.Hour)
-                        initialEnd = localeMoment(resourceEvents.headerItems[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                        initialEnd = localeMoment(new Date(resourceEvents.headerItems)[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 }
                 const point = monitor.getClientOffset();                
                 let leftIndex = Math.floor((point.x - pos.x)/cellWidth);
@@ -71,14 +71,14 @@ export default class DnDContext {
                 let newStart = resourceEvents.headerItems[leftIndex].start;
                 let newEnd = resourceEvents.headerItems[leftIndex].end;
                 if(cellUnit !== CellUnits.Hour)
-                    newEnd = localeMoment(resourceEvents.headerItems[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                    newEnd = localeMoment(new Date(resourceEvents.headerItems)[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 let slotId = resourceEvents.slotId, slotName = resourceEvents.slotName;
                 let action = 'New';
                 let isEvent = type === DnDTypes.EVENT;
                 if(isEvent) {
                     const event = item;
                     if(config.relativeMove) {
-                        newStart = localeMoment(event.start).add(localeMoment(newStart).diff(localeMoment(initialStart)), 'ms').format(DATETIME_FORMAT);
+                        newStart = localeMoment(event.start).add(localeMoment(newStart).diff(localeMoment(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
                     } else {
                         if(viewType !== ViewTypes.Day) {
                             let tmpMoment = localeMoment(newStart);

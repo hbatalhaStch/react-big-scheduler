@@ -32,7 +32,7 @@ export default class DnDSource {
                 if(isEvent) {
                     const event = item;
                     if(config.relativeMove) {
-                        newStart = localeMoment(event.start).add(localeMoment(newStart).diff(localeMoment(initialStart)), 'ms').format(DATETIME_FORMAT);
+                        newStart = localeMoment(event.start).add(localeMoment(newStart).diff(localeMoment(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
                     } else {
                         if(viewType !== ViewTypes.Day) {
                             let tmpMoment = localeMoment(newStart);

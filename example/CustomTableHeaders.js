@@ -53,7 +53,6 @@ class CustomHeaders extends Component {
 
     return (
       <div>
-        <Nav/>
         <div>
           <h3 style={{textAlign: 'center'}}>Custom table headers (with disabled calendar popup)<ViewSrcCode
             srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/CustomTableHeaders.js"/>

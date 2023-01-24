@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {PropTypes} from 'prop-types'
-import Col from 'antd/lib/col'
-import Row from 'antd/lib/row'
-import 'antd/lib/grid/style/index.css'
+import { Col, Row } from 'antd'
 import Scheduler, {SchedulerData, ViewTypes, DnDSource, DemoData} from '../src/index'
 import {DnDTypes} from './DnDTypes'
 import TaskItem from './TaskItem'
@@ -49,7 +47,7 @@ class DragAndDrop extends Component{
         let dndSources = [taskDndSource, resourceDndSource];
         return (
             <div>
-                <Nav />
+                
                 <div>
                     <h3 style={{textAlign: 'center'}}>{h3}<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/DragAndDrop.js" /></h3>
                     <Row>

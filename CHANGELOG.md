@@ -5,6 +5,14 @@
 
 ## npm v0.2.7
 
+### 2023-01-12
+* Update all dependecies to latest versions
+* Fixed antd icons not showing in antd version >= 4
+* Removed DND
+* Removed usage of UNSAFE_componentWillReceiveProps
+
+## npm v0.2.7
+
 ### 2019-05-04
 * Add inner resources
 * Update dependencies version

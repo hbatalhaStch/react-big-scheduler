@@ -25,7 +25,7 @@ class HeaderView extends Component {
         if(cellUnit === CellUnits.Hour){
             headers.forEach((item, index) => {
                 if(index % minuteStepsInHour === 0){
-                    let datetime = localeMoment(item.time);
+                    let datetime = localeMoment(new Date(item.time));
                     const isCurrentTime = datetime.isSame(new Date(), 'hour');
 
                     style = !!item.nonWorkingTime ? {width: cellWidth*minuteStepsInHour, color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor} : {width: cellWidth*minuteStepsInHour};
@@ -59,7 +59,7 @@ class HeaderView extends Component {
         }
         else {
             headerList = headers.map((item, index) => {
-                let datetime = localeMoment(item.time);
+                let datetime = localeMoment(new Date(item.time));
                 style = !!item.nonWorkingTime ? {width: cellWidth, color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor} : {width: cellWidth};
                 if(index === headers.length - 1)
                     style = !!item.nonWorkingTime ? {color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor} : {};

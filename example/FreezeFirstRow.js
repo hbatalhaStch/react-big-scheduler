@@ -24,7 +24,7 @@ class FreezeFirstRow extends Component{
         const {viewModel} = this.state;
         return (
             <div>
-                <Nav />
+                
                 <div>
                     <h3 style={{textAlign: 'center'}}>Set schedulerMaxHeight to freeze first row<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/FreezeFirstRow.js" /></h3>
                     <Scheduler schedulerData={viewModel}

@@ -14,7 +14,7 @@ class Basic extends Component{
         super(props);
 
         //let schedulerData = new SchedulerData(new moment("2017-12-18").format(DATE_FORMAT), ViewTypes.Week);
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week);
+        let schedulerData = new SchedulerData('2017-01-02', ViewTypes.Month, false, false, {schedulerMaxHeight: 500});
         schedulerData.localeMoment.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);
@@ -26,8 +26,7 @@ class Basic extends Component{
     render(){
         const {viewModel} = this.state;
         return (
-            <div>
-                <Nav />
+            <div>                
                 <div>
                     <h3 style={{textAlign: 'center'}}>Basic example<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Basic.js" /></h3>
                     <Scheduler schedulerData={viewModel}
@@ -51,7 +50,6 @@ class Basic extends Component{
                                toggleExpandFunc={this.toggleExpandFunc}
                     />
                 </div>
-                <Tips />
             </div>
         )
     }
@@ -73,11 +71,18 @@ class Basic extends Component{
     }
 
     onViewChange = (schedulerData, view) => {
+        const start = new Date();
         schedulerData.setViewType(view.viewType, view.showAgenda, view.isEventPerspective);
         schedulerData.setEvents(DemoData.events);
         this.setState({
             viewModel: schedulerData
         })
+        function secondsBetween(date1, date2) {
+            var diff = Math.abs(date1.getTime() - date2.getTime());
+            return diff / 1000;
+          }
+
+          console.log("Elapsed seconds: " + secondsBetween(start, new Date()))
     }
 
     onSelectDate = (schedulerData, date) => {

@@ -29,14 +29,14 @@ class AgendaResourceEvents extends Component {
 
         let events = [];
         resourceEvents.headerItems.forEach((item) => {
-            let start = localeMoment(startDate).format(DATE_FORMAT),
-                end = localeMoment(endDate).add(1, 'days').format(DATE_FORMAT),
-                headerStart = localeMoment(item.start).format(DATE_FORMAT),
-                headerEnd = localeMoment(item.end).format(DATE_FORMAT);
+            let start = localeMoment(new Date(startDate)),
+                end = localeMoment(endDate).add(1, 'days'),
+                headerStart = localeMoment(new Date(item.start)),
+                headerEnd = localeMoment(new Date(item.end));
 
             if(start === headerStart && end === headerEnd) {
                 item.events.forEach((evt) => {
-                    let durationStart = localeMoment(startDate);
+                    let durationStart = localeMoment(new Date(startDate));
                     let durationEnd = localeMoment(endDate).add(1, 'days');
                     let eventStart = localeMoment(evt.eventItem.start);
                     let eventEnd = localeMoment(evt.eventItem.end);

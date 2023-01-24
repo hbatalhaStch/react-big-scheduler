@@ -3,13 +3,13 @@ import { Modal, Form, Input, Radio } from 'antd';
 const FormItem = Form.Item;
 
 
-const AddResourceForm = Form.create()(
+const AddResourceForm = (
     (props) => {
         const { visible, onCancel, onCreate, form } = props;
         const { getFieldDecorator } = form;
         return (
             <Modal
-                visible={visible}
+                open={visible}
                 title="New Resource"
                 okText="Create"
                 onCancel={onCancel}
