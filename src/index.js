@@ -42,6 +42,7 @@ import CellUnits from './CellUnits'
 import SummaryPos from './SummaryPos'
 import SchedulerData from './SchedulerData'
 import DemoData from './DemoData'
+import CalendarPopover from './CalendarPopover'
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
@@ -63,7 +64,6 @@ class Scheduler extends Component {
         this.currentArea = -1;
         schedulerData._setDocumentWidth(document.documentElement.clientWidth);
         this.state = {
-            visible: false,
             dndContext: dndContext,
             contentScrollbarHeight: 17,
             contentScrollbarWidth: 17,
@@ -266,7 +266,6 @@ class Scheduler extends Component {
             );
         };
 
-        let popover = <div className="popover-calendar"><Calendar fullscreen={false} onSelect={this.onSelect} /></div>;
         let schedulerHeader = <div />;
         if (config.headerEnabled) {
             schedulerHeader = (
@@ -279,11 +278,7 @@ class Scheduler extends Component {
                             {
                                 calendarPopoverEnabled
                                     ?
-                                    <Popover content={popover} placement="bottom" trigger="click"
-                                        open={this.state.visible}
-                                        onOpenChange={this.handleVisibleChange}>
-                                        <span className={'header2-text-label'} style={{ cursor: 'pointer' }}>{dateLabel}</span>
-                                    </Popover>
+                                    <CalendarPopover dateLabel={dateLabel} onSelectDate={this.onSelect} />
                                     : <span className={'header2-text-label'}>{dateLabel}</span>
                             }
                             <RightOutlined type="right" style={{ marginLeft: "8px" }} className="icon-nav"
@@ -449,15 +444,7 @@ class Scheduler extends Component {
         prevClick(schedulerData);
     }
 
-    handleVisibleChange = (visible) => {
-        this.setState({ visible });
-    }
-
-    onSelect = (date) => {
-        this.setState({
-            visible: false,
-        });
-
+    onSelect = (date) => {     
         const { onSelectDate, schedulerData } = this.props;
         onSelectDate(schedulerData, date);
     }
