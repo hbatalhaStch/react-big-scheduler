@@ -113,7 +113,7 @@ class SchedulerHeader extends Component {
         if (config.viewChangeSpinEnabled || config.dateChangeSpinEnabled)
             setTimeout(() => {
                 coreFunc();
-            }, config.schedulerHeaderEventsFuncTimeoutMs); // 100ms
+            }, config.schedulerHeaderEventsFuncsTimeoutMs); // 100ms
         else { coreFunc(); }
     }
 
