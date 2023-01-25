@@ -3,11 +3,13 @@ import { ViewTypes, DATETIME_FORMAT } from './index'
 import { DnDTypes } from './DnDTypes'
 
 export default class DnDSource {
-    constructor(resolveDragObjFunc, DecoratedComponent, dndType = DnDTypes.EVENT) {
+    constructor(resolveDragObjFunc, DecoratedComponent, DnDEnabled, dndType = DnDTypes.EVENT) {
         this.resolveDragObjFunc = resolveDragObjFunc;
         this.DecoratedComponent = DecoratedComponent;
         this.dndType = dndType;
-        this.dragSource = DragSource(this.dndType, this.getDragSpec(), this.getDragCollect)(this.DecoratedComponent);
+        this.dragSource = DnDEnabled ?
+            DragSource(this.dndType, this.getDragSpec(), this.getDragCollect)(this.DecoratedComponent) :
+            (this.DecoratedComponent);
     }
 
     getDragSpec = () => {

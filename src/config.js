@@ -64,6 +64,7 @@ export default {
     displayWeekend: true,
     relativeMove: true,
     defaultExpanded: true,
+    dragAndDropEnabled: true,
 
     schedulerHeaderEventsFuncsTimeoutMs: 100,
 

@@ -50,6 +50,7 @@ export default class DnDContext {
             hover: (props, monitor, component) => {
                 const { schedulerData, resourceEvents, movingEvent } = props;
                 const { cellUnit, config, viewType, localeMoment } = schedulerData;
+                this.config = config;
                 const item = monitor.getItem();
                 const type = monitor.getItemType();
                 const pos = getPos(component.eventContainer);
@@ -121,8 +122,11 @@ export default class DnDContext {
         };
     }
 
-    getDropTarget = () => {
-        return DropTarget([...this.sourceMap.keys()], this.getDropSpec(), this.getDropCollect)(this.DecoratedComponent);
+    getDropTarget = (dragAndDropEnabled) => {
+        return (dragAndDropEnabled ?
+            DropTarget([...this.sourceMap.keys()], this.getDropSpec(), this.getDropCollect)(this.DecoratedComponent) :
+            (this.DecoratedComponent)
+        );
     }
 
     getDndSource = (dndType = DnDTypes.EVENT) => {

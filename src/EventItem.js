@@ -31,9 +31,9 @@ class EventItem extends Component {
         isInPopover: PropTypes.bool.isRequired,
         leftIndex: PropTypes.number.isRequired,
         rightIndex: PropTypes.number.isRequired,
-        isDragging: PropTypes.bool.isRequired,
-        connectDragSource: PropTypes.func.isRequired,
-        connectDragPreview: PropTypes.func.isRequired,
+        isDragging: PropTypes.bool,
+        connectDragSource: PropTypes.func,
+        connectDragPreview: PropTypes.func,
         updateEventStart: PropTypes.func,
         updateEventEnd: PropTypes.func,
         moveEvent: PropTypes.func,
@@ -518,17 +518,20 @@ class EventItem extends Component {
         return (
             isDragging ? null : (schedulerData._isResizing() || config.eventItemPopoverEnabled == false || eventItem.showPopover == false ?
                 <div>
-                    {
+                    {config.dragAndDropEnabled ?
                         connectDragPreview(
                             connectDragSource(a)
                         )
+                        : a
                     }
                 </div> :
                 <Popover placement="bottomLeft" content={content} trigger={config.itemPopoverTrigger}>
                     {
-                        connectDragPreview(
-                            connectDragSource(a)
-                        )
+                        config.dragAndDropEnabled ?
+                            connectDragPreview(
+                                connectDragSource(a)
+                            )
+                            : a
                     }
                 </Popover>
             )
