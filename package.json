@@ -62,7 +62,6 @@
     "mocha": "^6.1.4",
     "mocha-babel": "3.0.3",
     "parcel": "^2.8.2",
-    "react-hot-loader": "^4.8.4",
     "react-redux": "^7.0.3",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
