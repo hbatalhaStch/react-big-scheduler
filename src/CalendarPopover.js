@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { Calendar, Popover } from 'antd';
+import { DATE_FORMAT } from '.';
 
 
 class AddMore extends Component {
@@ -22,7 +23,7 @@ class AddMore extends Component {
             <div className="popover-calendar">
                 <Calendar fullscreen={false} onSelect={(date) => {
                     this.handleVisibleChange(false)
-                    onSelectDate(date)
+                    onSelectDate(date.format(DATE_FORMAT))
                 }} />
             </div>
         )
