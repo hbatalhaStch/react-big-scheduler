@@ -4,7 +4,7 @@ import { Calendar, Popover } from 'antd';
 import { DATE_FORMAT } from '.';
 
 
-class AddMore extends Component {
+class CalendarPopover extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,4 +41,4 @@ class AddMore extends Component {
     }
 }
 
-export default AddMore
+export default CalendarPopover
