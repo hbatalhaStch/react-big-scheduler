@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types' 
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 
 class AddMore extends Component {
     constructor(props) {
@@ -17,16 +17,16 @@ class AddMore extends Component {
     }
 
     render() {
-        const {number, left, width, top, clickAction, headerItem, schedulerData} = this.props;
-        const {config} = schedulerData;
-        let content = '+'+number+'more';
+        const { number, left, width, top, clickAction, headerItem, schedulerData } = this.props;
+        const { config } = schedulerData;
+        let content = '+' + number + 'more';
 
         return (
-        <a className="timeline-event" style={{left: left, width: width, top: top}} onClick={() => {clickAction(headerItem);}} >
-            <div style={{height: config.eventItemHeight, color: '#999', textAlign: 'center'}}>
-                {content}
-            </div>
-        </a>
+            <a className="timeline-event" style={{ left: left, width: width, top: top }} onClick={() => { clickAction(headerItem); }} >
+                <div style={{ height: config.eventItemHeight, color: '#999', textAlign: 'center' }}>
+                    {content}
+                </div>
+            </a>
         );
     }
 }

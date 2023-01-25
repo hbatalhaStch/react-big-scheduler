@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
-import Scheduler, {SchedulerData, ViewTypes, DemoData} from '../src/index'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
+import Scheduler, { SchedulerData, ViewTypes, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
 
-class Readonly extends Component{
-    constructor(props){
+class Readonly extends Component {
+    constructor(props) {
         super(props);
 
         let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week, false, false, {
@@ -23,31 +23,31 @@ class Readonly extends Component{
         }
     }
 
-    render(){
-        const {viewModel} = this.state;
+    render() {
+        const { viewModel } = this.state;
         return (
             <div>
-                
+
                 <div>
-                    <h3 style={{textAlign: 'center'}}>Readonly view<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Readonly.js" /></h3>
+                    <h3 style={{ textAlign: 'center' }}>Readonly view<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Readonly.js" /></h3>
                     <Scheduler schedulerData={viewModel}
-                               prevClick={this.prevClick}
-                               nextClick={this.nextClick}
-                               onSelectDate={this.onSelectDate}
-                               onViewChange={this.onViewChange}
-                               eventItemClick={this.eventClicked}
-                               viewEventClick={this.ops1}
-                               viewEventText="Ops 1"
-                               viewEvent2Text="Ops 2"
-                               viewEvent2Click={this.ops2}
-                               toggleExpandFunc={this.toggleExpandFunc}
+                        prevClick={this.prevClick}
+                        nextClick={this.nextClick}
+                        onSelectDate={this.onSelectDate}
+                        onViewChange={this.onViewChange}
+                        eventItemClick={this.eventClicked}
+                        viewEventClick={this.ops1}
+                        viewEventText="Ops 1"
+                        viewEvent2Text="Ops 2"
+                        viewEvent2Click={this.ops2}
+                        toggleExpandFunc={this.toggleExpandFunc}
                     />
                 </div>
             </div>
         )
     }
 
-    prevClick = (schedulerData)=> {
+    prevClick = (schedulerData) => {
         schedulerData.prev();
         schedulerData.setEvents(DemoData.events);
         this.setState({
@@ -55,7 +55,7 @@ class Readonly extends Component{
         })
     }
 
-    nextClick = (schedulerData)=> {
+    nextClick = (schedulerData) => {
         schedulerData.next();
         schedulerData.setEvents(DemoData.events);
         this.setState({

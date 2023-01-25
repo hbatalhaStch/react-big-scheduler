@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 import { Col, Row } from 'antd'
 
 class EventItemPopover extends Component {
@@ -16,24 +16,24 @@ class EventItemPopover extends Component {
         statusColor: PropTypes.string.isRequired,
         subtitleGetter: PropTypes.func,
         viewEventClick: PropTypes.func,
-        viewEventText:PropTypes.string,
+        viewEventText: PropTypes.string,
         viewEvent2Click: PropTypes.func,
         viewEvent2Text: PropTypes.string,
         eventItemPopoverTemplateResolver: PropTypes.func
     }
 
-    render(){
-        const {schedulerData, eventItem, title, startTime, endTime, statusColor,subtitleGetter, viewEventClick, viewEventText, viewEvent2Click, viewEvent2Text, eventItemPopoverTemplateResolver} = this.props;
-        const {localeMoment, config} = schedulerData;
+    render() {
+        const { schedulerData, eventItem, title, startTime, endTime, statusColor, subtitleGetter, viewEventClick, viewEventText, viewEvent2Click, viewEvent2Text, eventItemPopoverTemplateResolver } = this.props;
+        const { localeMoment, config } = schedulerData;
         let start = localeMoment(new Date(startTime)), end = localeMoment(new Date(endTime));
 
         if (eventItemPopoverTemplateResolver != undefined) {
             return eventItemPopoverTemplateResolver(schedulerData, eventItem, title, start, end, statusColor);
         } else {
             let subtitleRow = <div />;
-            if(subtitleGetter !== undefined){
+            if (subtitleGetter !== undefined) {
                 let subtitle = subtitleGetter(schedulerData, eventItem);
-                if(subtitle != undefined){
+                if (subtitle != undefined) {
                     subtitleRow = (
                         <Row type="flex" align="middle">
                             <Col span={2}>
@@ -48,16 +48,16 @@ class EventItemPopover extends Component {
             }
 
             let opsRow = <div />;
-            if(viewEventText !== undefined && viewEventClick !== undefined && (eventItem.clickable1 == undefined || eventItem.clickable1)){
+            if (viewEventText !== undefined && viewEventClick !== undefined && (eventItem.clickable1 == undefined || eventItem.clickable1)) {
                 let col = (
                     <Col span={22}>
-                        <span className="header2-text" style={{color: '#108EE9', cursor: 'pointer'}} onClick={() => {viewEventClick(schedulerData, eventItem);}}>{viewEventText}</span>
+                        <span className="header2-text" style={{ color: '#108EE9', cursor: 'pointer' }} onClick={() => { viewEventClick(schedulerData, eventItem); }}>{viewEventText}</span>
                     </Col>
                 );
-                if(viewEvent2Text !== undefined && viewEvent2Click !== undefined && (eventItem.clickable2 == undefined || eventItem.clickable2)) {
+                if (viewEvent2Text !== undefined && viewEvent2Click !== undefined && (eventItem.clickable2 == undefined || eventItem.clickable2)) {
                     col = (
                         <Col span={22}>
-                            <span className="header2-text" style={{color: '#108EE9', cursor: 'pointer'}} onClick={() => {viewEventClick(schedulerData, eventItem);}}>{viewEventText}</span><span className="header2-text" style={{color: '#108EE9', cursor: 'pointer', marginLeft: '16px'}} onClick={() => {viewEvent2Click(schedulerData, eventItem);}}>{viewEvent2Text}</span>
+                            <span className="header2-text" style={{ color: '#108EE9', cursor: 'pointer' }} onClick={() => { viewEventClick(schedulerData, eventItem); }}>{viewEventText}</span><span className="header2-text" style={{ color: '#108EE9', cursor: 'pointer', marginLeft: '16px' }} onClick={() => { viewEvent2Click(schedulerData, eventItem); }}>{viewEvent2Text}</span>
                         </Col>
                     )
                 };
@@ -70,10 +70,10 @@ class EventItemPopover extends Component {
                     </Row>
                 );
             }
-            else if(viewEvent2Text !== undefined && viewEvent2Click !== undefined && (eventItem.clickable2 == undefined || eventItem.clickable2)) {
+            else if (viewEvent2Text !== undefined && viewEvent2Click !== undefined && (eventItem.clickable2 == undefined || eventItem.clickable2)) {
                 let col = (
                     <Col span={22}>
-                        <span className="header2-text" style={{color: '#108EE9', cursor: 'pointer'}} onClick={() => {viewEvent2Click(schedulerData, eventItem);}}>{viewEvent2Text}</span>
+                        <span className="header2-text" style={{ color: '#108EE9', cursor: 'pointer' }} onClick={() => { viewEvent2Click(schedulerData, eventItem); }}>{viewEvent2Text}</span>
                     </Col>
                 );
                 opsRow = (
@@ -88,10 +88,10 @@ class EventItemPopover extends Component {
 
             let dateFormat = config.eventItemPopoverDateFormat;
             return (
-                <div style={{width: '300px'}}>
+                <div style={{ width: '300px' }}>
                     <Row type="flex" align="middle">
                         <Col span={2}>
-                            <div className="status-dot" style={{backgroundColor: statusColor}} />
+                            <div className="status-dot" style={{ backgroundColor: statusColor }} />
                         </Col>
                         <Col span={22} className="overflow-text">
                             <span className="header2-text" title={title}>{`${title}`}</span>
@@ -103,7 +103,7 @@ class EventItemPopover extends Component {
                             <div />
                         </Col>
                         <Col span={22}>
-                            <span className="header1-text">{start.format('HH:mm')}</span><span className="help-text" style={{marginLeft: '8px'}}>{start.format(dateFormat)}</span><span className="header2-text"  style={{marginLeft: '8px'}}>-</span><span className="header1-text" style={{marginLeft: '8px'}}>{end.format('HH:mm')}</span><span className="help-text" style={{marginLeft: '8px'}}>{end.format(dateFormat)}</span>
+                            <span className="header1-text">{start.format('HH:mm')}</span><span className="help-text" style={{ marginLeft: '8px' }}>{start.format(dateFormat)}</span><span className="header2-text" style={{ marginLeft: '8px' }}>-</span><span className="header1-text" style={{ marginLeft: '8px' }}>{end.format('HH:mm')}</span><span className="help-text" style={{ marginLeft: '8px' }}>{end.format(dateFormat)}</span>
                         </Col>
                     </Row>
                     {opsRow}

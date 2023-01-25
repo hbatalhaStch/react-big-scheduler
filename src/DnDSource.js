@@ -1,6 +1,6 @@
 import { DragSource } from 'react-dnd'
-import {ViewTypes, DATETIME_FORMAT} from './index'
-import {DnDTypes} from './DnDTypes'
+import { ViewTypes, DATETIME_FORMAT } from './index'
+import { DnDTypes } from './DnDTypes'
 
 export default class DnDSource {
     constructor(resolveDragObjFunc, DecoratedComponent, dndType = DnDTypes.EVENT) {
@@ -16,10 +16,10 @@ export default class DnDSource {
                 return this.resolveDragObjFunc(props);
             },
             endDrag: (props, monitor, component) => {
-                if(!monitor.didDrop()) return;
+                if (!monitor.didDrop()) return;
 
-                const {moveEvent, newEvent, schedulerData } = props;
-                const {events, config, viewType, localeMoment} = schedulerData;
+                const { moveEvent, newEvent, schedulerData } = props;
+                const { events, config, viewType, localeMoment } = schedulerData;
                 const item = monitor.getItem();
                 const type = monitor.getItemType();
                 const dropResult = monitor.getDropResult();
@@ -29,12 +29,12 @@ export default class DnDSource {
                 let action = 'New';
 
                 let isEvent = type === DnDTypes.EVENT;
-                if(isEvent) {
+                if (isEvent) {
                     const event = item;
-                    if(config.relativeMove) {
+                    if (config.relativeMove) {
                         newStart = localeMoment(event.start).add(localeMoment(newStart).diff(localeMoment(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
                     } else {
-                        if(viewType !== ViewTypes.Day) {
+                        if (viewType !== ViewTypes.Day) {
                             let tmpMoment = localeMoment(newStart);
                             newStart = localeMoment(event.start).year(tmpMoment.year()).month(tmpMoment.month()).date(tmpMoment.date()).format(DATETIME_FORMAT);
                         }
@@ -42,11 +42,11 @@ export default class DnDSource {
                     newEnd = localeMoment(newStart).add(localeMoment(event.end).diff(localeMoment(event.start)), 'ms').format(DATETIME_FORMAT);
 
                     //if crossResourceMove disabled, slot returns old value
-                    if(config.crossResourceMove === false) {
+                    if (config.crossResourceMove === false) {
                         slotId = schedulerData._getEventSlotId(item);
                         slotName = undefined;
                         let slot = schedulerData.getSlotById(slotId);
-                        if(!!slot)
+                        if (!!slot)
                             slotName = slot.name;
                     }
 
@@ -54,23 +54,23 @@ export default class DnDSource {
                 }
 
                 let hasConflict = false;
-                if(config.checkConflict) {
+                if (config.checkConflict) {
                     let start = localeMoment(newStart),
                         end = localeMoment(newEnd);
 
-                    events.forEach((e) =>{
-                        if(schedulerData._getEventSlotId(e) === slotId && (!isEvent || e.id !== item.id)) {
+                    events.forEach((e) => {
+                        if (schedulerData._getEventSlotId(e) === slotId && (!isEvent || e.id !== item.id)) {
                             let eStart = localeMoment(e.start),
                                 eEnd = localeMoment(e.end);
-                            if((start >= eStart && start < eEnd) || (end > eStart && end <= eEnd) || (eStart >= start && eStart < end) || (eEnd > start && eEnd <= end))
+                            if ((start >= eStart && start < eEnd) || (end > eStart && end <= eEnd) || (eStart >= start && eStart < end) || (eEnd > start && eEnd <= end))
                                 hasConflict = true;
                         }
                     });
                 }
 
-                if(hasConflict) {
-                    const {conflictOccurred} = props;
-                    if(conflictOccurred != undefined){
+                if (hasConflict) {
+                    const { conflictOccurred } = props;
+                    if (conflictOccurred != undefined) {
                         conflictOccurred(schedulerData, action, item, type, slotId, slotName, newStart, newEnd);
                     }
                     else {
@@ -78,23 +78,23 @@ export default class DnDSource {
                     }
                 }
                 else {
-                    if(isEvent) {
+                    if (isEvent) {
                         if (moveEvent !== undefined) {
                             moveEvent(schedulerData, item, slotId, slotName, newStart, newEnd);
                         }
                     }
                     else {
-                        if(newEvent !== undefined)
+                        if (newEvent !== undefined)
                             newEvent(schedulerData, slotId, slotName, newStart, newEnd, type, item);
                     }
                 }
             },
 
             canDrag: (props) => {
-                const {schedulerData, resourceEvents} = props;
+                const { schedulerData, resourceEvents } = props;
                 const item = this.resolveDragObjFunc(props);
-                if(schedulerData._isResizing()) return false;
-                const {config} = schedulerData;
+                if (schedulerData._isResizing()) return false;
+                const { config } = schedulerData;
                 return config.movable && (resourceEvents == undefined || !resourceEvents.groupOnly) && (item.movable == undefined || item.movable !== false);
             }
         }

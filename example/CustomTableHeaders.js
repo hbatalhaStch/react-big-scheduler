@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
-import Scheduler, {DemoData, SchedulerData, ViewTypes} from '../src/index'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
+import Scheduler, { DemoData, SchedulerData, ViewTypes } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -20,59 +20,59 @@ class CustomHeaders extends Component {
     }
   }
 
-    nonAgendaCellHeaderTemplateResolver = (schedulerData, item, formattedDateItems, style) => {
-      let datetime = schedulerData.localeMoment(item.time);
-      let isCurrentDate = false;
+  nonAgendaCellHeaderTemplateResolver = (schedulerData, item, formattedDateItems, style) => {
+    let datetime = schedulerData.localeMoment(item.time);
+    let isCurrentDate = false;
 
-      if (schedulerData.viewType === ViewTypes.Day) {
-          isCurrentDate = datetime.isSame(new Date(), 'hour');
-      }
-      else {
-          isCurrentDate = datetime.isSame(new Date(), 'day');
-      }
+    if (schedulerData.viewType === ViewTypes.Day) {
+      isCurrentDate = datetime.isSame(new Date(), 'hour');
+    }
+    else {
+      isCurrentDate = datetime.isSame(new Date(), 'day');
+    }
 
-      if (isCurrentDate) {
-          style.backgroundColor = '#118dea';
-          style.color = 'white';
-      }
+    if (isCurrentDate) {
+      style.backgroundColor = '#118dea';
+      style.color = 'white';
+    }
 
-      return (
-          <th key={item.time} className={`header3-text`} style={style}>
-              {
-                  formattedDateItems.map((formattedItem, index) => (
-                      <div key={index}
-                           dangerouslySetInnerHTML={{__html: formattedItem.replace(/[0-9]/g, '<b>$&</b>')}}/>
-                  ))
-              }
-          </th>
-      );
+    return (
+      <th key={item.time} className={`header3-text`} style={style}>
+        {
+          formattedDateItems.map((formattedItem, index) => (
+            <div key={index}
+              dangerouslySetInnerHTML={{ __html: formattedItem.replace(/[0-9]/g, '<b>$&</b>') }} />
+          ))
+        }
+      </th>
+    );
   }
 
   render() {
-    const {viewModel} = this.state;
+    const { viewModel } = this.state;
 
     return (
       <div>
         <div>
-          <h3 style={{textAlign: 'center'}}>Custom table headers (with disabled calendar popup)<ViewSrcCode
-            srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/CustomTableHeaders.js"/>
+          <h3 style={{ textAlign: 'center' }}>Custom table headers (with disabled calendar popup)<ViewSrcCode
+            srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/CustomTableHeaders.js" />
           </h3>
           <Scheduler schedulerData={viewModel}
-                     prevClick={this.prevClick}
-                     nextClick={this.nextClick}
-                     onSelectDate={this.onSelectDate}
-                     onViewChange={this.onViewChange}
-                     eventItemClick={this.eventClicked}
-                     viewEventClick={this.ops1}
-                     viewEventText="Ops 1"
-                     viewEvent2Text="Ops 2"
-                     viewEvent2Click={this.ops2}
-                     updateEventStart={this.updateEventStart}
-                     updateEventEnd={this.updateEventEnd}
-                     moveEvent={this.moveEvent}
-                     newEvent={this.newEvent}
-                     nonAgendaCellHeaderTemplateResolver = {this.nonAgendaCellHeaderTemplateResolver}
-                     toggleExpandFunc={this.toggleExpandFunc}
+            prevClick={this.prevClick}
+            nextClick={this.nextClick}
+            onSelectDate={this.onSelectDate}
+            onViewChange={this.onViewChange}
+            eventItemClick={this.eventClicked}
+            viewEventClick={this.ops1}
+            viewEventText="Ops 1"
+            viewEvent2Text="Ops 2"
+            viewEvent2Click={this.ops2}
+            updateEventStart={this.updateEventStart}
+            updateEventEnd={this.updateEventEnd}
+            moveEvent={this.moveEvent}
+            newEvent={this.newEvent}
+            nonAgendaCellHeaderTemplateResolver={this.nonAgendaCellHeaderTemplateResolver}
+            toggleExpandFunc={this.toggleExpandFunc}
           />
         </div>
       </div>
@@ -177,7 +177,7 @@ class CustomHeaders extends Component {
   toggleExpandFunc = (schedulerData, slotId) => {
     schedulerData.toggleExpandStatus(slotId);
     this.setState({
-        viewModel: schedulerData
+      viewModel: schedulerData
     });
   }
 }

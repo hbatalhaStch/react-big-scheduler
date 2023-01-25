@@ -1,20 +1,20 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
-import Scheduler, {SchedulerData, ViewTypes, DemoData} from '../src/index'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
+import Scheduler, { SchedulerData, ViewTypes, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
 
-class Basic extends Component{
-    constructor(props){
+class Basic extends Component {
+    constructor(props) {
         super(props);
 
         let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Month, false, false, {
             eventItemPopoverEnabled: false,
             views: [
-                {viewName: 'Agenda View', viewType: ViewTypes.Month, showAgenda: true, isEventPerspective: false},
-                {viewName: 'Resource View', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false},
-                {viewName: 'Task View', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: true},
+                { viewName: 'Agenda View', viewType: ViewTypes.Month, showAgenda: true, isEventPerspective: false },
+                { viewName: 'Resource View', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Task View', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: true },
             ]
         });
         schedulerData.localeMoment.locale('en');
@@ -25,36 +25,36 @@ class Basic extends Component{
         }
     }
 
-    render(){
-        const {viewModel} = this.state;
+    render() {
+        const { viewModel } = this.state;
         return (
             <div>
-                
+
                 <div>
-                    <h3 style={{textAlign: 'center'}}>3 View Types (take month for example)<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Views.js" /></h3>
+                    <h3 style={{ textAlign: 'center' }}>3 View Types (take month for example)<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Views.js" /></h3>
                     <Scheduler schedulerData={viewModel}
-                               prevClick={this.prevClick}
-                               nextClick={this.nextClick}
-                               onSelectDate={this.onSelectDate}
-                               onViewChange={this.onViewChange}
-                               eventItemClick={this.eventClicked}
-                               viewEventClick={this.ops1}
-                               viewEventText="Ops 1"
-                               viewEvent2Text="Ops 2"
-                               viewEvent2Click={this.ops2}
-                               updateEventStart={this.updateEventStart}
-                               updateEventEnd={this.updateEventEnd}
-                               moveEvent={this.moveEvent}
-                               newEvent={this.newEvent}
-                               subtitleGetter={this.subtitleGetter}
-                               toggleExpandFunc={this.toggleExpandFunc}
+                        prevClick={this.prevClick}
+                        nextClick={this.nextClick}
+                        onSelectDate={this.onSelectDate}
+                        onViewChange={this.onViewChange}
+                        eventItemClick={this.eventClicked}
+                        viewEventClick={this.ops1}
+                        viewEventText="Ops 1"
+                        viewEvent2Text="Ops 2"
+                        viewEvent2Click={this.ops2}
+                        updateEventStart={this.updateEventStart}
+                        updateEventEnd={this.updateEventEnd}
+                        moveEvent={this.moveEvent}
+                        newEvent={this.newEvent}
+                        subtitleGetter={this.subtitleGetter}
+                        toggleExpandFunc={this.toggleExpandFunc}
                     />
                 </div>
             </div>
         )
     }
 
-    prevClick = (schedulerData)=> {
+    prevClick = (schedulerData) => {
         schedulerData.prev();
         schedulerData.setEvents(DemoData.eventsForTaskView);
         this.setState({
@@ -62,7 +62,7 @@ class Basic extends Component{
         })
     }
 
-    nextClick = (schedulerData)=> {
+    nextClick = (schedulerData) => {
         schedulerData.next();
         schedulerData.setEvents(DemoData.eventsForTaskView);
         this.setState({
@@ -100,11 +100,11 @@ class Basic extends Component{
     };
 
     newEvent = (schedulerData, slotId, slotName, start, end, type, item) => {
-        if(confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)){
+        if (confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)) {
 
             let newFreshId = 0;
             schedulerData.events.forEach((item) => {
-                if(item.id >= newFreshId)
+                if (item.id >= newFreshId)
                     newFreshId = item.id + 1;
             });
 
@@ -124,7 +124,7 @@ class Basic extends Component{
     }
 
     updateEventStart = (schedulerData, event, newStart) => {
-        if(confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
+        if (confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
             schedulerData.updateEventStart(event, newStart);
         }
         this.setState({
@@ -133,7 +133,7 @@ class Basic extends Component{
     }
 
     updateEventEnd = (schedulerData, event, newEnd) => {
-        if(confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
+        if (confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
             schedulerData.updateEventEnd(event, newEnd);
         }
         this.setState({
@@ -142,7 +142,7 @@ class Basic extends Component{
     }
 
     moveEvent = (schedulerData, event, slotId, slotName, start, end) => {
-        if(confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
+        if (confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
             schedulerData.moveEvent(event, slotId, slotName, start, end);
             this.setState({
                 viewModel: schedulerData

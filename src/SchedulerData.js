@@ -821,7 +821,7 @@ export default class SchedulerData {
                     span = Math.ceil(timeBetween(day, end, 'minutes') / this.config.minuteStep);
                 } else if (day.getDate() === start.getDate() && day.getDate() < end.getDate()) {
                     day.setHours(23, 59, 59)
-                    span = Math.ceil(timeBetween(start, day, 'minutes') / this.config.minuteStep);                    
+                    span = Math.ceil(timeBetween(start, day, 'minutes') / this.config.minuteStep);
                 } else if (day.getDate() === start.getDate() && day.getDate() === end.getDate()) {
                     span = Math.ceil(timeBetween(start, end, 'minutes') / this.config.minuteStep);
                 }
@@ -917,8 +917,7 @@ export default class SchedulerData {
 
                 resourceEvents.headerItems.forEach((header, index) => {
                     let headerStart = (new Date(header.start)), headerEnd = (new Date(header.end));
-                    if (headerEnd > eventStart && headerStart < eventEnd)
-                     {
+                    if (headerEnd > eventStart && headerStart < eventEnd) {
                         header.count = header.count + 1;
                         if (header.count > resourceEvents.rowMaxCount) {
                             resourceEvents.rowMaxCount = header.count;

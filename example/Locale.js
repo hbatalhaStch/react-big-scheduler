@@ -1,18 +1,18 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 import moment from 'moment'
-import Scheduler, {SchedulerData, ViewTypes, AddMorePopover, DemoData} from '../src/index'
+import Scheduler, { SchedulerData, ViewTypes, AddMorePopover, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
 
-class Locale extends Component{
-    constructor(props){
+class Locale extends Component {
+    constructor(props) {
         super(props);
 
         moment.locale('zh-cn');
         let schedulerData = new SchedulerData('2017-01-02', ViewTypes.Month, false, false, {
-        
+
             resourceName: '资源名称',
             taskName: '任务名称',
             agendaViewHeader: '工作事项',
@@ -21,11 +21,11 @@ class Locale extends Component{
             nonAgendaDayCellHeaderFormat: 'HH:mm',
             nonAgendaOtherCellHeaderFormat: 'ddd|M/D',
             views: [
-                {viewName: '天', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false},
-                {viewName: '周', viewType: ViewTypes.Week, showAgenda: false, isEventPerspective: false},
-                {viewName: '月', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false},
-                {viewName: '季', viewType: ViewTypes.Quarter, showAgenda: false, isEventPerspective: false},
-                {viewName: '年', viewType: ViewTypes.Year, showAgenda: false, isEventPerspective: false},
+                { viewName: '天', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false },
+                { viewName: '周', viewType: ViewTypes.Week, showAgenda: false, isEventPerspective: false },
+                { viewName: '月', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false },
+                { viewName: '季', viewType: ViewTypes.Quarter, showAgenda: false, isEventPerspective: false },
+                { viewName: '年', viewType: ViewTypes.Year, showAgenda: false, isEventPerspective: false },
             ],
         }, {
             getDateLabelFunc: this.getDateLabel,
@@ -42,39 +42,39 @@ class Locale extends Component{
         }
     }
 
-    render(){
-        const {viewModel} = this.state;
+    render() {
+        const { viewModel } = this.state;
         let popover = <div />;
         if (this.state.headerItem !== undefined) {
             popover =
                 <AddMorePopover headerItem={this.state.headerItem} eventItemClick={this.eventClicked}
-                                viewEventClick={this.ops1} viewEventText="Ops 1"
-                                viewEvent2Click={this.ops2} viewEvent2Text="Ops 2"
-                                schedulerData={viewModel}
-                                closeAction={this.onSetAddMoreState} left={this.state.left} top={this.state.top}
-                                height={this.state.height} moveEvent={this.moveEvent}/>;
+                    viewEventClick={this.ops1} viewEventText="Ops 1"
+                    viewEvent2Click={this.ops2} viewEvent2Text="Ops 2"
+                    schedulerData={viewModel}
+                    closeAction={this.onSetAddMoreState} left={this.state.left} top={this.state.top}
+                    height={this.state.height} moveEvent={this.moveEvent} />;
         }
         return (
             <div>
-                
+
                 <div>
-                    <h3 style={{textAlign: 'center'}}>Locale<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Locale.js" /></h3>
+                    <h3 style={{ textAlign: 'center' }}>Locale<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Locale.js" /></h3>
                     <Scheduler schedulerData={viewModel}
-                               prevClick={this.prevClick}
-                               nextClick={this.nextClick}
-                               onSelectDate={this.onSelectDate}
-                               onViewChange={this.onViewChange}
-                               eventItemClick={this.eventClicked}
-                               viewEventClick={this.ops1}
-                               viewEventText="Ops 1"
-                               viewEvent2Text="Ops 2"
-                               viewEvent2Click={this.ops2}
-                               updateEventStart={this.updateEventStart}
-                               updateEventEnd={this.updateEventEnd}
-                               moveEvent={this.moveEvent}
-                               newEvent={this.newEvent}
-                               onSetAddMoreState={this.onSetAddMoreState}
-                               toggleExpandFunc={this.toggleExpandFunc}
+                        prevClick={this.prevClick}
+                        nextClick={this.nextClick}
+                        onSelectDate={this.onSelectDate}
+                        onViewChange={this.onViewChange}
+                        eventItemClick={this.eventClicked}
+                        viewEventClick={this.ops1}
+                        viewEventText="Ops 1"
+                        viewEvent2Text="Ops 2"
+                        viewEvent2Click={this.ops2}
+                        updateEventStart={this.updateEventStart}
+                        updateEventEnd={this.updateEventEnd}
+                        moveEvent={this.moveEvent}
+                        newEvent={this.newEvent}
+                        onSetAddMoreState={this.onSetAddMoreState}
+                        toggleExpandFunc={this.toggleExpandFunc}
                     />
                     {popover}
                 </div>
@@ -82,7 +82,7 @@ class Locale extends Component{
         )
     }
 
-    prevClick = (schedulerData)=> {
+    prevClick = (schedulerData) => {
         schedulerData.prev();
         schedulerData.setEvents(DemoData.events);
         this.setState({
@@ -90,7 +90,7 @@ class Locale extends Component{
         })
     }
 
-    nextClick = (schedulerData)=> {
+    nextClick = (schedulerData) => {
         schedulerData.next();
         schedulerData.setEvents(DemoData.events);
         this.setState({
@@ -127,11 +127,11 @@ class Locale extends Component{
     };
 
     newEvent = (schedulerData, slotId, slotName, start, end, type, item) => {
-        if(confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)){
+        if (confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)) {
 
             let newFreshId = 0;
             schedulerData.events.forEach((item) => {
-                if(item.id >= newFreshId)
+                if (item.id >= newFreshId)
                     newFreshId = item.id + 1;
             });
 
@@ -151,7 +151,7 @@ class Locale extends Component{
     }
 
     updateEventStart = (schedulerData, event, newStart) => {
-        if(confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
+        if (confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
             schedulerData.updateEventStart(event, newStart);
         }
         this.setState({
@@ -160,7 +160,7 @@ class Locale extends Component{
     }
 
     updateEventEnd = (schedulerData, event, newEnd) => {
-        if(confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
+        if (confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
             schedulerData.updateEventEnd(event, newEnd);
         }
         this.setState({
@@ -169,7 +169,7 @@ class Locale extends Component{
     }
 
     moveEvent = (schedulerData, event, slotId, slotName, start, end) => {
-        if(confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
+        if (confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
             schedulerData.moveEvent(event, slotId, slotName, start, end);
             this.setState({
                 viewModel: schedulerData
@@ -182,20 +182,20 @@ class Locale extends Component{
         let end = schedulerData.localeMoment(endDate);
         let dateLabel = start.format('YYYY年M月D日');
 
-        if(viewType === ViewTypes.Week) {
+        if (viewType === ViewTypes.Week) {
             dateLabel = `${start.format('YYYY年M月D日')}-${end.format('D日')}`;
-            if(start.month() !== end.month())
+            if (start.month() !== end.month())
                 dateLabel = `${start.format('YYYY年M月D日')}-${end.format('M月D日')}`;
-            if(start.year() !== end.year())
+            if (start.year() !== end.year())
                 dateLabel = `${start.format('YYYY年M月D日')}-${end.format('YYYY年M月D日')}`;
         }
-        else if(viewType === ViewTypes.Month){
+        else if (viewType === ViewTypes.Month) {
             dateLabel = start.format('YYYY年M月');
         }
-        else if(viewType === ViewTypes.Quarter){
+        else if (viewType === ViewTypes.Quarter) {
             dateLabel = `${start.format('YYYY年M月D日')}-${end.format('M月D日')}`;
         }
-        else if(viewType === ViewTypes.Year) {
+        else if (viewType === ViewTypes.Year) {
             dateLabel = start.format('YYYY年');
         }
 
@@ -204,9 +204,9 @@ class Locale extends Component{
 
     isNonWorkingTime = (schedulerData, time) => {
         const { localeMoment } = schedulerData;
-        if(schedulerData.viewType === ViewTypes.Day){
+        if (schedulerData.viewType === ViewTypes.Day) {
             let hour = localeMoment(time).hour();
-            if(hour < 9 || hour > 18)
+            if (hour < 9 || hour > 18)
                 return true;
         }
         else {
@@ -214,7 +214,7 @@ class Locale extends Component{
             if (dayOfWeek === 5 || dayOfWeek === 6)
                 return true;
         }
-    
+
         return false;
     }
 

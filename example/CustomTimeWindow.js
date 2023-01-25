@@ -1,22 +1,22 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 import moment from 'moment'
-import Scheduler, {SchedulerData, ViewTypes, CellUnits, DemoData, DATE_FORMAT} from '../src/index'
+import Scheduler, { SchedulerData, ViewTypes, CellUnits, DemoData, DATE_FORMAT } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
 
-class CustomTimeWindow extends Component{
-    constructor(props){
+class CustomTimeWindow extends Component {
+    constructor(props) {
         super(props);
 
         let schedulerData = new SchedulerData(moment().format(DATE_FORMAT), ViewTypes.Custom, false, false, {
             customCellWidth: 30,
             nonAgendaDayCellHeaderFormat: 'M/D|HH:mm',
             views: [
-                {viewName: 'Two days', viewType: ViewTypes.Custom, showAgenda: false, isEventPerspective: false},
-                {viewName: 'Two weeks', viewType: ViewTypes.Custom1, showAgenda: false, isEventPerspective: false},
-                {viewName: 'Two months', viewType: ViewTypes.Custom2, showAgenda: false, isEventPerspective: false},
+                { viewName: 'Two days', viewType: ViewTypes.Custom, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Two weeks', viewType: ViewTypes.Custom1, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Two months', viewType: ViewTypes.Custom2, showAgenda: false, isEventPerspective: false },
             ],
         }, {
             getCustomDateFunc: this.getCustomDate,
@@ -30,35 +30,35 @@ class CustomTimeWindow extends Component{
         }
     }
 
-    render(){
-        const {viewModel} = this.state;
+    render() {
+        const { viewModel } = this.state;
         return (
             <div>
-                
+
                 <div>
-                    <h3 style={{textAlign: 'center'}}>Custom time window<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/CustomTimeWindow.js" /></h3>
+                    <h3 style={{ textAlign: 'center' }}>Custom time window<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/CustomTimeWindow.js" /></h3>
                     <Scheduler schedulerData={viewModel}
-                               prevClick={this.prevClick}
-                               nextClick={this.nextClick}
-                               onSelectDate={this.onSelectDate}
-                               onViewChange={this.onViewChange}
-                               eventItemClick={this.eventClicked}
-                               viewEventClick={this.ops1}
-                               viewEventText="Ops 1"
-                               viewEvent2Text="Ops 2"
-                               viewEvent2Click={this.ops2}
-                               updateEventStart={this.updateEventStart}
-                               updateEventEnd={this.updateEventEnd}
-                               moveEvent={this.moveEvent}
-                               newEvent={this.newEvent}
-                               toggleExpandFunc={this.toggleExpandFunc}
+                        prevClick={this.prevClick}
+                        nextClick={this.nextClick}
+                        onSelectDate={this.onSelectDate}
+                        onViewChange={this.onViewChange}
+                        eventItemClick={this.eventClicked}
+                        viewEventClick={this.ops1}
+                        viewEventText="Ops 1"
+                        viewEvent2Text="Ops 2"
+                        viewEvent2Click={this.ops2}
+                        updateEventStart={this.updateEventStart}
+                        updateEventEnd={this.updateEventEnd}
+                        moveEvent={this.moveEvent}
+                        newEvent={this.newEvent}
+                        toggleExpandFunc={this.toggleExpandFunc}
                     />
                 </div>
             </div>
         )
     }
 
-    prevClick = (schedulerData)=> {
+    prevClick = (schedulerData) => {
         schedulerData.prev();
         schedulerData.setEvents(DemoData.events);
         this.setState({
@@ -66,7 +66,7 @@ class CustomTimeWindow extends Component{
         })
     }
 
-    nextClick = (schedulerData)=> {
+    nextClick = (schedulerData) => {
         schedulerData.next();
         schedulerData.setEvents(DemoData.events);
         this.setState({
@@ -104,11 +104,11 @@ class CustomTimeWindow extends Component{
     };
 
     newEvent = (schedulerData, slotId, slotName, start, end, type, item) => {
-        if(confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)){
+        if (confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)) {
 
             let newFreshId = 0;
             schedulerData.events.forEach((item) => {
-                if(item.id >= newFreshId)
+                if (item.id >= newFreshId)
                     newFreshId = item.id + 1;
             });
 
@@ -128,7 +128,7 @@ class CustomTimeWindow extends Component{
     }
 
     updateEventStart = (schedulerData, event, newStart) => {
-        if(confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
+        if (confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
             schedulerData.updateEventStart(event, newStart);
         }
         this.setState({
@@ -137,7 +137,7 @@ class CustomTimeWindow extends Component{
     }
 
     updateEventEnd = (schedulerData, event, newEnd) => {
-        if(confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
+        if (confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
             schedulerData.updateEventEnd(event, newEnd);
         }
         this.setState({
@@ -146,7 +146,7 @@ class CustomTimeWindow extends Component{
     }
 
     moveEvent = (schedulerData, event, slotId, slotName, start, end) => {
-        if(confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
+        if (confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
             schedulerData.moveEvent(event, slotId, slotName, start, end);
             this.setState({
                 viewModel: schedulerData
@@ -155,27 +155,27 @@ class CustomTimeWindow extends Component{
     }
 
     getCustomDate = (schedulerData, num, date = undefined) => {
-        const {viewType} = schedulerData;
+        const { viewType } = schedulerData;
         let selectDate = schedulerData.startDate;
-        if(date != undefined)
-            selectDate = date;   
+        if (date != undefined)
+            selectDate = date;
 
-        let startDate = num === 0 ? selectDate : 
-            schedulerData.localeMoment(selectDate).add(2*num, 'days').format(DATE_FORMAT),
+        let startDate = num === 0 ? selectDate :
+            schedulerData.localeMoment(selectDate).add(2 * num, 'days').format(DATE_FORMAT),
             endDate = schedulerData.localeMoment(startDate).add(1, 'days').format(DATE_FORMAT),
             cellUnit = CellUnits.Hour;
-        if(viewType === ViewTypes.Custom1) {
+        if (viewType === ViewTypes.Custom1) {
             let monday = schedulerData.localeMoment(selectDate).startOf('week').format(DATE_FORMAT);
-            startDate = num === 0 ? monday : schedulerData.localeMoment(monday).add(2*num, 'weeks').format(DATE_FORMAT);
+            startDate = num === 0 ? monday : schedulerData.localeMoment(monday).add(2 * num, 'weeks').format(DATE_FORMAT);
             endDate = schedulerData.localeMoment(startDate).add(1, 'weeks').endOf('week').format(DATE_FORMAT);
             cellUnit = CellUnits.Day;
-        } else if(viewType === ViewTypes.Custom2) {
+        } else if (viewType === ViewTypes.Custom2) {
             let firstDayOfMonth = schedulerData.localeMoment(selectDate).startOf('month').format(DATE_FORMAT);
-            startDate = num === 0 ? firstDayOfMonth : schedulerData.localeMoment(firstDayOfMonth).add(2*num, 'months').format(DATE_FORMAT);
+            startDate = num === 0 ? firstDayOfMonth : schedulerData.localeMoment(firstDayOfMonth).add(2 * num, 'months').format(DATE_FORMAT);
             endDate = schedulerData.localeMoment(startDate).add(1, 'months').endOf('month').format(DATE_FORMAT);
             cellUnit = CellUnits.Day;
         }
-            
+
         return {
             startDate,
             endDate,
@@ -185,9 +185,9 @@ class CustomTimeWindow extends Component{
 
     isNonWorkingTime = (schedulerData, time) => {
         const { localeMoment } = schedulerData;
-        if(schedulerData.cellUnit === CellUnits.Hour){
+        if (schedulerData.cellUnit === CellUnits.Hour) {
             let hour = localeMoment(time).hour();
-            if(hour < 1)
+            if (hour < 1)
                 return true;
         }
         else {
@@ -195,7 +195,7 @@ class CustomTimeWindow extends Component{
             if (dayOfWeek === 0 || dayOfWeek === 6)
                 return true;
         }
-    
+
         return false;
     }
 

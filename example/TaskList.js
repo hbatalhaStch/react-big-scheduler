@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 
-class TaskList extends Component{
-    constructor(props){
+class TaskList extends Component {
+    constructor(props) {
         super(props);
     }
 
@@ -12,8 +12,8 @@ class TaskList extends Component{
         taskDndSource: PropTypes.object.isRequired,
     }
 
-    render(){
-        const {schedulerData, newEvent, taskDndSource} = this.props;
+    render() {
+        const { schedulerData, newEvent, taskDndSource } = this.props;
         let DnDTaskItem = taskDndSource.getDragSource();
         let tasks = schedulerData.eventGroups;
         let taskList = tasks.map((item) => {

@@ -1,18 +1,18 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 import Nav from './Nav'
 
-class ComingSoon extends Component{
-    constructor(props){
+class ComingSoon extends Component {
+    constructor(props) {
         super(props);
     }
 
-    render(){
+    render() {
         return (
             <div>
-                
+
                 <div>
-                    <h3 style={{textAlign: 'center'}}>Sorry, the example is on the way~</h3>
+                    <h3 style={{ textAlign: 'center' }}>Sorry, the example is on the way~</h3>
                 </div>
             </div>
         )

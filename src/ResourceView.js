@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 
 class ResourceView extends Component {
@@ -18,52 +18,52 @@ class ResourceView extends Component {
 
     render() {
 
-        const {schedulerData, contentScrollbarHeight, slotClickedFunc, slotItemTemplateResolver, toggleExpandFunc} = this.props;
-        const {renderData} = schedulerData;
+        const { schedulerData, contentScrollbarHeight, slotClickedFunc, slotItemTemplateResolver, toggleExpandFunc } = this.props;
+        const { renderData } = schedulerData;
 
         let width = schedulerData.getResourceTableWidth() - 2;
         let paddingBottom = contentScrollbarHeight;
         let displayRenderData = renderData.filter(o => o.render);
         let resourceList = displayRenderData.map((item) => {
             let indents = [];
-            for(let i=0;i<item.indent;i++) {
+            for (let i = 0; i < item.indent; i++) {
                 indents.push(<span key={`es${i}`} className="expander-space"></span>);
             }
             let indent = <span key={`es${item.indent}`} className="expander-space"></span>;
-            if(item.hasChildren) {
+            if (item.hasChildren) {
                 indent = item.expanded ? (
                     <MinusSquareOutlined key={`es${item.indent}`} style={{}} className=""
                         onClick={() => {
-                            if(!!toggleExpandFunc)
+                            if (!!toggleExpandFunc)
                                 toggleExpandFunc(schedulerData, item.slotId);
-                        }}/>
+                        }} />
                 ) : (
                     <PlusSquareOutlined key={`es${item.indent}`} style={{}} className=""
                         onClick={() => {
-                            if(!!toggleExpandFunc)
+                            if (!!toggleExpandFunc)
                                 toggleExpandFunc(schedulerData, item.slotId);
-                        }}/>
+                        }} />
                 );
             }
             indents.push(indent);
-                    
+
             let a = slotClickedFunc != undefined ? <span className="slot-cell">{indents}<a className="slot-text" onClick={() => {
                 slotClickedFunc(schedulerData, item);
             }}>{item.slotName}</a></span>
                 : <span className="slot-cell">{indents}<span className="slot-text">{item.slotName}</span></span>;
             let slotItem = (
-                <div title={item.slotName} className="overflow-text header2-text" style={{textAlign: "left"}}>
+                <div title={item.slotName} className="overflow-text header2-text" style={{ textAlign: "left" }}>
                     {a}
                 </div>
             );
-            if(!!slotItemTemplateResolver) {
+            if (!!slotItemTemplateResolver) {
                 let temp = slotItemTemplateResolver(schedulerData, item, slotClickedFunc, width, "overflow-text header2-text");
-                if(!!temp)
+                if (!!temp)
                     slotItem = temp;
             }
 
-            let tdStyle = {height: item.rowHeight};
-            if(item.groupOnly) {
+            let tdStyle = { height: item.rowHeight };
+            if (item.groupOnly) {
                 tdStyle = {
                     ...tdStyle,
                     backgroundColor: schedulerData.config.groupOnlySlotColor
@@ -80,7 +80,7 @@ class ResourceView extends Component {
         });
 
         return (
-            <div style={{paddingBottom: paddingBottom}}>
+            <div style={{ paddingBottom: paddingBottom }}>
                 <table className="resource-table">
                     <tbody>
                         {resourceList}

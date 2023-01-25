@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 
-class ResourceList extends Component{
-    constructor(props){
+class ResourceList extends Component {
+    constructor(props) {
         super(props);
     }
 
@@ -12,8 +12,8 @@ class ResourceList extends Component{
         resourceDndSource: PropTypes.object.isRequired,
     }
 
-    render(){
-        const {schedulerData, newEvent, resourceDndSource} = this.props;
+    render() {
+        const { schedulerData, newEvent, resourceDndSource } = this.props;
         let DnDResourceItem = resourceDndSource.getDragSource();
         let resources = schedulerData.resources;
         let resourceList = resources.map((item) => {

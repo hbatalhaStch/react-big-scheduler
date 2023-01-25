@@ -1,6 +1,6 @@
 function getPos(element) {
     let x = 0, y = 0;
-    if(!!element) {
+    if (!!element) {
         do {
             x += element.offsetLeft - element.scrollLeft;
             y += element.offsetTop - element.scrollTop;

@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
-import Scheduler, {SchedulerData, ViewTypes, DemoData, SummaryPos} from '../src/index'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
+import Scheduler, { SchedulerData, ViewTypes, DemoData, SummaryPos } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
 
-class Summary extends Component{
-    constructor(props){
+class Summary extends Component {
+    constructor(props) {
         super(props);
 
         let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week, false, false, undefined, {
@@ -20,41 +20,41 @@ class Summary extends Component{
         }
     }
 
-    render(){
-        const {viewModel} = this.state;
+    render() {
+        const { viewModel } = this.state;
 
         let leftCustomHeader = (
-            <div><span style={{fontWeight: 'bold'}}><a onClick={this.changeSummaryPos}>Change summary position</a></span></div>
+            <div><span style={{ fontWeight: 'bold' }}><a onClick={this.changeSummaryPos}>Change summary position</a></span></div>
         );
 
         return (
             <div>
-                
+
                 <div>
-                    <h3 style={{textAlign: 'center'}}>Summary<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Summary.js" /></h3>
+                    <h3 style={{ textAlign: 'center' }}>Summary<ViewSrcCode srcCodeUrl="https://github.com/StephenChou1017/react-big-scheduler/blob/master/example/Summary.js" /></h3>
                     <Scheduler schedulerData={viewModel}
-                               prevClick={this.prevClick}
-                               nextClick={this.nextClick}
-                               onSelectDate={this.onSelectDate}
-                               onViewChange={this.onViewChange}
-                               eventItemClick={this.eventClicked}
-                               viewEventClick={this.ops1}
-                               viewEventText="Ops 1"
-                               viewEvent2Text="Ops 2"
-                               viewEvent2Click={this.ops2}
-                               updateEventStart={this.updateEventStart}
-                               updateEventEnd={this.updateEventEnd}
-                               moveEvent={this.moveEvent}
-                               newEvent={this.newEvent}
-                               leftCustomHeader={leftCustomHeader}
-                               toggleExpandFunc={this.toggleExpandFunc}
+                        prevClick={this.prevClick}
+                        nextClick={this.nextClick}
+                        onSelectDate={this.onSelectDate}
+                        onViewChange={this.onViewChange}
+                        eventItemClick={this.eventClicked}
+                        viewEventClick={this.ops1}
+                        viewEventText="Ops 1"
+                        viewEvent2Text="Ops 2"
+                        viewEvent2Click={this.ops2}
+                        updateEventStart={this.updateEventStart}
+                        updateEventEnd={this.updateEventEnd}
+                        moveEvent={this.moveEvent}
+                        newEvent={this.newEvent}
+                        leftCustomHeader={leftCustomHeader}
+                        toggleExpandFunc={this.toggleExpandFunc}
                     />
                 </div>
             </div>
         )
     }
 
-    prevClick = (schedulerData)=> {
+    prevClick = (schedulerData) => {
         schedulerData.prev();
         schedulerData.setEvents(DemoData.events);
         this.setState({
@@ -62,7 +62,7 @@ class Summary extends Component{
         })
     }
 
-    nextClick = (schedulerData)=> {
+    nextClick = (schedulerData) => {
         schedulerData.next();
         schedulerData.setEvents(DemoData.events);
         this.setState({
@@ -99,11 +99,11 @@ class Summary extends Component{
     };
 
     newEvent = (schedulerData, slotId, slotName, start, end, type, item) => {
-        if(confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)){
+        if (confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)) {
 
             let newFreshId = 0;
             schedulerData.events.forEach((item) => {
-                if(item.id >= newFreshId)
+                if (item.id >= newFreshId)
                     newFreshId = item.id + 1;
             });
 
@@ -123,7 +123,7 @@ class Summary extends Component{
     }
 
     updateEventStart = (schedulerData, event, newStart) => {
-        if(confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
+        if (confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
             schedulerData.updateEventStart(event, newStart);
         }
         this.setState({
@@ -132,7 +132,7 @@ class Summary extends Component{
     }
 
     updateEventEnd = (schedulerData, event, newEnd) => {
-        if(confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
+        if (confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
             schedulerData.updateEventEnd(event, newEnd);
         }
         this.setState({
@@ -141,7 +141,7 @@ class Summary extends Component{
     }
 
     moveEvent = (schedulerData, event, slotId, slotName, start, end) => {
-        if(confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
+        if (confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
             schedulerData.moveEvent(event, slotId, slotName, start, end);
             this.setState({
                 viewModel: schedulerData
@@ -152,9 +152,9 @@ class Summary extends Component{
     getSummary = (schedulerData, headerEvents, slotId, slotName, headerStart, headerEnd) => {
         let text = headerEvents.length.toString();
         let color = '#d9d9d9';
-        if(headerEvents.length > 0)
-            color = headerEvents.length <= 1  ? 'green': 'red';
-        return {text: text, color: color, fontSize: '12px'};
+        if (headerEvents.length > 0)
+            color = headerEvents.length <= 1 ? 'green' : 'red';
+        return { text: text, color: color, fontSize: '12px' };
     }
 
     changeSummaryPos = () => {

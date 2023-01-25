@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {PropTypes} from 'prop-types'
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 import AgendaResourceEvents from './AgendaResourceEvents'
 
 class AgendaView extends Component {
@@ -12,7 +12,7 @@ class AgendaView extends Component {
         subtitleGetter: PropTypes.func,
         eventItemClick: PropTypes.func,
         viewEventClick: PropTypes.func,
-        viewEventText:PropTypes.string,
+        viewEventText: PropTypes.string,
         viewEvent2Click: PropTypes.func,
         viewEvent2Text: PropTypes.string,
         slotClickedFunc: PropTypes.func,
@@ -20,9 +20,9 @@ class AgendaView extends Component {
 
     render() {
 
-        const {schedulerData} = this.props;
-        const {config} = schedulerData;
-        const {renderData} = schedulerData;
+        const { schedulerData } = this.props;
+        const { config } = schedulerData;
+        const { renderData } = schedulerData;
         let agendaResourceTableWidth = schedulerData.getResourceTableWidth(), tableHeaderHeight = schedulerData.getTableHeaderHeight();
         let resourceEventsList = renderData.map((item) => {
             return <AgendaResourceEvents
@@ -38,8 +38,8 @@ class AgendaView extends Component {
                 <td>
                     <table className="scheduler-table">
                         <thead>
-                            <tr style={{height: tableHeaderHeight}}>
-                                <th style={{width: agendaResourceTableWidth}} className="header3-text">{resourceName}</th>
+                            <tr style={{ height: tableHeaderHeight }}>
+                                <th style={{ width: agendaResourceTableWidth }} className="header3-text">{resourceName}</th>
                                 <th className="header3-text">{agendaViewHeader}</th>
                             </tr>
                         </thead>
