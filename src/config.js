@@ -32,6 +32,8 @@ export default {
     yearMaxEvents: 99,
     customMaxEvents: 99,
 
+    itemPopoverTrigger: 'hover',
+
     eventItemHeight: 22,
     eventItemLineHeight: 24,
     nonAgendaSlotMinHeight: 0,
