@@ -58,10 +58,14 @@ export default {
     eventItemPopoverEnabled: true,
     calendarPopoverEnabled: true,
     recurringEventsEnabled: true,
+    viewChangeSpinEnabled: true,
+    dateChangeSpinEnabled: true,
     headerEnabled: true,
     displayWeekend: true,
     relativeMove: true,
     defaultExpanded: true,
+
+    schedulerHeaderEventsFuncsTimeoutMs: 100,
 
     resourceName: 'Resource Name',
     taskName: 'Task Name',
@@ -74,10 +78,10 @@ export default {
     minuteStep: 30,
 
     views: [
-        {viewName: 'Day', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false},
-        {viewName: 'Week', viewType: ViewTypes.Week, showAgenda: false, isEventPerspective: false},
-        {viewName: 'Month', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false},
-        {viewName: 'Quarter', viewType: ViewTypes.Quarter, showAgenda: false, isEventPerspective: false},
-        {viewName: 'Year', viewType: ViewTypes.Year, showAgenda: false, isEventPerspective: false},
+        { viewName: 'Day', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Week', viewType: ViewTypes.Week, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Month', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Quarter', viewType: ViewTypes.Quarter, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Year', viewType: ViewTypes.Year, showAgenda: false, isEventPerspective: false },
     ],
 }

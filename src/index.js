@@ -25,9 +25,6 @@ import { PropTypes } from 'prop-types'
 // separately here to avoid importing from files which have required the global
 // antd styles.
 
-import { Col, Row, Radio, Popover, Calendar } from 'antd'
-import { RightOutlined, LeftOutlined } from '@ant-design/icons';
-
 import EventItem from './EventItem'
 import DnDSource from './DnDSource'
 import DnDContext from './DnDContext'
@@ -42,9 +39,7 @@ import CellUnits from './CellUnits'
 import SummaryPos from './SummaryPos'
 import SchedulerData from './SchedulerData'
 import DemoData from './DemoData'
-import CalendarPopover from './CalendarPopover'
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
+import SchedulerHeader from './SchedulerHeader'
 
 class Scheduler extends Component {
 
@@ -55,7 +50,7 @@ class Scheduler extends Component {
         let sources = [];
         sources.push(new DnDSource((props) => {
             return props.eventItem;
-        }, EventItem));
+        }, EventItem, schedulerData.config.dragAndDropEnabled));
         if (dndSources != undefined && dndSources.length > 0) {
             sources = [...sources, ...dndSources];
         }
@@ -152,17 +147,8 @@ class Scheduler extends Component {
 
     render() {
         const { schedulerData, leftCustomHeader, rightCustomHeader } = this.props;
-        const { renderData, viewType, showAgenda, isEventPerspective, config } = schedulerData;
+        const { renderData, showAgenda, config } = schedulerData;
         const width = schedulerData.getSchedulerWidth();
-        const calendarPopoverEnabled = config.calendarPopoverEnabled;
-
-        let dateLabel = schedulerData.getDateLabel();
-        let defaultValue = `${viewType}${showAgenda ? 1 : 0}${isEventPerspective ? 1 : 0}`;
-        let radioButtonList = config.views.map(item => {
-            return <RadioButton key={`${item.viewType}${item.showAgenda ? 1 : 0}${item.isEventPerspective ? 1 : 0}`}
-                value={`${item.viewType}${item.showAgenda ? 1 : 0}${item.isEventPerspective ? 1 : 0}`}><span
-                    style={{ margin: "0px 8px" }}>{item.viewName}</span></RadioButton>
-        })
 
         let tbodyContent = <tr />;
         if (showAgenda) {
@@ -174,7 +160,7 @@ class Scheduler extends Component {
             let resourceTableWidth = schedulerData.getResourceTableWidth();
             let schedulerContainerWidth = width - resourceTableWidth + 1;
             let schedulerWidth = schedulerData.getContentTableWidth() - 1;
-            let DndResourceEvents = this.state.dndContext.getDropTarget();
+            let DndResourceEvents = this.state.dndContext.getDropTarget(config.dragAndDropEnabled);
             let eventDndSource = this.state.dndContext.getDndSource();
 
             let displayRenderData = renderData.filter(o => o.render);
@@ -269,29 +255,15 @@ class Scheduler extends Component {
         let schedulerHeader = <div />;
         if (config.headerEnabled) {
             schedulerHeader = (
-                <Row type="flex" align="middle" justify="space-between" style={{ marginBottom: '24px' }}>
-                    {leftCustomHeader}
-                    <Col>
-                        <div className='header2-text'>
-                            <LeftOutlined type="left" style={{ marginRight: "8px" }} className="icon-nav"
-                                onClick={this.goBack} />
-                            {
-                                calendarPopoverEnabled
-                                    ?
-                                    <CalendarPopover dateLabel={dateLabel} onSelectDate={this.onSelect} />
-                                    : <span className={'header2-text-label'}>{dateLabel}</span>
-                            }
-                            <RightOutlined type="right" style={{ marginLeft: "8px" }} className="icon-nav"
-                                onClick={this.goNext} />
-                        </div>
-                    </Col>
-                    <Col>
-                        <RadioGroup buttonStyle="solid" defaultValue={defaultValue} size="default" onChange={this.onViewChange}>
-                            {radioButtonList}
-                        </RadioGroup>
-                    </Col>
-                    {rightCustomHeader}
-                </Row>
+                <SchedulerHeader
+                    onViewChange={this.onViewChange}
+                    schedulerData={schedulerData}
+                    onSelectDate={this.onSelect}
+                    goNext={this.goNext}
+                    goBack={this.goBack}
+                    rightCustomHeader={rightCustomHeader}
+                    leftCustomHeader={leftCustomHeader}
+                />
             );
         }
 
@@ -432,6 +404,7 @@ class Scheduler extends Component {
         let showAgenda = e.target.value.charAt(1) === '1';
         let isEventPerspective = e.target.value.charAt(2) === '1';
         onViewChange(schedulerData, { viewType: viewType, showAgenda: showAgenda, isEventPerspective: isEventPerspective });
+        this.setState({ ...this.state, spinning: false })
     }
 
     goNext = () => {
@@ -444,7 +417,7 @@ class Scheduler extends Component {
         prevClick(schedulerData);
     }
 
-    onSelect = (date) => {     
+    onSelect = (date) => {
         const { onSelectDate, schedulerData } = this.props;
         onSelectDate(schedulerData, date);
     }
