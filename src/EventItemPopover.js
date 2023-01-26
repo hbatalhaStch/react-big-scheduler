@@ -23,7 +23,9 @@ class EventItemPopover extends Component {
     }
 
     render() {
-        const { schedulerData, eventItem, title, startTime, endTime, statusColor, subtitleGetter, viewEventClick, viewEventText, viewEvent2Click, viewEvent2Text, eventItemPopoverTemplateResolver } = this.props;
+        const { schedulerData, eventItem, title, startTime, endTime, statusColor,
+            subtitleGetter, viewEventClick, viewEventText, viewEvent2Click,
+            viewEvent2Text, eventItemPopoverTemplateResolver } = this.props;
         const { localeMoment, config } = schedulerData;
         let start = localeMoment(new Date(startTime)), end = localeMoment(new Date(endTime));
 
@@ -51,13 +53,26 @@ class EventItemPopover extends Component {
             if (viewEventText !== undefined && viewEventClick !== undefined && (eventItem.clickable1 == undefined || eventItem.clickable1)) {
                 let col = (
                     <Col span={22}>
-                        <span className="header2-text" style={{ color: '#108EE9', cursor: 'pointer' }} onClick={() => { viewEventClick(schedulerData, eventItem); }}>{viewEventText}</span>
+                        <span className="header2-text"
+                            style={{ color: '#108EE9', cursor: 'pointer' }}
+                            onClick={() => { viewEventClick(schedulerData, eventItem); }}>
+                            {viewEventText}
+                        </span>
                     </Col>
                 );
                 if (viewEvent2Text !== undefined && viewEvent2Click !== undefined && (eventItem.clickable2 == undefined || eventItem.clickable2)) {
                     col = (
                         <Col span={22}>
-                            <span className="header2-text" style={{ color: '#108EE9', cursor: 'pointer' }} onClick={() => { viewEventClick(schedulerData, eventItem); }}>{viewEventText}</span><span className="header2-text" style={{ color: '#108EE9', cursor: 'pointer', marginLeft: '16px' }} onClick={() => { viewEvent2Click(schedulerData, eventItem); }}>{viewEvent2Text}</span>
+                            <span className="header2-text"
+                                style={{ color: '#108EE9', cursor: 'pointer' }}
+                                onClick={() => { viewEventClick(schedulerData, eventItem); }}>
+                                {viewEventText}
+                            </span>
+                            <span className="header2-text"
+                                style={{ color: '#108EE9', cursor: 'pointer', marginLeft: '16px' }}
+                                onClick={() => { viewEvent2Click(schedulerData, eventItem); }}>
+                                {viewEvent2Text}
+                            </span>
                         </Col>
                     )
                 };
@@ -73,7 +88,11 @@ class EventItemPopover extends Component {
             else if (viewEvent2Text !== undefined && viewEvent2Click !== undefined && (eventItem.clickable2 == undefined || eventItem.clickable2)) {
                 let col = (
                     <Col span={22}>
-                        <span className="header2-text" style={{ color: '#108EE9', cursor: 'pointer' }} onClick={() => { viewEvent2Click(schedulerData, eventItem); }}>{viewEvent2Text}</span>
+                        <span className="header2-text"
+                            style={{ color: '#108EE9', cursor: 'pointer' }}
+                            onClick={() => { viewEvent2Click(schedulerData, eventItem); }}>
+                            {viewEvent2Text}
+                        </span>
                     </Col>
                 );
                 opsRow = (
@@ -103,7 +122,19 @@ class EventItemPopover extends Component {
                             <div />
                         </Col>
                         <Col span={22}>
-                            <span className="header1-text">{start.format('HH:mm')}</span><span className="help-text" style={{ marginLeft: '8px' }}>{start.format(dateFormat)}</span><span className="header2-text" style={{ marginLeft: '8px' }}>-</span><span className="header1-text" style={{ marginLeft: '8px' }}>{end.format('HH:mm')}</span><span className="help-text" style={{ marginLeft: '8px' }}>{end.format(dateFormat)}</span>
+                            <span className="header1-text">
+                                {start.format('HH:mm')}
+                            </span>
+                            <span className="help-text" style={{ marginLeft: '8px' }}>
+                                {start.format(dateFormat)}
+                            </span>
+                            <span className="header2-text" style={{ marginLeft: '8px' }}>-</span>
+                            <span className="header1-text" style={{ marginLeft: '8px' }}>
+                                {end.format('HH:mm')}
+                            </span>
+                            <span className="help-text" style={{ marginLeft: '8px' }}>
+                                {end.format(dateFormat)}
+                            </span>
                         </Col>
                     </Row>
                     {opsRow}

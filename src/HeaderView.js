@@ -28,7 +28,13 @@ class HeaderView extends Component {
                     let datetime = localeMoment(new Date(item.time));
                     const isCurrentTime = datetime.isSame(new Date(), 'hour');
 
-                    style = !!item.nonWorkingTime ? { width: cellWidth * minuteStepsInHour, color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor } : { width: cellWidth * minuteStepsInHour };
+                    style = !!item.nonWorkingTime ? {
+                        width: cellWidth * minuteStepsInHour,
+                        color: config.nonWorkingTimeHeadColor,
+                        backgroundColor: config.nonWorkingTimeHeadBgColor
+                    } : {
+                        width: cellWidth * minuteStepsInHour
+                    };
 
                     if (index === headers.length - minuteStepsInHour)
                         style = !!item.nonWorkingTime ? { color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor } : {};
@@ -60,7 +66,12 @@ class HeaderView extends Component {
         else {
             headerList = headers.map((item, index) => {
                 let datetime = localeMoment(new Date(item.time));
-                style = !!item.nonWorkingTime ? { width: cellWidth, color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor } : { width: cellWidth };
+                style = !!item.nonWorkingTime ? {
+                    width: cellWidth,
+                    color: config.nonWorkingTimeHeadColor,
+                    backgroundColor: config.nonWorkingTimeHeadBgColor
+                } :
+                    { width: cellWidth };
                 if (index === headers.length - 1)
                     style = !!item.nonWorkingTime ? { color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor } : {};
 
