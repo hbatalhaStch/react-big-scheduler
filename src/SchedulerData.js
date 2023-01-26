@@ -21,6 +21,7 @@ export default class SchedulerData {
         this.scrollToSpecialMoment = false;
         this.documentWidth = 0;
 
+        this.calendarPopoverLocale = undefined;
         dayjs.extend(quarterOfYear)
         this.localeDayjs = dayjs;
         this.config = newConfig == undefined ? config : { ...config, ...newConfig };
@@ -31,12 +32,19 @@ export default class SchedulerData {
         this._createRenderData();
     }
 
-    setLocale(lang) {
+    setSchedulerLocale(lang) {
         if (!!lang && typeof lang === 'string') {
+            this.locale = locale;
             const locale = require(`dayjs/locale/${lang}.js`)
             dayjs.locale(locale);
             this._createHeaders();
             this._createRenderData();
+        }
+    }
+
+    setCalendarPopoverLocale(lang) {
+        if (!!lang && typeof lang === 'string') {
+            this.calendarPopoverLocale = require(`antd/locale/${lang}.js`)
         }
     }
 
@@ -358,6 +366,10 @@ export default class SchedulerData {
                 )
             )
         );
+    }
+
+    getCalendarPopoverLocale() {
+        return this.calendarPopoverLocale;
     }
 
     getSelectedDate() {
