@@ -786,6 +786,12 @@ export default class SchedulerData {
     _getSpan(startTime, endTime, headers) {
         if (this.showAgenda) return 1;
 
+        function startOfWeek(date) {
+            let day = date.getDay();
+            let diff = date.getDate() - day;
+            return new Date(date.getFullYear(), date.getMonth(), diff);
+        }
+
         const timeBetween = (date1, date2, timeIn) => {
             let one;
             switch (timeIn) {
@@ -826,6 +832,8 @@ export default class SchedulerData {
                     span = Math.ceil(timeBetween(start, end, 'minutes') / this.config.minuteStep);
                 }
             }
+        } else if (this.viewType === ViewTypes.Week) {
+            span = Math.ceil(timeBetween(new Date(this.startDate), end, 'days') + 1);
         } else {
             span = Math.ceil(timeBetween(start, end, 'days') + 1);
         }
