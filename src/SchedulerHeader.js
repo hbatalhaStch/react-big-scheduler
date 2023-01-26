@@ -62,7 +62,7 @@ class SchedulerHeader extends Component {
                                 {
                                     config.calendarPopoverEnabled
                                         ?
-                                        <Popover content={popover} placement="bottom" trigger="click"
+                                        <Popover content={popover} placement="bottomLeft" trigger="click"
                                             open={this.state.visible}
                                             onOpenChange={this.handleVisibleChange}>
                                             <span className={'header2-text-label'} style={{ cursor: 'pointer' }}>{dateLabel}</span>
