@@ -34,9 +34,10 @@ export default class SchedulerData {
         this._createRenderData();
     }
 
-    setLocaleDayjs(localeDayjs) {
-        if (!!localeDayjs) {
-            this.localeDayjs = localeDayjs;
+    setLocale(lang) {
+        if (!!lang && typeof lang === 'string') {
+            const locale = require(`dayjs/locale/${lang}.js`)
+            dayjs.locale(locale);
             this._createHeaders();
             this._createRenderData();
         }
