@@ -17,7 +17,7 @@ export default class DnDContext {
         return {
             drop: (props, monitor, component) => {
                 const { schedulerData, resourceEvents } = props;
-                const { cellUnit, localeMoment } = schedulerData;
+                const { cellUnit, localeDayjs } = schedulerData;
                 const type = monitor.getItemType();
                 const pos = getPos(component.eventContainer);
                 let cellWidth = schedulerData.getContentCellWidth();
@@ -28,14 +28,14 @@ export default class DnDContext {
                     initialStartTime = resourceEvents.headerItems[initialLeftIndex].start;
                     initialEndTime = resourceEvents.headerItems[initialLeftIndex].end;
                     if (cellUnit !== CellUnits.Hour)
-                        initialEndTime = localeMoment(new Date(resourceEvents.headerItems)[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                        initialEndTime = localeDayjs(new Date(resourceEvents.headerItems)[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 }
                 const point = monitor.getClientOffset();
                 let leftIndex = Math.floor((point.x - pos.x) / cellWidth);
                 let startTime = resourceEvents.headerItems[leftIndex].start;
                 let endTime = resourceEvents.headerItems[leftIndex].end;
                 if (cellUnit !== CellUnits.Hour)
-                    endTime = localeMoment(new Date(resourceEvents.headerItems)[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                    endTime = localeDayjs(new Date(resourceEvents.headerItems)[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
 
                 return {
                     slotId: resourceEvents.slotId,
@@ -49,7 +49,7 @@ export default class DnDContext {
 
             hover: (props, monitor, component) => {
                 const { schedulerData, resourceEvents, movingEvent } = props;
-                const { cellUnit, config, viewType, localeMoment } = schedulerData;
+                const { cellUnit, config, viewType, localeDayjs } = schedulerData;
                 this.config = config;
                 const item = monitor.getItem();
                 const type = monitor.getItemType();
@@ -62,7 +62,7 @@ export default class DnDContext {
                     initialStart = resourceEvents.headerItems[initialLeftIndex].start;
                     initialEnd = resourceEvents.headerItems[initialLeftIndex].end;
                     if (cellUnit !== CellUnits.Hour)
-                        initialEnd = localeMoment(new Date(resourceEvents.headerItems)[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                        initialEnd = localeDayjs(new Date(resourceEvents.headerItems)[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 }
                 const point = monitor.getClientOffset();
                 let leftIndex = Math.floor((point.x - pos.x) / cellWidth);
@@ -72,21 +72,21 @@ export default class DnDContext {
                 let newStart = resourceEvents.headerItems[leftIndex].start;
                 let newEnd = resourceEvents.headerItems[leftIndex].end;
                 if (cellUnit !== CellUnits.Hour)
-                    newEnd = localeMoment(new Date(resourceEvents.headerItems)[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                    newEnd = localeDayjs(new Date(resourceEvents.headerItems)[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 let slotId = resourceEvents.slotId, slotName = resourceEvents.slotName;
                 let action = 'New';
                 let isEvent = type === DnDTypes.EVENT;
                 if (isEvent) {
                     const event = item;
                     if (config.relativeMove) {
-                        newStart = localeMoment(event.start).add(localeMoment(newStart).diff(localeMoment(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
+                        newStart = localeDayjs(event.start).add(localeDayjs(newStart).diff(localeDayjs(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
                     } else {
                         if (viewType !== ViewTypes.Day) {
-                            let tmpMoment = localeMoment(newStart);
-                            newStart = localeMoment(event.start).year(tmpMoment.year()).month(tmpMoment.month()).date(tmpMoment.date()).format(DATETIME_FORMAT);
+                            let tmpMoment = localeDayjs(newStart);
+                            newStart = localeDayjs(event.start).year(tmpMoment.year()).month(tmpMoment.month()).date(tmpMoment.date()).format(DATETIME_FORMAT);
                         }
                     }
-                    newEnd = localeMoment(newStart).add(localeMoment(event.end).diff(localeMoment(event.start)), 'ms').format(DATETIME_FORMAT);
+                    newEnd = localeDayjs(newStart).add(localeDayjs(event.end).diff(localeDayjs(event.start)), 'ms').format(DATETIME_FORMAT);
 
                     //if crossResourceMove disabled, slot returns old value
                     if (config.crossResourceMove === false) {

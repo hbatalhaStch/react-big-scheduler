@@ -15,7 +15,7 @@ class Readonly extends Component {
             movable: false,
             creatable: false,
         });
-        schedulerData.localeMoment.locale('en');
+        schedulerData.localeDayjs.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);
         this.state = {

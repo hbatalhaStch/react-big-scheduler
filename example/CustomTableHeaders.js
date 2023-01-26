@@ -12,7 +12,7 @@ class CustomHeaders extends Component {
     let schedulerData = new SchedulerData(Date.now(), ViewTypes.Week, false, false, {
       calendarPopoverEnabled: false,
     });
-    schedulerData.localeMoment.locale('en');
+    schedulerData.localeDayjs.locale('en');
     schedulerData.setResources(DemoData.resources);
     schedulerData.setEvents(DemoData.events);
     this.state = {
@@ -21,7 +21,7 @@ class CustomHeaders extends Component {
   }
 
   nonAgendaCellHeaderTemplateResolver = (schedulerData, item, formattedDateItems, style) => {
-    let datetime = schedulerData.localeMoment(item.time);
+    let datetime = schedulerData.localeDayjs(item.time);
     let isCurrentDate = false;
 
     if (schedulerData.viewType === ViewTypes.Day) {

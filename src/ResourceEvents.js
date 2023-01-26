@@ -157,7 +157,7 @@ class ResourceEvents extends Component {
         ev.stopPropagation();
 
         const { schedulerData, newEvent, resourceEvents } = this.props;
-        const { headers, events, config, cellUnit, localeMoment } = schedulerData;
+        const { headers, events, config, cellUnit, localeDayjs } = schedulerData;
         const { leftIndex, rightIndex } = this.state;
         if (supportTouch) {
             document.documentElement.removeEventListener('touchmove', this.doDrag, false);
@@ -173,7 +173,7 @@ class ResourceEvents extends Component {
         let startTime = headers[leftIndex].time;
         let endTime = resourceEvents.headerItems[rightIndex - 1].end;
         if (cellUnit !== CellUnits.Hour)
-            endTime = localeMoment(new Date(resourceEvents.headerItems)[rightIndex - 1].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+            endTime = localeDayjs(new Date(resourceEvents.headerItems)[rightIndex - 1].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
         let slotId = resourceEvents.slotId;
         let slotName = resourceEvents.slotName;
 
@@ -188,13 +188,13 @@ class ResourceEvents extends Component {
 
         let hasConflict = false;
         if (config.checkConflict) {
-            let start = localeMoment(new Date(startTime)),
-                end = localeMoment(endTime);
+            let start = localeDayjs(new Date(startTime)),
+                end = localeDayjs(endTime);
 
             events.forEach((e) => {
                 if (schedulerData._getEventSlotId(e) === slotId) {
-                    let eStart = localeMoment(e.start),
-                        eEnd = localeMoment(e.end);
+                    let eStart = localeDayjs(e.start),
+                        eEnd = localeDayjs(e.end);
                     if ((start >= eStart && start < eEnd) || (end > eStart && end <= eEnd) || (eStart >= start && eStart < end) || (eEnd > start && eEnd <= end))
                         hasConflict = true;
                 }
@@ -246,7 +246,7 @@ class ResourceEvents extends Component {
 
     render() {
         const { resourceEvents, schedulerData, connectDropTarget, dndSource } = this.props;
-        const { cellUnit, startDate, endDate, config, localeMoment } = schedulerData;
+        const { cellUnit, startDate, endDate, config, localeDayjs } = schedulerData;
         const { isSelecting, left, width } = this.state;
         let cellWidth = schedulerData.getContentCellWidth();
         let cellMaxEvents = schedulerData.getCellMaxEvents();
@@ -266,14 +266,14 @@ class ResourceEvents extends Component {
 
                 headerItem.events.forEach((evt, idx) => {
                     if (idx < renderEventsMaxIndex && evt !== undefined && evt.render) {
-                        let durationStart = localeMoment(new Date(startDate));
-                        let durationEnd = localeMoment(endDate).add(1, 'days');
+                        let durationStart = localeDayjs(new Date(startDate));
+                        let durationEnd = localeDayjs(endDate).add(1, 'days');
                         if (cellUnit === CellUnits.Hour) {
-                            durationStart = localeMoment(new Date(startDate)).add(config.dayStartFrom, 'hours');
-                            durationEnd = localeMoment(endDate).add(config.dayStopTo + 1, 'hours');
+                            durationStart = localeDayjs(new Date(startDate)).add(config.dayStartFrom, 'hours');
+                            durationEnd = localeDayjs(endDate).add(config.dayStopTo + 1, 'hours');
                         }
-                        let eventStart = localeMoment(evt.eventItem.start);
-                        let eventEnd = localeMoment(evt.eventItem.end);
+                        let eventStart = localeDayjs(evt.eventItem.start);
+                        let eventEnd = localeDayjs(evt.eventItem.end);
                         let isStart = eventStart >= durationStart;
                         let isEnd = eventEnd <= durationEnd;
                         let left = index * cellWidth + (index > 0 ? 2 : 3);

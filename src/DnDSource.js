@@ -21,7 +21,7 @@ export default class DnDSource {
                 if (!monitor.didDrop()) return;
 
                 const { moveEvent, newEvent, schedulerData } = props;
-                const { events, config, viewType, localeMoment } = schedulerData;
+                const { events, config, viewType, localeDayjs } = schedulerData;
                 const item = monitor.getItem();
                 const type = monitor.getItemType();
                 const dropResult = monitor.getDropResult();
@@ -34,14 +34,14 @@ export default class DnDSource {
                 if (isEvent) {
                     const event = item;
                     if (config.relativeMove) {
-                        newStart = localeMoment(event.start).add(localeMoment(newStart).diff(localeMoment(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
+                        newStart = localeDayjs(event.start).add(localeDayjs(newStart).diff(localeDayjs(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
                     } else {
                         if (viewType !== ViewTypes.Day) {
-                            let tmpMoment = localeMoment(newStart);
-                            newStart = localeMoment(event.start).year(tmpMoment.year()).month(tmpMoment.month()).date(tmpMoment.date()).format(DATETIME_FORMAT);
+                            let tmpMoment = localeDayjs(newStart);
+                            newStart = localeDayjs(event.start).year(tmpMoment.year()).month(tmpMoment.month()).date(tmpMoment.date()).format(DATETIME_FORMAT);
                         }
                     }
-                    newEnd = localeMoment(newStart).add(localeMoment(event.end).diff(localeMoment(event.start)), 'ms').format(DATETIME_FORMAT);
+                    newEnd = localeDayjs(newStart).add(localeDayjs(event.end).diff(localeDayjs(event.start)), 'ms').format(DATETIME_FORMAT);
 
                     //if crossResourceMove disabled, slot returns old value
                     if (config.crossResourceMove === false) {
@@ -57,13 +57,13 @@ export default class DnDSource {
 
                 let hasConflict = false;
                 if (config.checkConflict) {
-                    let start = localeMoment(newStart),
-                        end = localeMoment(newEnd);
+                    let start = localeDayjs(newStart),
+                        end = localeDayjs(newEnd);
 
                     events.forEach((e) => {
                         if (schedulerData._getEventSlotId(e) === slotId && (!isEvent || e.id !== item.id)) {
-                            let eStart = localeMoment(e.start),
-                                eEnd = localeMoment(e.end);
+                            let eStart = localeDayjs(e.start),
+                                eEnd = localeDayjs(e.end);
                             if ((start >= eStart && start < eEnd) || (end > eStart && end <= eEnd) || (eStart >= start && eStart < end) || (eEnd > start && eEnd <= end))
                                 hasConflict = true;
                         }

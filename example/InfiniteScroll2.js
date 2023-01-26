@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import moment from 'moment'
-//import 'moment/locale/zh-cn';
+import dayjs from 'dayjs'
+//import 'dayjs/locale/zh-cn';
 import Scheduler, { SchedulerData, ViewTypes, CellUnits, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
@@ -11,7 +11,7 @@ class InfiniteScroll2 extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData(new moment().format(DATE_FORMAT), ViewTypes.Custom, false, false, {
+        let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewTypes.Custom, false, false, {
             headerEnabled: false,
             customCellWidth: 30,
             nonAgendaDayCellHeaderFormat: 'M/D|HH:mm',
@@ -22,7 +22,7 @@ class InfiniteScroll2 extends Component {
             getCustomDateFunc: this.getCustomDate,
             isNonWorkingTimeFunc: this.isNonWorkingTime
         });
-        schedulerData.localeMoment.locale('en');
+        schedulerData.localeDayjs.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);
         this.state = {
@@ -191,13 +191,13 @@ class InfiniteScroll2 extends Component {
             selectDate = date;
 
         let startDate = selectDate,
-            endDate = schedulerData.localeMoment(startDate).add(1, 'days').format(DATE_FORMAT),
+            endDate = schedulerData.localeDayjs(startDate).add(1, 'days').format(DATE_FORMAT),
             cellUnit = CellUnits.Hour;
         if (num === 1) {
             startDate = schedulerData.startDate;
-            endDate = schedulerData.localeMoment(schedulerData.endDate).add(1, 'days').format(DATE_FORMAT);
+            endDate = schedulerData.localeDayjs(schedulerData.endDate).add(1, 'days').format(DATE_FORMAT);
         } else if (num === -1) {
-            startDate = schedulerData.localeMoment(schedulerData.startDate).add(-1, 'days').format(DATE_FORMAT);
+            startDate = schedulerData.localeDayjs(schedulerData.startDate).add(-1, 'days').format(DATE_FORMAT);
             endDate = schedulerData.endDate;
         }
 
@@ -209,14 +209,14 @@ class InfiniteScroll2 extends Component {
     }
 
     isNonWorkingTime = (schedulerData, time) => {
-        const { localeMoment } = schedulerData;
+        const { localeDayjs } = schedulerData;
         if (schedulerData.cellUnit === CellUnits.Hour) {
-            let hour = localeMoment(time).hour();
+            let hour = localeDayjs(time).hour();
             if (hour < 1)
                 return true;
         }
         else {
-            let dayOfWeek = localeMoment(time).weekday();
+            let dayOfWeek = localeDayjs(time).weekday();
             if (dayOfWeek === 0 || dayOfWeek === 6)
                 return true;
         }

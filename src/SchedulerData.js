@@ -1,14 +1,14 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { RRuleSet, rrulestr } from 'rrule'
 import config from './config'
 import behaviors from './behaviors'
 import { ViewTypes, CellUnits, DATE_FORMAT, DATETIME_FORMAT } from './index'
 
 export default class SchedulerData {
-    constructor(date = moment(), viewType = ViewTypes.Week,
+    constructor(date = dayjs(), viewType = ViewTypes.Week,
         showAgenda = false, isEventPerspective = false,
         newConfig = undefined, newBehaviors = undefined,
-        localeMoment = undefined) {
+        localeDayjs = undefined) {
         this.resources = [];
         this.events = [];
         this.eventGroups = [];
@@ -21,9 +21,9 @@ export default class SchedulerData {
         this.scrollToSpecialMoment = false;
         this.documentWidth = 0;
 
-        this.localeMoment = moment;
-        if (!!localeMoment)
-            this.localeMoment = localeMoment;
+        this.localeDayjs = dayjs;
+        if (!!localeDayjs)
+            this.localeDayjs = localeDayjs;
         this.config = newConfig == undefined ? config : { ...config, ...newConfig };
         this._validateMinuteStep(this.config.minuteStep);
         this.behaviors = newBehaviors == undefined ? behaviors : { ...behaviors, ...newBehaviors };
@@ -32,9 +32,9 @@ export default class SchedulerData {
         this._createRenderData();
     }
 
-    setLocaleMoment(localeMoment) {
-        if (!!localeMoment) {
-            this.localeMoment = localeMoment;
+    setLocaleDayjs(localeDayjs) {
+        if (!!localeDayjs) {
+            this.localeDayjs = localeDayjs;
             this._createHeaders();
             this._createRenderData();
         }
@@ -144,7 +144,7 @@ export default class SchedulerData {
         this._createRenderData();
     }
 
-    setDate(date = moment(new Date())) {
+    setDate(date = dayjs(new Date())) {
         this._resolveDate(0, date);
         this.events = [];
         this._createHeaders();
@@ -165,34 +165,34 @@ export default class SchedulerData {
             } else {
                 if (this.viewType < viewType) {
                     if (viewType === ViewTypes.Week) {
-                        this.startDate = this.localeMoment(new Date(date)).startOf('week');
-                        this.endDate = this.localeMoment(new Date(this.startDate)).endOf('week');
+                        this.startDate = this.localeDayjs(new Date(date)).startOf('week');
+                        this.endDate = this.localeDayjs(new Date(this.startDate)).endOf('week');
                     }
                     else if (viewType === ViewTypes.Month) {
-                        this.startDate = this.localeMoment(new Date(date)).startOf('month');
-                        this.endDate = this.localeMoment(new Date(this.startDate)).endOf('month');
+                        this.startDate = this.localeDayjs(new Date(date)).startOf('month');
+                        this.endDate = this.localeDayjs(new Date(this.startDate)).endOf('month');
                     }
                     else if (viewType === ViewTypes.Quarter) {
-                        this.startDate = this.localeMoment(new Date(date)).startOf('quarter');
-                        this.endDate = this.localeMoment(new Date(this.startDate)).endOf('quarter');
+                        this.startDate = this.localeDayjs(new Date(date)).startOf('quarter');
+                        this.endDate = this.localeDayjs(new Date(this.startDate)).endOf('quarter');
                     }
                     else if (viewType === ViewTypes.Year) {
-                        this.startDate = this.localeMoment(new Date(date)).startOf('year');
-                        this.endDate = this.localeMoment(new Date(this.startDate)).endOf('year');
+                        this.startDate = this.localeDayjs(new Date(date)).startOf('year');
+                        this.endDate = this.localeDayjs(new Date(this.startDate)).endOf('year');
                     }
                 }
                 else {
-                    let start = this.localeMoment(new Date(this.startDate));
-                    let end = this.localeMoment(new Date(this.endDate)).add(1, 'days');
+                    let start = this.localeDayjs(new Date(this.startDate));
+                    let end = this.localeDayjs(new Date(this.endDate)).add(1, 'days');
 
                     if (this.selectDate !== undefined) {
-                        let selectDate = this.localeMoment(new Date(this.selectDate));
+                        let selectDate = this.localeDayjs(new Date(this.selectDate));
                         if (selectDate >= start && selectDate < end) {
                             date = this.selectDate;
                         }
                     }
 
-                    let now = this.localeMoment();
+                    let now = this.localeDayjs();
                     if (now >= start && now < end) {
                         date = now;
                     }
@@ -203,16 +203,16 @@ export default class SchedulerData {
                         this.cellUnit = CellUnits.Hour;
                     }
                     else if (viewType === ViewTypes.Week) {
-                        this.startDate = this.localeMoment(new Date(date)).startOf('week');
-                        this.endDate = this.localeMoment(new Date(this.startDate)).endOf('week');
+                        this.startDate = this.localeDayjs(new Date(date)).startOf('week');
+                        this.endDate = this.localeDayjs(new Date(this.startDate)).endOf('week');
                     }
                     else if (viewType === ViewTypes.Month) {
-                        this.startDate = this.localeMoment(new Date(date)).startOf('month');
-                        this.endDate = this.localeMoment(new Date(this.startDate)).endOf('month');
+                        this.startDate = this.localeDayjs(new Date(date)).startOf('month');
+                        this.endDate = this.localeDayjs(new Date(this.startDate)).endOf('month');
                     }
                     else if (viewType === ViewTypes.Quarter) {
-                        this.startDate = this.localeMoment(new Date(date)).startOf('quarter');
-                        this.endDate = this.localeMoment(new Date(this.startDate)).endOf('quarter');
+                        this.startDate = this.localeDayjs(new Date(date)).startOf('quarter');
+                        this.endDate = this.localeDayjs(new Date(this.startDate)).endOf('quarter');
                     }
                 }
 
@@ -365,8 +365,8 @@ export default class SchedulerData {
     }
 
     getDateLabel() {
-        let start = this.localeMoment(new Date(this.startDate));
-        let end = this.localeMoment(new Date(this.endDate));
+        let start = this.localeDayjs(new Date(this.startDate));
+        let end = this.localeDayjs(new Date(this.endDate));
         let dateLabel = start.format('LL');
 
         if (start != end)
@@ -477,9 +477,9 @@ export default class SchedulerData {
 
     _attachEvent(event) {
         let pos = 0;
-        let eventStart = this.localeMoment(new Date(event.start));
+        let eventStart = this.localeDayjs(new Date(event.start));
         this.events.forEach((item, index) => {
-            let start = this.localeMoment(new Date(item.start));
+            let start = this.localeDayjs(new Date(item.start));
             if (eventStart >= start)
                 pos = index + 1;
         });
@@ -493,15 +493,15 @@ export default class SchedulerData {
         });
 
         recurringEvents.forEach((item) => {
-            let windowStart = this.localeMoment(new Date(this.startDate)),
-                windowEnd = this.localeMoment(new Date(this.endDate)).add(1, 'days'),
-                oldStart = this.localeMoment(new Date(item.start)),
-                oldEnd = this.localeMoment(new Date(item.end)),
+            let windowStart = this.localeDayjs(new Date(this.startDate)),
+                windowEnd = this.localeDayjs(new Date(this.endDate)).add(1, 'days'),
+                oldStart = this.localeDayjs(new Date(item.start)),
+                oldEnd = this.localeDayjs(new Date(item.end)),
                 rule = rrulestr(item.rrule),
                 oldDtstart = undefined,
                 oldUntil = rule.origOptions.until || windowEnd.toDate();
             if (!!rule.origOptions.dtstart) {
-                oldDtstart = this.localeMoment(new Date(rule.origOptions.dtstart));
+                oldDtstart = this.localeDayjs(new Date(rule.origOptions.dtstart));
             }
             //rule.origOptions.dtstart = oldStart.toDate();
             if (windowEnd < oldUntil) {
@@ -518,7 +518,7 @@ export default class SchedulerData {
                 }
                 if (item.exdates) {
                     item.exdates.forEach((exdate) => {
-                        rruleSet.exdate(this.localeMoment(exdate).toDate());
+                        rruleSet.exdate(this.localeDayjs(exdate).toDate());
                     });
                 }
                 rule = rruleSet;
@@ -533,16 +533,16 @@ export default class SchedulerData {
                     recurringEventEnd: item.end,
                     id: `${item.id}-${index}`,
                     start: rule.origOptions.tzid
-                        ? this.localeMoment.utc(time).utcOffset(this.localeMoment(new Date().utcOffset)(), true).format(DATETIME_FORMAT)
-                        : this.localeMoment(new Date(time)).format(DATETIME_FORMAT),
+                        ? this.localeDayjs.utc(time).utcOffset(this.localeDayjs(new Date().utcOffset)(), true).format(DATETIME_FORMAT)
+                        : this.localeDayjs(new Date(time)).format(DATETIME_FORMAT),
                     end: rule.origOptions.tzid
-                        ? this.localeMoment.utc(time).utcOffset(this.localeMoment(new Date().utcOffset)(), true).add(oldEnd.diff(oldStart), 'ms').add(this.localeMoment(new Date(oldUntil)).utcOffset() - this.localeMoment(new Date(item.start)).utcOffset(), "m").format(DATETIME_FORMAT)
-                        : this.localeMoment(new Date(time)).add(oldEnd.diff(oldStart), 'ms').format(DATETIME_FORMAT)
+                        ? this.localeDayjs.utc(time).utcOffset(this.localeDayjs(new Date().utcOffset)(), true).add(oldEnd.diff(oldStart), 'ms').add(this.localeDayjs(new Date(oldUntil)).utcOffset() - this.localeDayjs(new Date(item.start)).utcOffset(), "m").format(DATETIME_FORMAT)
+                        : this.localeDayjs(new Date(time)).add(oldEnd.diff(oldStart), 'ms').format(DATETIME_FORMAT)
                 };
             });
             newEvents.forEach((newEvent) => {
-                let eventStart = this.localeMoment(newEvent.start),
-                    eventEnd = this.localeMoment(newEvent.end);
+                let eventStart = this.localeDayjs(newEvent.start),
+                    eventEnd = this.localeDayjs(newEvent.end);
                 if (this.isEventInTimeWindow(eventStart, eventEnd, windowStart, windowEnd) && (!oldDtstart || eventStart >= oldDtstart)) {
                     this._attachEvent(newEvent);
                 }
@@ -552,32 +552,32 @@ export default class SchedulerData {
 
     _resolveDate(num, date = undefined) {
         if (date != undefined)
-            this.selectDate = this.localeMoment(date);
+            this.selectDate = this.localeDayjs(date);
 
         if (this.viewType === ViewTypes.Week) {
-            this.startDate = date != undefined ? this.localeMoment(date).startOf('week')
-                : this.localeMoment(this.startDate).add(num, 'weeks');
-            this.endDate = this.localeMoment(this.startDate).endOf('week');
+            this.startDate = date != undefined ? this.localeDayjs(date).startOf('week')
+                : this.localeDayjs(this.startDate).add(num, 'weeks');
+            this.endDate = this.localeDayjs(this.startDate).endOf('week');
         }
         else if (this.viewType === ViewTypes.Day) {
             this.startDate = date != undefined ? this.selectDate
-                : this.localeMoment(this.startDate).add(num, 'days');
+                : this.localeDayjs(this.startDate).add(num, 'days');
             this.endDate = this.startDate;
         }
         else if (this.viewType === ViewTypes.Month) {
-            this.startDate = date != undefined ? this.localeMoment(date).startOf('month')
-                : this.localeMoment(this.startDate).add(num, 'months');
-            this.endDate = this.localeMoment(this.startDate).endOf('month');
+            this.startDate = date != undefined ? this.localeDayjs(date).startOf('month')
+                : this.localeDayjs(this.startDate).add(num, 'months');
+            this.endDate = this.localeDayjs(this.startDate).endOf('month');
         }
         else if (this.viewType === ViewTypes.Quarter) {
-            this.startDate = date != undefined ? this.localeMoment(date).startOf('quarter')
-                : this.localeMoment((this.startDate)).add(num, 'quarters');
-            this.endDate = this.localeMoment(this.startDate).endOf('quarter');
+            this.startDate = date != undefined ? this.localeDayjs(date).startOf('quarter')
+                : this.localeDayjs((this.startDate)).add(num, 'quarters');
+            this.endDate = this.localeDayjs(this.startDate).endOf('quarter');
         }
         else if (this.viewType === ViewTypes.Year) {
-            this.startDate = date != undefined ? this.localeMoment((date)).startOf('year')
-                : this.localeMoment(this.startDate).add(num, 'years');
-            this.endDate = this.localeMoment(this.startDate).endOf('year');
+            this.startDate = date != undefined ? this.localeDayjs((date)).startOf('year')
+                : this.localeDayjs(this.startDate).add(num, 'years');
+            this.endDate = this.localeDayjs(this.startDate).endOf('year');
         }
         else if (this.viewType === ViewTypes.Custom || this.viewType === ViewTypes.Custom1 || this.viewType === ViewTypes.Custom2) {
             if (this.behaviors.getCustomDateFunc != undefined) {
@@ -595,8 +595,8 @@ export default class SchedulerData {
 
     _createHeaders() {
         let headers = [],
-            start = this.localeMoment(new Date(this.startDate)),
-            end = this.localeMoment(new Date(this.endDate)),
+            start = this.localeDayjs(new Date(this.startDate)),
+            end = this.localeDayjs(new Date(this.endDate)),
             header = start;
 
         if (this.showAgenda) {
@@ -641,14 +641,14 @@ export default class SchedulerData {
     }
 
     _createInitHeaderEvents(header) {
-        let start = this.localeMoment(new Date(header.time)),
+        let start = this.localeDayjs(new Date(header.time)),
             startValue = start.format(DATETIME_FORMAT);
         let endValue = this.showAgenda ? (this.viewType === ViewTypes.Week ? start.add(1, 'weeks').format(DATETIME_FORMAT) : (
             this.viewType === ViewTypes.Day ? start.add(1, 'days').format(DATETIME_FORMAT) : (
                 this.viewType === ViewTypes.Month ? start.add(1, 'months').format(DATETIME_FORMAT) : (
                     this.viewType === ViewTypes.Year ? start.add(1, 'years').format(DATETIME_FORMAT) : (
                         this.viewType === ViewTypes.Quarter ? start.add(1, 'quarters').format(DATETIME_FORMAT) :
-                            this.localeMoment(new Date(this.endDate)).add(1, 'days').format(DATETIME_FORMAT)
+                            this.localeDayjs(new Date(this.endDate)).add(1, 'days').format(DATETIME_FORMAT)
                     )
                 )
             )
@@ -904,10 +904,10 @@ export default class SchedulerData {
     }
 
     _compare(event1, event2) {
-        let start1 = this.localeMoment(event1.start), start2 = this.localeMoment(event2.start);
+        let start1 = this.localeDayjs(event1.start), start2 = this.localeDayjs(event2.start);
         if (start1 !== start2) return start1 < start2 ? -1 : 1;
 
-        let end1 = this.localeMoment(event1.end), end2 = this.localeMoment(event2.end);
+        let end1 = this.localeDayjs(event1.end), end2 = this.localeDayjs(event2.end);
         if (end1 !== end2) return end1 < end2 ? -1 : 1;
 
         return event1.id < event2.id ? -1 : 1;

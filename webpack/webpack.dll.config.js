@@ -8,7 +8,7 @@ module.exports = {
         vendors: [
             'react',
             'react-router',
-            'moment'
+            'dayjs'
         ]
     },
 

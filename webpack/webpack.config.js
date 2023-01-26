@@ -20,7 +20,7 @@ module.exports = {
     },
     externals: {
         'react': 'React',
-        'moment': 'moment',
+        'dayjs': 'dayjs',
         'react-dom': 'ReactDOM'
     },
     module: {
@@ -41,7 +41,7 @@ module.exports = {
             },
         }),
         new webpack.ContextReplacementPlugin(
-            /moment[\\\/]locale$/,
+            /dayjs[\\\/]locale$/,
             /^\.\/(zh-cn)$/
         ),
         // new webpack.DllReferencePlugin({

@@ -17,7 +17,7 @@ class CustomEventStyle extends Component {
                 { viewName: 'Year', viewType: ViewTypes.Year, showAgenda: false, isEventPerspective: false },
             ]
         });
-        schedulerData.localeMoment.locale('en');
+        schedulerData.localeDayjs.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.eventsForCustomEventStyle);
         this.state = {

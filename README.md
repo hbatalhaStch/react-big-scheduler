@@ -20,14 +20,14 @@ Inspired by [Full Calendar Scheduler](https://fullcalendar.io/scheduler/).
 import Scheduler, {SchedulerData, ViewTypes, DATE_FORMAT} from 'react-big-scheduler'
 //include `react-big-scheduler/lib/css/style.css` for styles, link it in html or import it here
 import 'react-big-scheduler/lib/css/style.css'
-import moment from 'moment'
+import dayjs from 'dayjs'
 ...
 
 //2. create the view model, put it in the props obj
-let schedulerData = new SchedulerData(new moment().format(DATE_FORMAT), ViewTypes.Week);
-//set locale moment to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States).
-moment.locale('zh-cn');
-schedulerData.setLocaleMoment(moment);
+let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewTypes.Week);
+//set locale dayjs to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States).
+dayjs.locale('zh-cn');
+schedulerData.setLocaleDayjs(dayjs);
 //set resources here or later
 let resources = [
                     {
@@ -136,10 +136,10 @@ SchedulerData is the view model of Scheduler, we can modify it to control the vi
 #### constructor
 
 ```js
-constructor(date=moment().format(DATE_FORMAT), viewType = ViewTypes.Week,
+constructor(date=dayjs().format(DATE_FORMAT), viewType = ViewTypes.Week,
                 showAgenda = false, isEventPerspective = false,
                 newConfig = undefined, newBehaviors=undefined
-                localeMoment = undefined)
+                localeDayjs = undefined)
 ```
 
 - `date` is a string in `YYYY-MM-DD` format, and is the initial date Scheduler will render. Take the date `2017-12-20`
@@ -164,16 +164,16 @@ constructor(date=moment().format(DATE_FORMAT), viewType = ViewTypes.Week,
   fully or partly.
 - `newBehaviors` is a config object, used to override the [default behaviors](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/behaviors.js)
   fully or partly.
-- `localeMoment` is a locale moment object, which is unified used in react-big-scheduler. If not provided, Scheduler will come
+- `localeDayjs` is a locale dayjs object, which is unified used in react-big-scheduler. If not provided, Scheduler will come
   with English(en, United States) locale strings.
 
-#### setLocaleMoment
+#### setLocaleDayjs
 
 ```js
-setLocaleMoment(localeMoment);
+setLocaleDayjs(localeDayjs);
 ```
 
-Used to set locale moment to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States)
+Used to set locale dayjs to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States)
 
 #### setResources
 
@@ -216,7 +216,7 @@ Let the time window scroll to the right once. `SchedulerData.events` will be cle
 #### setDate
 
 ```js
-setDate((date = moment().format(DATE_FORMAT)));
+setDate((date = dayjs().format(DATE_FORMAT)));
 ```
 
 Let the time window jump to the provided `date` directly. `SchedulerData.events` will be clear after calling this method.
@@ -380,7 +380,7 @@ isEventInTimeWindow(eventStart, eventEnd, windowStart, windowEnd);
 ```
 
 Returns whether an event is in the time window or not, remind that `eventStart`, `eventEnd`, `windowStart`, `windowEnd`
-are all moment objects.
+are all dayjs objects.
 
 ### 2.Locale support(Refer to [this example](https://stephenchou1017.github.io/scheduler/#/locale) for details.)
 
@@ -541,9 +541,9 @@ Controls whether to check conflicts when creating, resizing or moving an event i
 
 #### scrollToSpecialMomentEnabled
 
-Controls Scheduler whether to scroll to special moment automatically when the time window contains special moment. If `true`, Scheduler
-horizontal bar will scroll to special moment after calling `setScrollToSpecialMoment(true)` to SchedulerData. Use `SchedulerData.behaviors.getScrollSpecialMomentFunc`
-to tell Scheduler what time the special moment is.
+Controls Scheduler whether to scroll to special dayjs automatically when the time window contains special dayjs. If `true`, Scheduler
+horizontal bar will scroll to special dayjs after calling `setScrollToSpecialMoment(true)` to SchedulerData. Use `SchedulerData.behaviors.getScrollSpecialMomentFunc`
+to tell Scheduler what time the special dayjs is.
 
 #### eventItemPopoverEnabled
 
@@ -638,7 +638,7 @@ Method that sets the background color of cells dynamically.
 getScrollSpecialMoment(schedulerData, startMoment, endMoment);
 ```
 
-Method that defines the special moment Scheduler will scroll to automatically, when the time window contains that moment.
+Method that defines the special dayjs Scheduler will scroll to automatically, when the time window contains that dayjs.
 
 ### 5.Scheduler.propTypes
 

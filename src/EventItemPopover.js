@@ -26,8 +26,8 @@ class EventItemPopover extends Component {
         const { schedulerData, eventItem, title, startTime, endTime, statusColor,
             subtitleGetter, viewEventClick, viewEventText, viewEvent2Click,
             viewEvent2Text, eventItemPopoverTemplateResolver } = this.props;
-        const { localeMoment, config } = schedulerData;
-        let start = localeMoment(new Date(startTime)), end = localeMoment(new Date(endTime));
+        const { localeDayjs, config } = schedulerData;
+        let start = localeDayjs(new Date(startTime)), end = localeDayjs(new Date(endTime));
 
         if (eventItemPopoverTemplateResolver != undefined) {
             return eventItemPopoverTemplateResolver(schedulerData, eventItem, title, start, end, statusColor);

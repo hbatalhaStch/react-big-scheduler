@@ -16,7 +16,7 @@ class AddMore extends Component {
             quarterMaxEvents: 4,
             yearMaxEvents: 4,
         });
-        schedulerData.localeMoment.locale('en');
+        schedulerData.localeDayjs.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);
         this.state = {

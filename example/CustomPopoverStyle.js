@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-//import moment from 'moment'
-//import 'moment/locale/zh-cn';
+//import dayjs from 'dayjs'
+//import 'dayjs/locale/zh-cn';
 import { Col, Row, Button } from 'antd'
 import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
@@ -12,9 +12,9 @@ class CustomPopoverStyle extends Component {
     constructor(props) {
         super(props);
 
-        //let schedulerData = new SchedulerData(new moment("2017-12-18").format(DATE_FORMAT), ViewTypes.Week);
+        //let schedulerData = new SchedulerData(new dayjs("2017-12-18").format(DATE_FORMAT), ViewTypes.Week);
         let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week);
-        schedulerData.localeMoment.locale('en');
+        schedulerData.localeDayjs.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);
         this.state = {

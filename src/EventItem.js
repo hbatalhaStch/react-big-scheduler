@@ -161,7 +161,7 @@ class EventItem extends Component {
         } else {
             clientX = ev.clientX;
         }
-        const { cellUnit, events, config, localeMoment } = schedulerData;
+        const { cellUnit, events, config, localeDayjs } = schedulerData;
         let cellWidth = schedulerData.getContentCellWidth();
         let offset = leftIndex > 0 ? 5 : 6;
         let minWidth = cellWidth - offset;
@@ -175,13 +175,13 @@ class EventItem extends Component {
             count = rightIndex - leftIndex - 1;
         else if (newWidth > maxWidth)
             count = -leftIndex;
-        let newStart = localeMoment(new Date(eventItem.start)).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
+        let newStart = localeDayjs(new Date(eventItem.start)).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
         if (count !== 0 && cellUnit !== CellUnits.Hour && config.displayWeekend === false) {
             if (count > 0) {
                 let tempCount = 0, i = 0;
                 while (true) {
                     i++;
-                    let tempStart = localeMoment(new Date(eventItem.start)).add(i, 'days');
+                    let tempStart = localeDayjs(new Date(eventItem.start)).add(i, 'days');
                     let dayOfWeek = tempStart.weekday();
                     if (dayOfWeek !== 0 && dayOfWeek !== 6) {
                         tempCount++;
@@ -196,7 +196,7 @@ class EventItem extends Component {
                 let tempCount = 0, i = 0;
                 while (true) {
                     i--;
-                    let tempStart = localeMoment(new Date(eventItem.start)).add(i, 'days');
+                    let tempStart = localeDayjs(new Date(eventItem.start)).add(i, 'days');
                     let dayOfWeek = tempStart.weekday();
                     if (dayOfWeek !== 0 && dayOfWeek !== 6) {
                         tempCount--;
@@ -216,13 +216,13 @@ class EventItem extends Component {
         if (!!slot)
             slotName = slot.name;
         if (config.checkConflict) {
-            let start = localeMoment(new Date(newStart)),
-                end = localeMoment(new Date(eventItem.end));
+            let start = localeDayjs(new Date(newStart)),
+                end = localeDayjs(new Date(eventItem.end));
 
             events.forEach((e) => {
                 if (schedulerData._getEventSlotId(e) === slotId && e.id !== eventItem.id) {
-                    let eStart = localeMoment(new Date(e.start)),
-                        eEnd = localeMoment(new Date(e.end));
+                    let eStart = localeDayjs(new Date(e.start)),
+                        eEnd = localeDayjs(new Date(e.end));
                     if ((start >= eStart && start < eEnd) || (end > eStart && end <= eEnd) || (eStart >= start && eStart < end) || (eEnd > start && eEnd <= end))
                         hasConflict = true;
                 }
@@ -364,7 +364,7 @@ class EventItem extends Component {
         } else {
             clientX = ev.clientX;
         }
-        const { headers, cellUnit, events, config, localeMoment } = schedulerData;
+        const { headers, cellUnit, events, config, localeDayjs } = schedulerData;
         let cellWidth = schedulerData.getContentCellWidth();
         let offset = leftIndex > 0 ? 5 : 6;
         let minWidth = cellWidth - offset;
@@ -379,13 +379,13 @@ class EventItem extends Component {
             count = leftIndex - rightIndex + 1;
         else if (newWidth > maxWidth)
             count = headers.length - rightIndex;
-        let newEnd = localeMoment(new Date(eventItem.end)).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
+        let newEnd = localeDayjs(new Date(eventItem.end)).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
         if (count !== 0 && cellUnit !== CellUnits.Hour && config.displayWeekend === false) {
             if (count > 0) {
                 let tempCount = 0, i = 0;
                 while (true) {
                     i++;
-                    let tempEnd = localeMoment(new Date(eventItem.end)).add(i, 'days');
+                    let tempEnd = localeDayjs(new Date(eventItem.end)).add(i, 'days');
                     let dayOfWeek = tempEnd.weekday();
                     if (dayOfWeek !== 0 && dayOfWeek !== 6) {
                         tempCount++;
@@ -400,7 +400,7 @@ class EventItem extends Component {
                 let tempCount = 0, i = 0;
                 while (true) {
                     i--;
-                    let tempEnd = localeMoment(new Date(eventItem.end)).add(i, 'days');
+                    let tempEnd = localeDayjs(new Date(eventItem.end)).add(i, 'days');
                     let dayOfWeek = tempEnd.weekday();
                     if (dayOfWeek !== 0 && dayOfWeek !== 6) {
                         tempCount--;
@@ -420,13 +420,13 @@ class EventItem extends Component {
         if (!!slot)
             slotName = slot.name;
         if (config.checkConflict) {
-            let start = localeMoment(new Date(eventItem.start)),
-                end = localeMoment(new Date(newEnd));
+            let start = localeDayjs(new Date(eventItem.start)),
+                end = localeDayjs(new Date(newEnd));
 
             events.forEach((e) => {
                 if (schedulerData._getEventSlotId(e) === slotId && e.id !== eventItem.id) {
-                    let eStart = localeMoment(new Date(e.start)),
-                        eEnd = localeMoment(new Date(e.end));
+                    let eStart = localeDayjs(new Date(e.start)),
+                        eEnd = localeDayjs(new Date(e.end));
                     if ((start >= eStart && start < eEnd) || (end > eStart && end <= eEnd) || (eStart >= start && eStart < end) || (eEnd > start && eEnd <= end))
                         hasConflict = true;
                 }
@@ -473,7 +473,7 @@ class EventItem extends Component {
 
     render() {
         const { eventItem, isStart, isEnd, isInPopover, eventItemClick, schedulerData, isDragging, connectDragSource, connectDragPreview, eventItemTemplateResolver } = this.props;
-        const { config, localeMoment } = schedulerData;
+        const { config, localeDayjs } = schedulerData;
         const { left, width, top } = this.state;
         let roundCls = isStart ? (isEnd ? 'round-all' : 'round-head') : (isEnd ? 'round-tail' : 'round-none');
         let bgColor = config.defaultEventBgColor;
@@ -491,7 +491,7 @@ class EventItem extends Component {
                 statusColor={bgColor} />
         );
 
-        let start = localeMoment(new Date(eventItem.start));
+        let start = localeDayjs(new Date(eventItem.start));
         let eventTitle = isInPopover ? `${start.format('HH:mm')} ${titleText}` : titleText;
         let startResizeDiv = <div />;
         if (this.startResizable(this.props))

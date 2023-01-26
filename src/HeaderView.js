@@ -15,7 +15,7 @@ class HeaderView extends Component {
 
     render() {
         const { schedulerData, nonAgendaCellHeaderTemplateResolver } = this.props;
-        const { headers, cellUnit, config, localeMoment } = schedulerData;
+        const { headers, cellUnit, config, localeDayjs } = schedulerData;
         let headerHeight = schedulerData.getTableHeaderHeight();
         let cellWidth = schedulerData.getContentCellWidth();
         let minuteStepsInHour = schedulerData.getMinuteStepsInHour();
@@ -25,7 +25,7 @@ class HeaderView extends Component {
         if (cellUnit === CellUnits.Hour) {
             headers.forEach((item, index) => {
                 if (index % minuteStepsInHour === 0) {
-                    let datetime = localeMoment(new Date(item.time));
+                    let datetime = localeDayjs(new Date(item.time));
                     const isCurrentTime = datetime.isSame(new Date(), 'hour');
 
                     style = !!item.nonWorkingTime ? {
@@ -65,7 +65,7 @@ class HeaderView extends Component {
         }
         else {
             headerList = headers.map((item, index) => {
-                let datetime = localeMoment(new Date(item.time));
+                let datetime = localeDayjs(new Date(item.time));
                 style = !!item.nonWorkingTime ? {
                     width: cellWidth,
                     color: config.nonWorkingTimeHeadColor,

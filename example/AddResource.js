@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
@@ -8,9 +8,9 @@ import AddResourceForm from './AddResourceForm'
 class AddResource extends Component {
     constructor(props) {
         super(props);
-        let today = moment().format(DATE_FORMAT);
+        let today = dayjs().format(DATE_FORMAT);
         let schedulerData = new SchedulerData(today, ViewTypes.Week);
-        schedulerData.localeMoment.locale('en');
+        schedulerData.localeDayjs.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);
         this.state = {

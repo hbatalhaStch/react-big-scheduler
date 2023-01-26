@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import Scheduler, { SchedulerData, ViewTypes, AddMorePopover, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
@@ -10,7 +10,7 @@ class Locale extends Component {
     constructor(props) {
         super(props);
 
-        moment.locale('zh-cn');
+        dayjs.locale('zh-cn');
         let schedulerData = new SchedulerData('2017-01-02', ViewTypes.Month, false, false, {
 
             resourceName: '资源名称',
@@ -30,7 +30,7 @@ class Locale extends Component {
         }, {
             getDateLabelFunc: this.getDateLabel,
             isNonWorkingTimeFunc: this.isNonWorkingTime
-        }, moment);
+        }, dayjs);
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);
         this.state = {
@@ -178,8 +178,8 @@ class Locale extends Component {
     }
 
     getDateLabel = (schedulerData, viewType, startDate, endDate) => {
-        let start = schedulerData.localeMoment(startDate);
-        let end = schedulerData.localeMoment(endDate);
+        let start = schedulerData.localeDayjs(startDate);
+        let end = schedulerData.localeDayjs(endDate);
         let dateLabel = start.format('YYYY年M月D日');
 
         if (viewType === ViewTypes.Week) {
@@ -203,14 +203,14 @@ class Locale extends Component {
     }
 
     isNonWorkingTime = (schedulerData, time) => {
-        const { localeMoment } = schedulerData;
+        const { localeDayjs } = schedulerData;
         if (schedulerData.viewType === ViewTypes.Day) {
-            let hour = localeMoment(time).hour();
+            let hour = localeDayjs(time).hour();
             if (hour < 9 || hour > 18)
                 return true;
         }
         else {
-            let dayOfWeek = localeMoment(time).weekday();
+            let dayOfWeek = localeDayjs(time).weekday();
             if (dayOfWeek === 5 || dayOfWeek === 6)
                 return true;
         }

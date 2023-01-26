@@ -33,19 +33,19 @@ class AddMorePopover extends Component {
 
     render() {
         const { headerItem, left, top, height, closeAction, schedulerData } = this.props;
-        const { config, localeMoment } = schedulerData;
+        const { config, localeDayjs } = schedulerData;
         const { time, start, end, events } = headerItem;
-        let header = localeMoment(new Date(time)).format(config.addMorePopoverHeaderFormat);
-        let durationStart = localeMoment(new Date(start));
-        let durationEnd = localeMoment(end);
+        let header = localeDayjs(new Date(time)).format(config.addMorePopoverHeaderFormat);
+        let durationStart = localeDayjs(new Date(start));
+        let durationEnd = localeDayjs(end);
         let eventList = [];
         let i = 0;
         let DnDEventItem = this.state.dndSource.getDragSource();
         events.forEach((evt) => {
             if (evt !== undefined) {
                 i++;
-                let eventStart = localeMoment(evt.eventItem.start);
-                let eventEnd = localeMoment(evt.eventItem.end);
+                let eventStart = localeDayjs(evt.eventItem.start);
+                let eventEnd = localeDayjs(evt.eventItem.end);
                 let isStart = eventStart >= durationStart;
                 let isEnd = eventEnd < durationEnd;
                 let eventItemLeft = 10;

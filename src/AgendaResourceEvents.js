@@ -23,23 +23,23 @@ class AgendaResourceEvents extends Component {
 
     render() {
         const { schedulerData, resourceEvents, slotClickedFunc, slotItemTemplateResolver } = this.props;
-        const { startDate, endDate, config, localeMoment } = schedulerData;
+        const { startDate, endDate, config, localeDayjs } = schedulerData;
         let agendaResourceTableWidth = schedulerData.getResourceTableWidth();
         let width = agendaResourceTableWidth - 2;
 
         let events = [];
         resourceEvents.headerItems.forEach((item) => {
-            let start = localeMoment(new Date(startDate)),
-                end = localeMoment(endDate).add(1, 'days'),
-                headerStart = localeMoment(new Date(item.start)),
-                headerEnd = localeMoment(new Date(item.end));
+            let start = localeDayjs(new Date(startDate)),
+                end = localeDayjs(endDate).add(1, 'days'),
+                headerStart = localeDayjs(new Date(item.start)),
+                headerEnd = localeDayjs(new Date(item.end));
 
             if (start === headerStart && end === headerEnd) {
                 item.events.forEach((evt) => {
-                    let durationStart = localeMoment(new Date(startDate));
-                    let durationEnd = localeMoment(endDate).add(1, 'days');
-                    let eventStart = localeMoment(evt.eventItem.start);
-                    let eventEnd = localeMoment(evt.eventItem.end);
+                    let durationStart = localeDayjs(new Date(startDate));
+                    let durationEnd = localeDayjs(endDate).add(1, 'days');
+                    let eventStart = localeDayjs(evt.eventItem.start);
+                    let eventEnd = localeDayjs(evt.eventItem.end);
                     let isStart = eventStart >= durationStart;
                     let isEnd = eventEnd < durationEnd;
                     let eventItem = <AgendaEventItem
