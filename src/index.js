@@ -147,7 +147,7 @@ class Scheduler extends Component {
 
     render() {
         const { schedulerData, leftCustomHeader, rightCustomHeader } = this.props;
-        const { renderData, showAgenda, config } = schedulerData;
+        const { viewType, renderData, showAgenda, config } = schedulerData;
         const width = schedulerData.getSchedulerWidth();
 
         let tbodyContent = <tr />;
@@ -180,7 +180,7 @@ class Scheduler extends Component {
                 contentHeight = config.schedulerContentHeight;
             let resourcePaddingBottom = resourceScrollbarHeight === 0 ? contentScrollbarHeight : 0;
             let contentPaddingBottom = contentScrollbarHeight === 0 ? resourceScrollbarHeight : 0;
-            let schedulerContentStyle = { overflow: 'auto', margin: "0px", position: "relative", paddingBottom: contentPaddingBottom };
+            let schedulerContentStyle = { overflowX: viewType === ViewTypes.Day || viewType === ViewTypes.Week ? 'hidden' : 'auto', overflowY: 'auto', margin: "0px", position: "relative", paddingBottom: contentPaddingBottom };
             let resourceContentStyle = { height: contentHeight, overflowX: "auto", overflowY: "auto", width: resourceTableWidth + resourceScrollbarWidth - 2, margin: `0px -${contentScrollbarWidth}px 0px 0px` };
             if (config.schedulerMaxHeight > 0) {
                 schedulerContentStyle = {
