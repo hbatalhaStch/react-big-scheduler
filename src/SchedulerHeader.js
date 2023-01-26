@@ -29,6 +29,7 @@ class SchedulerHeader extends Component {
         const { leftCustomHeader, rightCustomHeader, goBack, goNext, schedulerData, onViewChange, onSelectDate } = this.props;
         const { viewType, showAgenda, isEventPerspective, config } = schedulerData;
         let dateLabel = schedulerData.getDateLabel();
+        let selectDate = schedulerData.getSelectedDate();
         let defaultValue = `${viewType}${showAgenda ? 1 : 0}${isEventPerspective ? 1 : 0}`;
         let radioButtonList = config.views.map(item => {
             return <RadioButton key={`${item.viewType}${item.showAgenda ? 1 : 0}${item.isEventPerspective ? 1 : 0}`}
@@ -49,7 +50,7 @@ class SchedulerHeader extends Component {
                                 {
                                     config.calendarPopoverEnabled
                                         ?
-                                        <CalendarPopover dateLabel={dateLabel} onSelectDate={(date) => {
+                                        <CalendarPopover defaultValue={selectDate} dateLabel={dateLabel} onSelectDate={(date) => {
                                             this.handleEvents(onSelectDate, false, date)
                                         }} />
                                         : <span className={'header2-text-label'}>{dateLabel}</span>

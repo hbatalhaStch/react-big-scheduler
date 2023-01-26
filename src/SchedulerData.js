@@ -360,6 +360,10 @@ export default class SchedulerData {
         );
     }
 
+    getSelectedDate() {
+        return this.selectDate.format(DATE_FORMAT)
+    }
+
     getDateLabel() {
         let start = this.localeMoment(new Date(this.startDate));
         let end = this.localeMoment(new Date(this.endDate));

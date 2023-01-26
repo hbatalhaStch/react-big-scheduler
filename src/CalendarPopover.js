@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { Calendar, Popover } from 'antd';
 import { DATE_FORMAT } from '.';
+import dayjs from 'dayjs';
 
 
 class CalendarPopover extends Component {
@@ -14,14 +15,15 @@ class CalendarPopover extends Component {
 
     static propTypes = {
         onSelectDate: PropTypes.func.isRequired,
-        dateLabel: PropTypes.string.isRequired
+        dateLabel: PropTypes.string.isRequired,
+        defaultValue: PropTypes.string.isRequired
     }
 
     render() {
-        const { onSelectDate, dateLabel } = this.props;
+        const { onSelectDate, dateLabel, defaultValue } = this.props;
         let popover = (
             <div className="popover-calendar">
-                <Calendar fullscreen={false} onSelect={(date) => {
+                <Calendar defaultValue={dayjs(defaultValue)} fullscreen={false} onSelect={(date) => {
                     this.handleVisibleChange(false)
                     onSelectDate(date.format(DATE_FORMAT))
                 }} />
