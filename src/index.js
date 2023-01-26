@@ -181,7 +181,7 @@ class Scheduler extends Component {
             let resourcePaddingBottom = resourceScrollbarHeight === 0 ? contentScrollbarHeight : 0;
             let contentPaddingBottom = contentScrollbarHeight === 0 ? resourceScrollbarHeight : 0;
             let schedulerContentStyle = {
-                overflowX: viewType === ViewTypes.Day || viewType === ViewTypes.Week ? 'hidden' : 'auto',
+                overflowX: viewType === ViewTypes.Week ? 'hidden' : 'auto',
                 overflowY: 'auto', margin: "0px",
                 position: "relative",
                 paddingBottom: contentPaddingBottom
