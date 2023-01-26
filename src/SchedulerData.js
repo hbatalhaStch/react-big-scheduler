@@ -8,8 +8,7 @@ import { ViewTypes, CellUnits, DATE_FORMAT, DATETIME_FORMAT } from './index'
 export default class SchedulerData {
     constructor(date = dayjs(), viewType = ViewTypes.Week,
         showAgenda = false, isEventPerspective = false,
-        newConfig = undefined, newBehaviors = undefined,
-        localeDayjs = undefined) {
+        newConfig = undefined, newBehaviors = undefined) {
         this.resources = [];
         this.events = [];
         this.eventGroups = [];
@@ -24,8 +23,6 @@ export default class SchedulerData {
 
         dayjs.extend(quarterOfYear)
         this.localeDayjs = dayjs;
-        if (!!localeDayjs)
-            this.localeDayjs = localeDayjs;
         this.config = newConfig == undefined ? config : { ...config, ...newConfig };
         this._validateMinuteStep(this.config.minuteStep);
         this.behaviors = newBehaviors == undefined ? behaviors : { ...behaviors, ...newBehaviors };
