@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import { Col, Row, Spin, Radio, Space } from 'antd';
+import { Col, Row, Spin, Radio, Space, Popover, Calendar } from 'antd';
 import { RightOutlined, LeftOutlined } from '@ant-design/icons';
-import CalendarPopover from './CalendarPopover'
+import dayjs from 'dayjs';
+import { DATE_FORMAT } from '.';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
@@ -11,7 +12,8 @@ class SchedulerHeader extends Component {
         super(props);
         this.state = {
             viewSpinning: false,
-            dateSpinning: false
+            dateSpinning: false,
+            visible: false
         }
     }
 
@@ -31,6 +33,16 @@ class SchedulerHeader extends Component {
         let dateLabel = schedulerData.getDateLabel();
         let selectDate = schedulerData.getSelectedDate();
         let defaultValue = `${viewType}${showAgenda ? 1 : 0}${isEventPerspective ? 1 : 0}`;
+
+        let popover = (
+            <div className="popover-calendar">
+                <Calendar defaultValue={dayjs(selectDate)} fullscreen={false} onSelect={(date) => {
+                    this.handleVisibleChange(false)
+                    this.handleEvents(onSelectDate, false, date.format(DATE_FORMAT))
+                }} />
+            </div>)
+            ;
+
         let radioButtonList = config.views.map(item => {
             return <RadioButton key={`${item.viewType}${item.showAgenda ? 1 : 0}${item.isEventPerspective ? 1 : 0}`}
                 value={`${item.viewType}${item.showAgenda ? 1 : 0}${item.isEventPerspective ? 1 : 0}`}><span
@@ -50,9 +62,11 @@ class SchedulerHeader extends Component {
                                 {
                                     config.calendarPopoverEnabled
                                         ?
-                                        <CalendarPopover defaultValue={selectDate} dateLabel={dateLabel} onSelectDate={(date) => {
-                                            this.handleEvents(onSelectDate, false, date)
-                                        }} />
+                                        <Popover content={popover} placement="bottom" trigger="click"
+                                            open={this.state.visible}
+                                            onOpenChange={this.handleVisibleChange}>
+                                            <span className={'header2-text-label'} style={{ cursor: 'pointer' }}>{dateLabel}</span>
+                                        </Popover>
                                         : <span className={'header2-text-label'}>{dateLabel}</span>
                                 }
                                 <RightOutlined type="right" style={{ marginLeft: "8px" }} className="icon-nav"
