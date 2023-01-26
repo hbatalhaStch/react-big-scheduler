@@ -173,8 +173,15 @@ constructor(date=dayjs().format(DATE_FORMAT), viewType = ViewTypes.Week,
 setSchedulerLocale(lang);
 ```
 
-Used to set locale dayjs to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States)
+Used to set locale to the scheduler, it uses dayjs locales ([List of supported locales](https://github.com/iamkun/dayjs/tree/dev/src/locale)).
+If your locale isn't English. By default, Scheduler comes with English(en, United States)
 
+#### setCalendarPopoverLocale
+
+```js
+setCalendarPopoverLocale(lang);
+```
+Used to set locale to the calendar popover. it uses antd locales ([List of supported locales](https://ant.design/docs/react/i18n#supported-languages). By default, it comes with English(en, United States)
 #### setResources
 
 ```js
