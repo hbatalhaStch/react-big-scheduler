@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import quarterOfYear from "dayjs/plugin/quarterOfYear";
 import { RRuleSet, rrulestr } from 'rrule'
 import config from './config'
 import behaviors from './behaviors'
@@ -21,6 +22,7 @@ export default class SchedulerData {
         this.scrollToSpecialMoment = false;
         this.documentWidth = 0;
 
+        dayjs.extend(quarterOfYear)
         this.localeDayjs = dayjs;
         if (!!localeDayjs)
             this.localeDayjs = localeDayjs;
