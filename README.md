@@ -26,8 +26,7 @@ import dayjs from 'dayjs'
 //2. create the view model, put it in the props obj
 let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewTypes.Week);
 //set locale dayjs to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States).
-dayjs.locale('zh-cn');
-schedulerData.setLocaleDayjs(dayjs);
+schedulerData.setLocale('zh-cn');
 //set resources here or later
 let resources = [
                     {
@@ -167,10 +166,10 @@ constructor(date=dayjs().format(DATE_FORMAT), viewType = ViewTypes.Week,
 - `localeDayjs` is a locale dayjs object, which is unified used in react-big-scheduler. If not provided, Scheduler will come
   with English(en, United States) locale strings.
 
-#### setLocaleDayjs
+#### setLocale
 
 ```js
-setLocaleDayjs(localeDayjs);
+setLocale(lang);
 ```
 
 Used to set locale dayjs to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States)
