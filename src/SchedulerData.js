@@ -537,8 +537,8 @@ export default class SchedulerData {
             }
 
             let all = rule.all();
-            let newEvents = all.map((time, index) => {
-                return {
+            all.forEach((time, index) => {
+                const newEvent = {
                     ...item,
                     recurringEventId: item.id,
                     recurringEventStart: item.start,
@@ -551,8 +551,7 @@ export default class SchedulerData {
                         ? this.localeDayjs.utc(time).utcOffset(this.localeDayjs(new Date().utcOffset)(), true).add(oldEnd.diff(oldStart), 'ms').add(this.localeDayjs(new Date(oldUntil)).utcOffset() - this.localeDayjs(new Date(item.start)).utcOffset(), "m").format(DATETIME_FORMAT)
                         : this.localeDayjs(new Date(time)).add(oldEnd.diff(oldStart), 'ms').format(DATETIME_FORMAT)
                 };
-            });
-            newEvents.forEach((newEvent) => {
+
                 let eventStart = this.localeDayjs(newEvent.start),
                     eventEnd = this.localeDayjs(newEvent.end);
                 if (this.isEventInTimeWindow(eventStart, eventEnd, windowStart, windowEnd) && (!oldDtstart || eventStart >= oldDtstart)) {
