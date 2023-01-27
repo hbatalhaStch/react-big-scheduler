@@ -28,14 +28,14 @@ export default class DnDContext {
                     initialStartTime = resourceEvents.headerItems[initialLeftIndex].start;
                     initialEndTime = resourceEvents.headerItems[initialLeftIndex].end;
                     if (cellUnit !== CellUnits.Hour)
-                        initialEndTime = localeDayjs(new Date(resourceEvents.headerItems)[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                        initialEndTime = localeDayjs(new Date(resourceEvents.headerItems[initialLeftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 }
                 const point = monitor.getClientOffset();
                 let leftIndex = Math.floor((point.x - pos.x) / cellWidth);
                 let startTime = resourceEvents.headerItems[leftIndex].start;
                 let endTime = resourceEvents.headerItems[leftIndex].end;
                 if (cellUnit !== CellUnits.Hour)
-                    endTime = localeDayjs(new Date(resourceEvents.headerItems)[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                    endTime = localeDayjs(new Date(resourceEvents.headerItems[leftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
 
                 return {
                     slotId: resourceEvents.slotId,
@@ -48,6 +48,7 @@ export default class DnDContext {
             },
 
             hover: (props, monitor, component) => {
+                
                 const { schedulerData, resourceEvents, movingEvent } = props;
                 const { cellUnit, config, viewType, localeDayjs } = schedulerData;
                 this.config = config;
@@ -56,13 +57,17 @@ export default class DnDContext {
                 const pos = getPos(component.eventContainer);
                 let cellWidth = schedulerData.getContentCellWidth();
                 let initialStart = null, initialEnd = null;
+                console.log('hhhheeeeerrrr: '+ Math.floor((monitor.getInitialClientOffset().x - pos.x) / cellWidth))
+                console.log(resourceEvents.headerItems)
                 if (type === DnDTypes.EVENT) {
                     const initialPoint = monitor.getInitialClientOffset();
                     let initialLeftIndex = Math.floor((initialPoint.x - pos.x) / cellWidth);
                     initialStart = resourceEvents.headerItems[initialLeftIndex].start;
+                    console.log('inifial: '+ initialLeftIndex)
+                    console.log(resourceEvents.headerItems[initialLeftIndex].start)
                     initialEnd = resourceEvents.headerItems[initialLeftIndex].end;
                     if (cellUnit !== CellUnits.Hour)
-                        initialEnd = localeDayjs(new Date(resourceEvents.headerItems)[initialLeftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                        initialEnd = localeDayjs(new Date(resourceEvents.headerItems[initialLeftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 }
                 const point = monitor.getClientOffset();
                 let leftIndex = Math.floor((point.x - pos.x) / cellWidth);
@@ -72,7 +77,7 @@ export default class DnDContext {
                 let newStart = resourceEvents.headerItems[leftIndex].start;
                 let newEnd = resourceEvents.headerItems[leftIndex].end;
                 if (cellUnit !== CellUnits.Hour)
-                    newEnd = localeDayjs(new Date(resourceEvents.headerItems)[leftIndex].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+                    newEnd = localeDayjs(new Date(resourceEvents.headerItems[leftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 let slotId = resourceEvents.slotId, slotName = resourceEvents.slotName;
                 let action = 'New';
                 let isEvent = type === DnDTypes.EVENT;

@@ -173,7 +173,7 @@ class ResourceEvents extends Component {
         let startTime = headers[leftIndex].time;
         let endTime = resourceEvents.headerItems[rightIndex - 1].end;
         if (cellUnit !== CellUnits.Hour)
-            endTime = localeDayjs(new Date(resourceEvents.headerItems)[rightIndex - 1].start).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
+            endTime = localeDayjs(new Date(resourceEvents.headerItems[rightIndex - 1].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
         let slotId = resourceEvents.slotId;
         let slotName = resourceEvents.slotName;
 
