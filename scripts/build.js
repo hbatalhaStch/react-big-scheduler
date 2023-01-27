@@ -14,7 +14,7 @@ process.on('unhandledRejection', err => {
 const util = require('util');
 const path = require('path');
 const exec = util.promisify(require('child_process').exec);
-const appendFile = util.promisify(require('fs').appendFile);
+const fs = require('fs-extra')
 
 async function build() {
   const root = path.resolve(__dirname, '..');
@@ -42,11 +42,9 @@ async function build() {
     process.stdout.write('Transpiling js with babel... \n');
     const jsResult = await exec(`babel ${sourceDir} --out-dir ${jsTarget}`);
 
-    // TODO: copy the style.css file to lib css foder
-    // copy css
-    // process.stdout.write('Copying library style definitions... \n');
-    // const cssResult = await exec(`cpy ${sourceDir}/css/style.css ${cssTarget}`);
-    
+    process.stdout.write('Copying library style definitions... \n');
+    await fs.copy(`${sourceDir}/css/`, cssTarget);
+
     process.stdout.write('Success! \n');
   } catch (e) {
     console.log(e)
