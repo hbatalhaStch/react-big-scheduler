@@ -56,15 +56,11 @@ export default class DnDContext {
                 const type = monitor.getItemType();
                 const pos = getPos(component.eventContainer);
                 let cellWidth = schedulerData.getContentCellWidth();
-                let initialStart = null, initialEnd = null;
-                console.log('hhhheeeeerrrr: '+ Math.floor((monitor.getInitialClientOffset().x - pos.x) / cellWidth))
-                console.log(resourceEvents.headerItems)
+                let initialStart = null, initialEnd = null;            
                 if (type === DnDTypes.EVENT) {
                     const initialPoint = monitor.getInitialClientOffset();
                     let initialLeftIndex = Math.floor((initialPoint.x - pos.x) / cellWidth);
                     initialStart = resourceEvents.headerItems[initialLeftIndex].start;
-                    console.log('inifial: '+ initialLeftIndex)
-                    console.log(resourceEvents.headerItems[initialLeftIndex].start)
                     initialEnd = resourceEvents.headerItems[initialLeftIndex].end;
                     if (cellUnit !== CellUnits.Hour)
                         initialEnd = localeDayjs(new Date(resourceEvents.headerItems[initialLeftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
