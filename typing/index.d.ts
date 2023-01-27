@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { CSSProperties } from "react";
 
 declare module 'react-big-scheduler-stch'
@@ -85,6 +86,14 @@ declare module 'react-big-scheduler-stch'
         setViewType(viewType?: ViewTypes, showAgenda?: boolean, isEventPerspective?: boolean): void;
         setDate(date?: string): void;
         toggleExpandStatus(slotId: string): void;
+        removeEventById(eventId: string): void;
+        removeEvent(event: Event): void;
+        isEventInTimeWindow(eventStart: Date | Dayjs, eventEnd: Date | Dayjs, windowStart: Date | Dayjs, windowEnd: Date | Dayjs): boolean;
+        addEvent(newEvent: Event): void;
+        getResourceById(resourceId: string): ResourceEvent;
+        setSchedulerLocale(lang: string): void;
+        setCalendarPopoverLocale(lang: string): void;
+
     }
 
     export enum CellUnits {
