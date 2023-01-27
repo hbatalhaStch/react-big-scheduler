@@ -42,8 +42,11 @@ async function build() {
     process.stdout.write('Transpiling js with babel... \n');
     const jsResult = await exec(`babel ${sourceDir} --out-dir ${jsTarget}`);
 
-    process.stdout.write('Copying library style definitions... \n');
+    process.stdout.write('Copying type definitions... \n');
     await fs.copy(`${sourceDir}/css/`, cssTarget);
+
+    process.stdout.write('Copying library style definitions... \n');
+    await fs.copy(`${root}/typing/index.d.ts`, `${targetDir}/index.d.ts`);
 
     process.stdout.write('Success! \n');
   } catch (e) {
