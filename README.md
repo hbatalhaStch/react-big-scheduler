@@ -391,7 +391,7 @@ isEventInTimeWindow(eventStart, eventEnd, windowStart, windowEnd);
 ```
 
 Returns whether an event is in the time window or not, remind that `eventStart`, `eventEnd`, `windowStart`, `windowEnd`
-are all dayjs objects.
+are all dayjs | Date objects.
 
 ### 2.Locale support(Refer to [this example](https://stephenchou1017.github.io/scheduler/#/locale) for details.)
 
