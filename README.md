@@ -3,13 +3,17 @@
 A scheduler and resource planning component built for React and made for modern browsers (IE10+), IE needs babel-polyfill.  
 **From the npm version 0.2.6, Scheduler will use responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
 
+## Changes
+This forks uses the latest antd and react versions and improves the performance significantly as well as some other changes such as:
+- Add Spin when changing view and selecting date through SchedulerData config option `viewChangeSpinEnabled` and `dateChangeSpinEnabled` (both true by default)
+- Replace Moment.js with Day.js
+- Change event item popover trigger through SchedulerData config option `eventItemPopoverTrigger` ('hover' | 'click'), 'hover' by default
+- Set a fixed height for the scheduler through the SchedulerData config option `schedulerContentHeight` ('500px' by default)
+- Enable/disable react dnd through SchedulerData config option `dragAndDropEnabled` (true by default) 
+
 [Online demo](https://stephenchou1017.github.io/scheduler/#/)
 
 Inspired by [Full Calendar Scheduler](https://fullcalendar.io/scheduler/).
-
-## Version selection
-
-- antd >= 3.9.0 ? react-big-scheduler@0.2.7 : react-big-scheduler@0.2.4
 
 ## Use and Setup
 
