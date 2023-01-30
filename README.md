@@ -1,6 +1,6 @@
 # react-big-scheduler ![npm](https://img.shields.io/npm/v/react-big-scheduler.svg?style=plastic)
 
-A scheduler and resource planning component built for React and made for modern browsers (IE10+), IE needs babel-polyfill.  
+A scheduler and resource planning component built for React and made for modern browsers.  
 **From the npm version 0.2.6, Scheduler will use responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
 
 ## Changes
@@ -10,6 +10,7 @@ This forks uses the latest antd and react versions and improves the performance 
 - Change event item popover trigger through SchedulerData config option `eventItemPopoverTrigger` ('hover' | 'click'), 'hover' by default
 - Set a fixed height for the scheduler through the SchedulerData config option `schedulerContentHeight` ('500px' by default)
 - Enable/disable react dnd through SchedulerData config option `dragAndDropEnabled` (true by default) 
+- Drop IE support
 
 [Online demo](https://stephenchou1017.github.io/scheduler/#/)
 
@@ -21,7 +22,7 @@ Inspired by [Full Calendar Scheduler](https://fullcalendar.io/scheduler/).
 
 ```js
 //1. import
-import Scheduler, {SchedulerData, ViewTypes, DATE_FORMAT} from 'react-big-scheduler'
+import Scheduler, {SchedulerData, ViewTypes, DATE_FORMAT} from 'react-big-scheduler-stch'
 //include `react-big-scheduler/lib/css/style.css` for styles, link it in html or import it here
 import 'react-big-scheduler/lib/css/style.css'
 import dayjs from 'dayjs'
