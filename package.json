@@ -1,8 +1,9 @@
 {
-  "name": "react-big-scheduler-test1",
-  "version": "0.2.8",
-  "description": "A scheduler and resource planning component built for React and made for modern browsers (IE10+)",
+  "name": "react-big-scheduler-stch",
+  "version": "1.0.0",
+  "description": "A scheduler and resource planning component built for React and made for modern browsers",
   "keywords": [
+    "react-scheduler",
     "scheduler",
     "react-component",
     "react",
@@ -17,6 +18,14 @@
     "CHANGELOG.md"
   ],
   "main": "lib/index",
+  "homepage": "https://github.com/hbatalhaStch/react-big-scheduler",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hbatalhaStch/react-big-scheduler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hbatalhaStch/react-big-scheduler/issues"
+  },
   "scripts": {
     "clean": "rimraf ./lib && mkdir lib",
     "build": "node scripts/build.js",
