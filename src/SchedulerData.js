@@ -832,7 +832,7 @@ export default class SchedulerData {
             const date2_ms = date2.getTime();
 
             const diff = Math.round((date2_ms - date1_ms) / one);
-            return diff < 0 ? 0 : diff;
+            return diff < 0 ? 0 : timeIn === 'days' ? diff + 1 : diff;
         }
 
         let start = (new Date(startTime)),
