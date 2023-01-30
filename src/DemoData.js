@@ -253,7 +253,7 @@ const DemoData = {
           id: 11,
           start: '2017-12-27 18:30:00',
           end: '2017-12-27 23:30:00',
-          resourceId: 'r14',
+          resourceId: 'r4',
           title: 'R4 has many tasks',
           groupId: 4,
           groupName: 'Task4'
