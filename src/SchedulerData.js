@@ -808,6 +808,8 @@ export default class SchedulerData {
         }
 
         const timeBetween = (date1, date2, timeIn) => {
+            if (date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth()) { return 1; }
+
             let one;
             switch (timeIn) {
                 case 'days':
@@ -820,13 +822,13 @@ export default class SchedulerData {
                     break;
                 default:
                     return 0;
-
             }
 
             const date1_ms = date1.getTime();
             const date2_ms = date2.getTime();
 
-            return Math.round((date2_ms - date1_ms) / one);
+            const diff = Math.round((date2_ms - date1_ms) / one);
+            return diff < 0 ? 0 : diff;
         }
 
         let start = (new Date(startTime)),
@@ -848,9 +850,11 @@ export default class SchedulerData {
                 }
             }
         } else if (this.viewType === ViewTypes.Week) {
-            span = Math.ceil(timeBetween(new Date(this.startDate), end, 'days') + 1);
+            const windowStart = new Date(this.startDate);
+            const startDate = windowStart < start ? start : windowStart
+            span = Math.ceil(timeBetween(startDate, end, 'days'));
         } else {
-            span = Math.ceil(timeBetween(start, end, 'days') + 1);
+            span = Math.ceil(timeBetween(start, end, 'days'));
         }
 
         return span;
