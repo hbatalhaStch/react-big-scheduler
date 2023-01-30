@@ -808,7 +808,11 @@ export default class SchedulerData {
         }
 
         const timeBetween = (date1, date2, timeIn) => {
-            if (date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth()) { return 1; }
+            if (timeIn === 'days' || timeIn === 'day') {
+                if (date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth()) {
+                    return 1;
+                }
+            }
 
             let one;
             switch (timeIn) {
