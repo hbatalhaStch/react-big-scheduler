@@ -29,8 +29,8 @@ class DragAndDrop extends Component {
         schedulerData.setEvents(DemoData.eventsForTaskView);
         this.state = {
             viewModel: schedulerData,
-            taskDndSource: new DnDSource((props) => { return props.task; }, TaskItem, DnDTypes.TASK),
-            resourceDndSource: new DnDSource((props) => { return props.resource; }, ResourceItem, DnDTypes.RESOURCE),
+            taskDndSource: new DnDSource((props) => { return props.task; }, TaskItem, true, DnDTypes.TASK),
+            resourceDndSource: new DnDSource((props) => { return props.resource; }, ResourceItem, true, DnDTypes.RESOURCE),
         }
     }
 

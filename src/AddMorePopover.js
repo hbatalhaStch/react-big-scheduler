@@ -9,8 +9,10 @@ class AddMorePopover extends Component {
     constructor(props) {
         super(props);
 
+        const { schedulerData } = props;
+
         this.state = {
-            dndSource: new DnDSource((props) => { return props.eventItem; }, EventItem),
+            dndSource: new DnDSource((props) => { return props.eventItem; }, EventItem, schedulerData.config.dragAndDropEnabled),
         }
     }
 
