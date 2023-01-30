@@ -505,8 +505,8 @@ export default class SchedulerData {
         });
 
         recurringEvents.forEach((item) => {
-            let windowStart = this.localeDayjs(new Date(this.startDate)),
-                windowEnd = this.localeDayjs(new Date(this.endDate)).add(1, 'days'),
+            let windowStart = this.startDate,
+                windowEnd = this.endDate.add(1, 'days'),
                 oldStart = this.localeDayjs(new Date(item.start)),
                 oldEnd = this.localeDayjs(new Date(item.end)),
                 rule = rrulestr(item.rrule),
@@ -536,7 +536,7 @@ export default class SchedulerData {
                 rule = rruleSet;
             }
 
-            let all = rule.all();
+            let all = rule.between(new Date(windowStart), new Date(windowEnd));
             all.forEach((time, index) => {
                 const newEvent = {
                     ...item,
