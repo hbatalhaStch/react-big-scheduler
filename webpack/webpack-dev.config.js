@@ -27,7 +27,7 @@ module.exports = {
     rules: [
       { test: /\.jsx$|\.es6$|\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ },
       {
-        test: /\.scss$|\.css$|\.less$/,
+        test: /\.css$/,
         use: [
           {
             loader: 'style-loader',
@@ -40,19 +40,6 @@ module.exports = {
             options: {
               sourceMap: false
             }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: false
-            }
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              javascriptEnabled: true,
-              sourceMap: false
-            },
           },
         ],
       },
