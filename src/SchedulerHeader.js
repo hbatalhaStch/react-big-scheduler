@@ -32,12 +32,12 @@ class SchedulerHeader extends Component {
         const { viewType, showAgenda, isEventPerspective, config } = schedulerData;
         let dateLabel = schedulerData.getDateLabel();
         let selectDate = schedulerData.getSelectedDate();
-        let calendarLocale = schedulerData.getCalendarPopoverLocale();
+        let calendarLocale = schedulerData.getCalendarPopoverLocale() !== undefined
+            ? schedulerData.getCalendarPopoverLocale().default.Calendar : undefined;
         let defaultValue = `${viewType}${showAgenda ? 1 : 0}${isEventPerspective ? 1 : 0}`;
-
         let popover = (
             <div className="popover-calendar">
-                <Calendar locale={calendarLocale.default.Calendar} defaultValue={dayjs(selectDate)} fullscreen={false} onSelect={(date) => {
+                <Calendar locale={calendarLocale} defaultValue={dayjs(selectDate)} fullscreen={false} onSelect={(date) => {
                     this.handleVisibleChange(false)
                     this.handleEvents(onSelectDate, false, date.format(DATE_FORMAT))
                 }} />
