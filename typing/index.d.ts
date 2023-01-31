@@ -1,9 +1,10 @@
 import { Dayjs } from "dayjs";
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 
 declare module 'react-big-scheduler-stch'
 {
     export default class Scheduler extends React.Component<SchedulerProps, any> { }
+    export default class AddMorePopover extends React.Component<AddMorePopoverProps, any> { }
 
     export interface SchedulerProps {
         schedulerData: SchedulerData;
@@ -26,8 +27,8 @@ declare module 'react-big-scheduler-stch'
             schedulerData: SchedulerData,
             eventItem: Event,
             title: string,
-            start: moment.Moment,
-            end: moment.Moment,
+            start: Dayjs,
+            end: Dayjs,
             statusColor: string,
         ): void;
         toggleExpandFunc?: (
@@ -46,7 +47,6 @@ declare module 'react-big-scheduler-stch'
         onScrollRight?: (schedulerData: Scheduler, schedulerContent: React.ReactNode, maxScrollLeft: number) => void;
         onScrollTop?: (schedulerData: Scheduler, schedulerContent: React.ReactNode, maxScrollTop: number) => void;
         onScrollBottom?: (schedulerData: Scheduler, schedulerContent: React.ReactNode, maxScrollTop: number) => void;
-        toggleExpandFunc?: (schedulerData: SchedulerData, slotId: string) => void;
         onSetAddMoreState?: (newState: State) => void;
         conflictOccurred?: (schedulerData: SchedulerData, action: string, item: Event, type: string, slotId: string, slotName, newStart: string, newEnd: string) => void;
         nonAgendaCellHeaderTemplateResolver?: (schedulerData: Scheduler, item: Event, formattedDateItems: string[], style: CSSProperties) => void;
@@ -61,29 +61,46 @@ declare module 'react-big-scheduler-stch'
         ) => void;
         leftCustomHeader?: React.ReactNode;
         rightCustomHeader?: React.ReactNode;
+        dndSources?: DnDSource[],
+    }
+
+    export interface AddMorePopoverProps {
+        schedulerData: SchedulerData
+        headerItem: HeaderItem,
+        left: number,
+        top: number,
+        height: number,
+        closeAction: PropTypes.func.isRequired,
+        subtitleGetter?: SchedulerProps['subtitleGetter'];
+        moveEvent?: SchedulerProps['moveEvent'];
+        eventItemClick?: SchedulerProps['eventItemClick'];
+        viewEventClick?: SchedulerProps['viewEventClick'];
+        viewEventText?: string,
+        viewEvent2Text?: string,
+        viewEvent2Click?: SchedulerProps['viewEvent2Click'];
+        eventItemTemplateResolver?: SchedulerProps['eventItemTemplateResolver'];
     }
 
     export class SchedulerData {
-        localeMoment(date: string): moment.Moment;
+        localeDaysjs(date: string): Dayjs;
         cellUnit: CellUnits;
-        viewType: ViewTypes;
+        viewType: ViewType;
         startDate: string;
 
         constructor(
             date?: string,
-            viewType?: ViewTypes,
+            viewType?: ViewType,
             showAgenda?: boolean,
             isEventPerspective?: boolean,
             newConfig?: SchedulerDataConfig,
-            newBehaviours?: object,
-            localeMoment?: typeof moment,
+            newBehaviours?: object
         );
 
         setResources(resources: Resource[]): void;
         setEvents(events: Event[]): void;
         prev(): void;
         next(): void;
-        setViewType(viewType?: ViewTypes, showAgenda?: boolean, isEventPerspective?: boolean): void;
+        setViewType(viewType?: ViewType, showAgenda?: boolean, isEventPerspective?: boolean): void;
         setDate(date?: string): void;
         toggleExpandStatus(slotId: string): void;
         removeEventById(eventId: string): void;
@@ -93,7 +110,15 @@ declare module 'react-big-scheduler-stch'
         getResourceById(resourceId: string): ResourceEvent;
         setSchedulerLocale(lang: string): void;
         setCalendarPopoverLocale(lang: string): void;
+    }
 
+    export class DnDSource {
+        constructor(
+            resolveDragObjFunc: (props: {}) => any,
+            DecoratedComponent: React.ReactNode,
+            dragAnDropEnabled: boolean,
+            dndType: string
+        );
     }
 
     export enum CellUnits {
@@ -101,7 +126,7 @@ declare module 'react-big-scheduler-stch'
         Hour,
     }
 
-    export enum ViewTypes {
+    export enum ViewType {
         Day,
         Week,
         Month,
@@ -113,8 +138,8 @@ declare module 'react-big-scheduler-stch'
     }
 
     export interface View {
-        viewName?: string | undefined;
-        viewType: ViewTypes;
+        viewName?: string
+        viewType: ViewType;
         showAgenda: boolean;
         isEventPerspective: boolean;
     }
@@ -125,19 +150,24 @@ declare module 'react-big-scheduler-stch'
         end: string;
         resourceId: string;
         title: string;
-        bgColor?: string | undefined;
-        rrule?: string | undefined;
+        bgColor?: string;
+        rrule?: string;
+        showPopover?: boolean;
+        resizable?: boolean;
+        movable?: boolean;
+        startResizable?: boolean;
+        endResizable?: boolean;
     }
 
     export interface ResourceEvent {
-        slotId: number;
-        slotName: string;
+        id: number;
+        name: string;
         parentId?: string;
         groupOnly?: boolean;
         hasSummary?: boolean;
-        expanded: boolean;
-        headerItems: Event[];
-        render: boolean;
+        expanded?: boolean;
+        headerItems?: Event[];
+        render?: boolean;
         rowHeight: number;
         rowMaxCount: number;
     }
@@ -145,82 +175,94 @@ declare module 'react-big-scheduler-stch'
     export interface Resource {
         id: string;
         name: string;
+        groupOnly?: boolean;
+    }
+
+    export interface HeaderItem {
+        time: string;
+        start: string;
+        end: string;
+        addMore: number,
+        addMoreIndex: number,
+        count: number;
+        nonWorkingTime: boolean;
+        events: Event[];
     }
 
     export interface State {
-        headerItem: Event;
+        headerItem: HeaderItem;
         left: number,
         top: number,
         height: number;
     }
 
     export interface SchedulerDataConfig {
-        schedulerWidth: number | undefined;
-        besidesWidth: number | undefined;
-        schedulerMaxHeight: number | undefined;
-        tableHeaderHeight: number | undefined;
-        schedulerContentHeight: string | number | undefined;
-        agendaResourceTableWidth: number | undefined;
-        agendaMaxEventWidth: number | undefined;
-        dayResourceTableWidth: number | undefined;
-        weekResourceTableWidth: string | undefined;
-        monthResourceTableWidth: number | undefined;
-        quarterResourceTableWidth: number | undefined;
-        yearResourceTableWidth: number | undefined;
-        customResourceTableWidth: number | undefined;
-        dayCellWidth: number | undefined;
-        weekCellWidth: string | number | undefined;
-        monthCellWidth: number | undefined;
-        quarterCellWidth: number | undefined;
-        yearCellWidth: number | undefined;
-        customCellWidth: number | undefined;
-        dayMaxEvents: number | undefined;
-        weekMaxEvents: number | undefined;
-        monthMaxEvents: number | undefined;
-        quarterMaxEvents: number | undefined;
-        yearMaxEvents: number | undefined;
-        customMaxEvents: number | undefined;
+        schedulerWidth?: number;
+        besidesWidth?: number;
+        schedulerMaxHeight?: number;
+        tableHeaderHeight?: number;
+        schedulerContentHeight?: string | number;
+        agendaResourceTableWidth?: number;
+        agendaMaxEventWidth?: number;
+        dayResourceTableWidth?: number;
+        weekResourceTableWidth?: string;
+        monthResourceTableWidth?: number;
+        quarterResourceTableWidth?: number;
+        yearResourceTableWidth?: number;
+        customResourceTableWidth?: number;
+        dayCellWidth?: number;
+        weekCellWidth?: string | number;
+        monthCellWidth?: number;
+        quarterCellWidth?: number;
+        yearCellWidth?: number;
+        customCellWidth?: number;
+        dayMaxEvents?: number;
+        weekMaxEvents?: number;
+        monthMaxEvents?: number;
+        quarterMaxEvents?: number;
+        yearMaxEvents?: number;
+        customMaxEvents?: number;
         eventItemPopoverTrigger: 'hover' | 'click';
-        eventItemHeight: number | undefined;
-        eventItemLineHeight: number | undefined;
-        nonAgendaSlotMinHeight: number | undefined;
-        dayStartFrom: number | undefined;
-        dayStopTo: number | undefined;
-        defaultEventBgColor: string | undefined;
-        selectedAreaColor: string | undefined;
-        nonWorkingTimeHeadColor: string | undefined;
-        nonWorkingTimeHeadBgColor: string | undefined;
-        nonWorkingTimeBodyBgColor: string | undefined;
-        summaryColor: string | undefined;
-        summaryPos: SummaryPos | undefined;
-        groupOnlySlotColor: string | undefined;
-        startResizable: boolean | undefined;
-        endResizable: boolean | undefined;
-        movable: boolean | undefined;
-        creatable: boolean | undefined;
-        crossResourceMove: boolean | undefined;
-        checkConflict: boolean | undefined;
-        scrollToSpecialMomentEnabled: boolean | undefined;
-        eventItemPopoverEnabled: boolean | undefined;
-        calendarPopoverEnabled: boolean | undefined;
-        recurringEventsEnabled: boolean | undefined;
-        viewChangeSpinEnabled: boolean | undefined;
-        dateChangeSpinEnabled: boolean | undefined;
-        headerEnabled: boolean | undefined;
-        displayWeekend: boolean | undefined;
-        relativeMove: boolean | undefined;
-        defaultExpanded: boolean | undefined;
-        dragAndDropEnabled: boolean | undefined;
-        schedulerHeaderEventsFuncsTimeoutMs: number | undefined;
-        resourceName: string | undefined;
-        taskName: string | undefined;
-        agendaViewHeader: string | undefined;
-        addMorePopoverHeaderFormat: string | undefined;
-        eventItemPopoverDateFormat: string | undefined;
-        nonAgendaDayCellHeaderFormat: string | undefined;
-        nonAgendaOtherCellHeaderFormat: string | undefined;
-        minuteStep: number | undefined;
-        views?: View[] | undefined;
+        eventItemHeight?: number;
+        eventItemLineHeight?: number;
+        nonAgendaSlotMinHeight?: number;
+        dayStartFrom?: number;
+        dayStopTo?: number;
+        defaultEventBgColor?: string;
+        selectedAreaColor?: string;
+        nonWorkingTimeHeadColor?: string;
+        nonWorkingTimeHeadBgColor?: string;
+        nonWorkingTimeBodyBgColor?: string;
+        summaryColor?: string;
+        summaryPos?: SummaryPos;
+        groupOnlySlotColor?: string;
+        startResizable?: boolean;
+        endResizable?: boolean;
+        movable?: boolean;
+        creatable?: boolean;
+        crossResourceMove?: boolean;
+        checkConflict?: boolean;
+        scrollToSpecialDaysjsEnabled?: boolean;
+        eventItemPopoverEnabled?: boolean;
+        calendarPopoverEnabled?: boolean;
+        recurringEventsEnabled?: boolean;
+        viewChangeSpinEnabled?: boolean;
+        dateChangeSpinEnabled?: boolean;
+        headerEnabled?: boolean;
+        displayWeekend?: boolean;
+        relativeMove?: boolean;
+        defaultExpanded?: boolean;
+        dragAndDropEnabled?: boolean;
+        schedulerHeaderEventsFuncsTimeoutMs?: number;
+        resourceName?: string;
+        taskName?: string;
+        agendaViewHeader?: string;
+        addMorePopoverHeaderFormat?: string;
+        eventItemPopoverDateFormat?: string;
+        nonAgendaDayCellHeaderFormat?: string;
+        nonAgendaOtherCellHeaderFormat?: string;
+        minuteStep?: number;
+        views?: View[];
     }
 
     export enum SummaryPos {
@@ -239,7 +281,10 @@ declare module 'react-big-scheduler-stch'
             num: number,
             date?: string,
         ): { startDate: string; endDate: string; cellUnit: CellUnits };
+        getEventTextFunc: (schedulerData: SchedulerData, event: Event) => string;
+        getDateLabel: (schedulerData: SchedulerData, viewType: ViewType, startDate: string | Date, endDate: string | Date) => string;
+        getScrollSpecialMoment: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
+        getSummaryFunc: undefined;
+        getCustomDateFunc: undefined;
     }
-
-
 }
