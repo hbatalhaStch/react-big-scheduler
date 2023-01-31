@@ -125,21 +125,21 @@ class Scheduler extends Component {
 
         const { schedulerData } = this.props;
         const { localeDayjs, behaviors } = schedulerData;
-        if (schedulerData.getScrollToSpecialMoment() && !!behaviors.getScrollSpecialMomentFunc) {
+        if (schedulerData.getScrollToSpecialDayjs() && !!behaviors.getScrollSpecialDayjsFunc) {
             if (!!this.schedulerContent && this.schedulerContent.scrollWidth > this.schedulerContent.clientWidth) {
                 let start = localeDayjs(new Date(schedulerData.startDate)).startOf('day'),
                     end = localeDayjs(new Date(schedulerData.endDate)).endOf('day'),
-                    specialMoment = behaviors.getScrollSpecialMomentFunc(schedulerData, start, end);
-                if (specialMoment >= start && specialMoment <= end) {
+                    specialDayjs = behaviors.getScrollSpecialDayjsFunc(schedulerData, start, end);
+                if (specialDayjs >= start && specialDayjs <= end) {
                     let index = 0;
                     schedulerData.headers.forEach((item) => {
                         let header = localeDayjs(new Date(item.time));
-                        if (specialMoment >= header)
+                        if (specialDayjs >= header)
                             index++;
                     })
                     this.schedulerContent.scrollLeft = (index - 1) * schedulerData.getContentCellWidth();
 
-                    schedulerData.setScrollToSpecialMoment(false);
+                    schedulerData.setScrollToSpecialDayjs(false);
                 }
             }
         }

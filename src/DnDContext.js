@@ -83,8 +83,8 @@ export default class DnDContext {
                         newStart = localeDayjs(event.start).add(localeDayjs(newStart).diff(localeDayjs(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
                     } else {
                         if (viewType !== ViewTypes.Day) {
-                            let tmpMoment = localeDayjs(newStart);
-                            newStart = localeDayjs(event.start).year(tmpMoment.year()).month(tmpMoment.month()).date(tmpMoment.date()).format(DATETIME_FORMAT);
+                            let tmpDayjs = localeDayjs(newStart);
+                            newStart = localeDayjs(event.start).year(tmpDayjs.year()).month(tmpDayjs.month()).date(tmpDayjs.date()).format(DATETIME_FORMAT);
                         }
                     }
                     newEnd = localeDayjs(newStart).add(localeDayjs(event.end).diff(localeDayjs(event.start)), 'ms').format(DATETIME_FORMAT);

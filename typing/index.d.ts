@@ -283,7 +283,7 @@ declare module 'react-big-scheduler-stch'
         ): { startDate: string; endDate: string; cellUnit: CellUnits };
         getEventTextFunc: (schedulerData: SchedulerData, event: Event) => string;
         getDateLabel: (schedulerData: SchedulerData, viewType: ViewType, startDate: string | Date, endDate: string | Date) => string;
-        getScrollSpecialMoment: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
+        getScrollSpecialDayjs: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
         getSummaryFunc: undefined;
         getCustomDateFunc: undefined;
     }

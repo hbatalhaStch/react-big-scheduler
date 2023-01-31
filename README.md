@@ -6,7 +6,7 @@ A scheduler and resource planning component built for React and made for modern 
 ## Changes
 This forks uses the latest antd and react versions and improves the performance significantly as well as some other changes such as:
 - Add Spin when changing view and selecting date through SchedulerData config option `viewChangeSpinEnabled` and `dateChangeSpinEnabled` (both true by default)
-- Replace Moment.js with Day.js
+- Replace Dayjs.js with Day.js
 - Change event item popover trigger through SchedulerData config option `eventItemPopoverTrigger` ('hover' | 'click'), 'hover' by default
 - Set a fixed height for the scheduler through the SchedulerData config option `schedulerContentHeight` ('500px' by default)
 - Enable/disable react dnd through SchedulerData config option `dragAndDropEnabled` (true by default) 
@@ -551,10 +551,10 @@ Controls whether to check conflicts when creating, resizing or moving an event i
 `true`, Scheduler will call the `conflictOccurred` function if given. Refer to
 [this example](https://stephenchou1017.github.io/scheduler/#/overlapcheck).
 
-#### scrollToSpecialMomentEnabled
+#### scrollToSpecialDayjsEnabled
 
 Controls Scheduler whether to scroll to special dayjs automatically when the time window contains special dayjs. If `true`, Scheduler
-horizontal bar will scroll to special dayjs after calling `setScrollToSpecialMoment(true)` to SchedulerData. Use `SchedulerData.behaviors.getScrollSpecialMomentFunc`
+horizontal bar will scroll to special dayjs after calling `setScrollToSpecialDayjs(true)` to SchedulerData. Use `SchedulerData.behaviors.getScrollSpecialDayjsFunc`
 to tell Scheduler what time the special dayjs is.
 
 #### eventItemPopoverEnabled
@@ -644,10 +644,10 @@ getNonAgendaViewBodyCellBgColor(schedulerData, slotId, header);
 
 Method that sets the background color of cells dynamically.
 
-#### getScrollSpecialMomentFunc
+#### getScrollSpecialDayjsFunc
 
 ```js
-getScrollSpecialMoment(schedulerData, startMoment, endMoment);
+getScrollSpecialDayjs(schedulerData, startDayjs, endDayjs);
 ```
 
 Method that defines the special dayjs Scheduler will scroll to automatically, when the time window contains that dayjs.

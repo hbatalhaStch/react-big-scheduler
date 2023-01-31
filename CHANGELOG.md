@@ -52,10 +52,10 @@
 
 ### 2018-11-13
 * Add SchedulerData.behaviors.getNonAgendaViewBodyCellBgColorFunc
-* Add SchedulerData.behaviors.getScrollSpecialMomentFunc
-* Rename SchedulerData.config.scrollToTodayEnabled to SchedulerData.config.scrollToSpecialMomentEnabled
-* Rename SchedulerData.setScrollToToday to SchedulerData.setScrollToSpecialMoment
-* Rename SchedulerData.getScrollToToday to SchedulerData.getScrollToSpecialMoment
+* Add SchedulerData.behaviors.getScrollSpecialDayjsFunc
+* Rename SchedulerData.config.scrollToTodayEnabled to SchedulerData.config.scrollToSpecialDayjsEnabled
+* Rename SchedulerData.setScrollToToday to SchedulerData.setScrollToSpecialDayjs
+* Rename SchedulerData.getScrollToToday to SchedulerData.getScrollToSpecialDayjs
 
 ## npm v0.2.3(beta)
 

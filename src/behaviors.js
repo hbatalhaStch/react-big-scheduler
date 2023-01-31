@@ -85,8 +85,8 @@ export const getEventText = (schedulerData, event) => {
     return eventText;
 }
 
-export const getScrollSpecialMoment = (schedulerData, startMoment, endMoment) => {
-    // return endMoment;
+export const getScrollSpecialDayjs = (schedulerData, startDayjs, endDayjs) => {
+    // return endDayjs;
     const { localeDayjs } = schedulerData;
     return localeDayjs(new Date());
 }
@@ -114,7 +114,7 @@ export default {
     getCustomDateFunc: undefined,
     // getNonAgendaViewBodyCellBgColorFunc: getNonAgendaViewBodyCellBgColor,
     getNonAgendaViewBodyCellBgColorFunc: undefined,
-    getScrollSpecialMomentFunc: getScrollSpecialMoment,
+    getScrollSpecialDayjsFunc: getScrollSpecialDayjs,
     getDateLabelFunc: getDateLabel,
     getEventTextFunc: getEventText,
     isNonWorkingTimeFunc: isNonWorkingTime,
