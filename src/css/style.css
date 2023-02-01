@@ -135,6 +135,7 @@ table.scheduler-table tr:last-child td {
 
 .timeline-event {
     position: absolute;
+    cursor: pointer;
 }
 
 .day-event {
