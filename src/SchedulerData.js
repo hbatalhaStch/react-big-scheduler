@@ -851,7 +851,7 @@ export default class SchedulerData {
                 } else if (day.getDate() === start.getDate() && day.getDate() < end.getDate()) {
                     day.setHours(23, 59, 59)
                     span = Math.ceil(timeBetween(start, day, 'minutes') / this.config.minuteStep);
-                } else if (day.getDate() === start.getDate() && day.getDate() === end.getDate()) {
+                } else if ((day.getDate() === start.getDate() && day.getDate() === end.getDate()) || end.getDate() === start.getDate()) {
                     span = Math.ceil(timeBetween(start, end, 'minutes') / this.config.minuteStep);
                 }
             }
