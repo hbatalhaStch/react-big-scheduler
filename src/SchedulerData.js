@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import quarterOfYear from "dayjs/plugin/quarterOfYear";
+import utc from "dayjs/plugin/utc";
 import { RRuleSet, rrulestr } from 'rrule'
 import config from './config'
 import behaviors from './behaviors'
@@ -23,6 +24,7 @@ export default class SchedulerData {
 
         this.calendarPopoverLocale = undefined;
         dayjs.extend(quarterOfYear)
+        dayjs.extend(utc)
         this.localeDayjs = dayjs;
         this.config = newConfig == undefined ? config : { ...config, ...newConfig };
         this._validateMinuteStep(this.config.minuteStep);
