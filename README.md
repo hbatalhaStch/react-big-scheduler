@@ -3,7 +3,7 @@
 A scheduler and resource planning component built for React and made for modern browsers.  
 **From the npm version 0.2.6, Scheduler will use responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
 
-## Changes
+## Changes (still needing more tests)
 This forks uses the latest antd and react versions and improves the performance significantly as well as some other changes such as:
 - Add Spin when changing view and selecting date through SchedulerData config option `viewChangeSpinEnabled` and `dateChangeSpinEnabled` (both true by default)
 - Replace Dayjs.js with Day.js
