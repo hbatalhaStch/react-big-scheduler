@@ -593,8 +593,8 @@ export default class SchedulerData {
         else if (this.viewType === ViewTypes.Custom || this.viewType === ViewTypes.Custom1 || this.viewType === ViewTypes.Custom2) {
             if (this.behaviors.getCustomDateFunc != undefined) {
                 let customDate = this.behaviors.getCustomDateFunc(this, num, date);
-                this.startDate = customDate.startDate;
-                this.endDate = customDate.endDate;
+                this.startDate = this.localeDayjs(customDate.startDate);
+                this.endDate = this.localeDayjs(customDate.endDate);
                 if (!!customDate.cellUnit)
                     this.cellUnit = customDate.cellUnit;
             } else {
