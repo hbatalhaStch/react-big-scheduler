@@ -52,7 +52,8 @@ class ResourceView extends Component {
             }}>{item.slotName}</a></span>
                 : <span className="slot-cell">{indents}<span className="slot-text">{item.slotName}</span></span>;
             let slotItem = (
-                <div title={item.slotName} className="overflow-text header2-text" style={{ textAlign: "left" }}>
+                <div title={item.slotName} className="overflow-text header2-text"
+                    style={{ cursor: slotClickedFunc === undefined ? undefined : 'pointer', textAlign: "left" }}>
                     {a}
                 </div>
             );
