@@ -11,7 +11,7 @@ This forks uses the latest antd and react versions and improves the performance 
 - Set a fixed height for the scheduler through the SchedulerData config option `schedulerContentHeight` ('500px' by default)
 - Enable/disable react dnd through SchedulerData config option `dragAndDropEnabled` (true by default) 
 - Drop IE support
-- Upgrade react-dnd to v14.0.5 leading to [changes in how we write the withDnDContext](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/example/withDnDContext.js) wrapper
+- Upgrade react-dnd to v14.0.5 leading to [changes in how we write the `withDnDContext`](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/example/withDnDContext.js) wrapper
 
 [Online demo](https://stephenchou1017.github.io/scheduler/#/)
 
