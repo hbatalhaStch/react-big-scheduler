@@ -196,32 +196,32 @@ export interface State {
 }
 
 export interface SchedulerDataConfig {
-    schedulerWidth?: number;
+    schedulerWidth?: string | number;
     besidesWidth?: number;
     schedulerMaxHeight?: number;
     tableHeaderHeight?: number;
     schedulerContentHeight?: string | number;
-    agendaResourceTableWidth?: number;
-    agendaMaxEventWidth?: number;
-    dayResourceTableWidth?: number;
-    weekResourceTableWidth?: string;
-    monthResourceTableWidth?: number;
-    quarterResourceTableWidth?: number;
-    yearResourceTableWidth?: number;
-    customResourceTableWidth?: number;
-    dayCellWidth?: number;
+    agendaResourceTableWidth?: string | number;
+    agendaMaxEventWidth?: string | number;
+    dayResourceTableWidth?: string | number;
+    weekResourceTableWidth?: string | number;
+    monthResourceTableWidth?: string | number;
+    quarterResourceTableWidth?: string | number;
+    yearResourceTableWidth?: string | number;
+    customResourceTableWidth?: string | number;
+    dayCellWidth?: string | number;
     weekCellWidth?: string | number;
-    monthCellWidth?: number;
-    quarterCellWidth?: number;
-    yearCellWidth?: number;
-    customCellWidth?: number;
+    monthCellWidth?: string | number;
+    quarterCellWidth?: string | number;
+    yearCellWidth?: string | number;
+    customCellWidth?: string | number;
     dayMaxEvents?: number;
     weekMaxEvents?: number;
     monthMaxEvents?: number;
     quarterMaxEvents?: number;
     yearMaxEvents?: number;
     customMaxEvents?: number;
-    eventItemPopoverTrigger: 'hover' | 'click';
+    eventItemPopoverTrigger?: 'hover' | 'click';
     eventItemHeight?: number;
     eventItemLineHeight?: number;
     nonAgendaSlotMinHeight?: number;
