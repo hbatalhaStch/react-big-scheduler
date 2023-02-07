@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import Scheduler, { SchedulerData, ViewTypes, AddMorePopover, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, AddMorePopover, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -9,7 +9,7 @@ class AddMore extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week, false, false, {
+        let schedulerData = new SchedulerData('2017-12-18', ViewType.Week, false, false, {
             dayMaxEvents: 2,
             weekMaxEvents: 4,
             monthMaxEvents: 4,

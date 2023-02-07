@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import Scheduler, { SchedulerData, ViewTypes, DemoData, SummaryPos } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DemoData, SummaryPos } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -9,7 +9,7 @@ class Summary extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week, false, false, undefined, {
+        let schedulerData = new SchedulerData('2017-12-18', ViewType.Week, false, false, undefined, {
             getSummaryFunc: this.getSummary,
         });
         schedulerData.localeDayjs.locale('en');

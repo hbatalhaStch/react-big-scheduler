@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import dayjs from 'dayjs'
-import Scheduler, { SchedulerData, ViewTypes, AddMorePopover, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, AddMorePopover, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -11,7 +11,7 @@ class Locale extends Component {
         super(props);
 
         dayjs.locale('zh-cn');
-        let schedulerData = new SchedulerData('2017-01-02', ViewTypes.Month, false, false, {
+        let schedulerData = new SchedulerData('2017-01-02', ViewType.Month, false, false, {
 
             resourceName: '资源名称',
             taskName: '任务名称',
@@ -21,11 +21,11 @@ class Locale extends Component {
             nonAgendaDayCellHeaderFormat: 'HH:mm',
             nonAgendaOtherCellHeaderFormat: 'ddd|M/D',
             views: [
-                { viewName: '天', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false },
-                { viewName: '周', viewType: ViewTypes.Week, showAgenda: false, isEventPerspective: false },
-                { viewName: '月', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false },
-                { viewName: '季', viewType: ViewTypes.Quarter, showAgenda: false, isEventPerspective: false },
-                { viewName: '年', viewType: ViewTypes.Year, showAgenda: false, isEventPerspective: false },
+                { viewName: '天', viewType: ViewType.Day, showAgenda: false, isEventPerspective: false },
+                { viewName: '周', viewType: ViewType.Week, showAgenda: false, isEventPerspective: false },
+                { viewName: '月', viewType: ViewType.Month, showAgenda: false, isEventPerspective: false },
+                { viewName: '季', viewType: ViewType.Quarter, showAgenda: false, isEventPerspective: false },
+                { viewName: '年', viewType: ViewType.Year, showAgenda: false, isEventPerspective: false },
             ],
         }, {
             getDateLabelFunc: this.getDateLabel,
@@ -182,20 +182,20 @@ class Locale extends Component {
         let end = schedulerData.localeDayjs(endDate);
         let dateLabel = start.format('YYYY年M月D日');
 
-        if (viewType === ViewTypes.Week) {
+        if (viewType === ViewType.Week) {
             dateLabel = `${start.format('YYYY年M月D日')}-${end.format('D日')}`;
             if (start.month() !== end.month())
                 dateLabel = `${start.format('YYYY年M月D日')}-${end.format('M月D日')}`;
             if (start.year() !== end.year())
                 dateLabel = `${start.format('YYYY年M月D日')}-${end.format('YYYY年M月D日')}`;
         }
-        else if (viewType === ViewTypes.Month) {
+        else if (viewType === ViewType.Month) {
             dateLabel = start.format('YYYY年M月');
         }
-        else if (viewType === ViewTypes.Quarter) {
+        else if (viewType === ViewType.Quarter) {
             dateLabel = `${start.format('YYYY年M月D日')}-${end.format('M月D日')}`;
         }
-        else if (viewType === ViewTypes.Year) {
+        else if (viewType === ViewType.Year) {
             dateLabel = start.format('YYYY年');
         }
 
@@ -204,7 +204,7 @@ class Locale extends Component {
 
     isNonWorkingTime = (schedulerData, time) => {
         const { localeDayjs } = schedulerData;
-        if (schedulerData.viewType === ViewTypes.Day) {
+        if (schedulerData.viewType === ViewType.Day) {
             let hour = localeDayjs(time).hour();
             if (hour < 9 || hour > 18)
                 return true;

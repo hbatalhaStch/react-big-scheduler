@@ -23,14 +23,14 @@ Inspired by [Full Calendar Scheduler](https://fullcalendar.io/scheduler/).
 
 ```js
 //1. import
-import Scheduler, {SchedulerData, ViewTypes, DATE_FORMAT} from 'react-big-scheduler-stch'
+import Scheduler, {SchedulerData, ViewType, DATE_FORMAT} from 'react-big-scheduler-stch'
 //include `react-big-scheduler/lib/css/style.css` for styles, link it in html or import it here
 import 'react-big-scheduler/lib/css/style.css'
 import dayjs from 'dayjs'
 ...
 
 //2. create the view model, put it in the props obj
-let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewTypes.Week);
+let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewType.Week);
 //set locale dayjs to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States).
 schedulerData.setSchedulerLocale('pt-br'); // this uses dayjs [List of supported locales](https://github.com/iamkun/dayjs/tree/dev/src/locale)
 schedulerData.setCalendarPopoverLocale('pt_BR'); // this uses antd [List of supported locales](https://ant.design/docs/react/i18n#supported-languages)
@@ -142,15 +142,15 @@ SchedulerData is the view model of Scheduler, we can modify it to control the vi
 #### constructor
 
 ```js
-constructor(date=dayjs().format(DATE_FORMAT), viewType = ViewTypes.Week,
+constructor(date=dayjs().format(DATE_FORMAT), viewType = ViewType.Week,
                 showAgenda = false, isEventPerspective = false,
                 newConfig = undefined, newBehaviors=undefined
                 localeDayjs = undefined)
 ```
 
 - `date` is a string in `YYYY-MM-DD` format, and is the initial date Scheduler will render. Take the date `2017-12-20`
-  for example, Scheduler will render the time window of the week from `2017-12-18` to `2017-12-24` in `ViewTypes.Week`
-  view type, and will render the time window of the `2017-12` month in `ViewTypes.Month` view type.
+  for example, Scheduler will render the time window of the week from `2017-12-18` to `2017-12-24` in `ViewType.Week`
+  view type, and will render the time window of the `2017-12` month in `ViewType.Month` view type.
 - `viewType` is the initial view type, now Scheduler supports `Day`, `Week`, `Month`, `Quarter`, `Year` 5 built-in view types,
   in addition Scheduler now supports `Custom`, `Custom1`, `Custom2` 3 custom view types at the same time, in which you can control
   the time window yourself, refer to [this example](https://stephenchou1017.github.io/scheduler/#/customtimewindow). `viewType`,
@@ -214,8 +214,8 @@ If we use the task view, we'd better add the `groupId` and the `groupName` prope
 prev();
 ```
 
-Let the time window scroll to the left once. When `SchedulerData,viewType` is `ViewTypes.Month`, the time window will
-scroll a month, when `SchedulerData,viewType` is `ViewTypes.Week`, the time window will scroll a week. `SchedulerData.events`
+Let the time window scroll to the left once. When `SchedulerData,viewType` is `ViewType.Month`, the time window will
+scroll a month, when `SchedulerData,viewType` is `ViewType.Week`, the time window will scroll a week. `SchedulerData.events`
 will be clear after calling this method.
 
 #### next
@@ -238,7 +238,7 @@ Let the time window jump to the provided `date` directly. `SchedulerData.events`
 
 ```js
 setViewType(
-  (viewType = ViewTypes.Week),
+  (viewType = ViewType.Week),
   (showAgenda = false),
   (isEventPerspective = false)
 );
@@ -483,11 +483,11 @@ Min height of a slot in non-agenda views, default 0, means there is no min heigh
 
 #### dayStartFrom
 
-Start hour rendered from in `ViewTypes.Day` in resource view and task view, default 0.
+Start hour rendered from in `ViewType.Day` in resource view and task view, default 0.
 
 #### dayStopTo
 
-End hour rendered to in `ViewTypes.Day` in resource view and task view, default 23.
+End hour rendered to in `ViewType.Day` in resource view and task view, default 23.
 
 #### defaultEventBgColor
 
@@ -688,7 +688,7 @@ onViewChange: PropTypes.func.isRequired;
 onViewChange(schedulerData, view);
 ```
 
-Callback function fired when the Scheduler view changed. `view` is a json such as { viewType: ViewTypes.Month,
+Callback function fired when the Scheduler view changed. `view` is a json such as { viewType: ViewType.Month,
 showAgenda: true, isEventPerspective: false}.
 
 #### onSelectDate

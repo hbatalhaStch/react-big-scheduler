@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import dayjs from 'dayjs'
 //import 'dayjs/locale/zh-cn';
-import Scheduler, { SchedulerData, ViewTypes, CellUnits, DATE_FORMAT, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, CellUnit, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -11,12 +11,12 @@ class InfiniteScroll2 extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewTypes.Custom, false, false, {
+        let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewType.Custom, false, false, {
             headerEnabled: false,
             customCellWidth: 30,
             nonAgendaDayCellHeaderFormat: 'M/D|HH:mm',
             views: [
-                { viewName: 'Day', viewType: ViewTypes.Custom, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Day', viewType: ViewType.Custom, showAgenda: false, isEventPerspective: false },
             ]
         }, {
             getCustomDateFunc: this.getCustomDate,
@@ -192,7 +192,7 @@ class InfiniteScroll2 extends Component {
 
         let startDate = selectDate,
             endDate = schedulerData.localeDayjs(startDate).add(1, 'days').format(DATE_FORMAT),
-            cellUnit = CellUnits.Hour;
+            cellUnit = CellUnit.Hour;
         if (num === 1) {
             startDate = schedulerData.startDate;
             endDate = schedulerData.localeDayjs(schedulerData.endDate).add(1, 'days').format(DATE_FORMAT);
@@ -210,7 +210,7 @@ class InfiniteScroll2 extends Component {
 
     isNonWorkingTime = (schedulerData, time) => {
         const { localeDayjs } = schedulerData;
-        if (schedulerData.cellUnit === CellUnits.Hour) {
+        if (schedulerData.cellUnit === CellUnit.Hour) {
             let hour = localeDayjs(time).hour();
             if (hour < 1)
                 return true;

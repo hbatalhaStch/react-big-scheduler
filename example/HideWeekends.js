@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 //import dayjs from 'dayjs'
 //import 'dayjs/locale/zh-cn';
-import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -11,8 +11,8 @@ class HideWeekends extends Component {
     constructor(props) {
         super(props);
 
-        //let schedulerData = new SchedulerData(new dayjs("2017-12-18").format(DATE_FORMAT), ViewTypes.Week);
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week, false, false, {
+        //let schedulerData = new SchedulerData(new dayjs("2017-12-18").format(DATE_FORMAT), ViewType.Week);
+        let schedulerData = new SchedulerData('2017-12-18', ViewType.Week, false, false, {
             displayWeekend: false,
             weekCellWidth: '16%'
         });

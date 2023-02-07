@@ -34,8 +34,8 @@ import BodyView from './BodyView'
 import ResourceEvents from './ResourceEvents'
 import AgendaView from './AgendaView'
 import AddMorePopover from './AddMorePopover'
-import ViewTypes from './ViewTypes'
-import CellUnits from './CellUnits'
+import ViewType from './ViewType'
+import CellUnit from './CellUnit'
 import SummaryPos from './SummaryPos'
 import SchedulerData from './SchedulerData'
 import DemoData from './DemoData'
@@ -181,7 +181,7 @@ class Scheduler extends Component {
             let resourcePaddingBottom = resourceScrollbarHeight === 0 ? contentScrollbarHeight : 0;
             let contentPaddingBottom = contentScrollbarHeight === 0 ? resourceScrollbarHeight : 0;
             let schedulerContentStyle = {
-                overflowX: viewType === ViewTypes.Week ? 'hidden' : 'auto',
+                overflowX: viewType === ViewType.Week ? 'hidden' : 'auto',
                 overflowY: 'auto', margin: "0px",
                 position: "relative",
                 height: contentHeight,
@@ -450,5 +450,5 @@ class Scheduler extends Component {
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 export const DATETIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
-export { SchedulerData, ViewTypes, CellUnits, SummaryPos, DnDSource, DnDContext, AddMorePopover, DemoData }
+export { SchedulerData, ViewType, CellUnit, SummaryPos, DnDSource, DnDContext, AddMorePopover, DemoData }
 export default Scheduler

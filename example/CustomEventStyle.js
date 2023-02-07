@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import Scheduler, { SchedulerData, ViewTypes, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -9,12 +9,12 @@ class CustomEventStyle extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week, false, false, {
+        let schedulerData = new SchedulerData('2017-12-18', ViewType.Week, false, false, {
             views: [
-                { viewName: 'Day(Agenda)', viewType: ViewTypes.Day, showAgenda: true, isEventPerspective: false },
-                { viewName: 'Week', viewType: ViewTypes.Week, showAgenda: false, isEventPerspective: false },
-                { viewName: 'Month(TaskView)', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: true },
-                { viewName: 'Year', viewType: ViewTypes.Year, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Day(Agenda)', viewType: ViewType.Day, showAgenda: true, isEventPerspective: false },
+                { viewName: 'Week', viewType: ViewType.Week, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Month(TaskView)', viewType: ViewType.Month, showAgenda: false, isEventPerspective: true },
+                { viewName: 'Year', viewType: ViewType.Year, showAgenda: false, isEventPerspective: false },
             ]
         });
         schedulerData.localeDayjs.locale('en');

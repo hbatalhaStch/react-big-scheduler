@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import dayjs from 'dayjs'
 //import 'dayjs/locale/zh-cn';
-import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -11,10 +11,10 @@ class InfiniteScroll extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewTypes.Day, false, false, {
+        let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewType.Day, false, false, {
             views: [
-                { viewName: 'Day', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false },
-                { viewName: 'Month', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Day', viewType: ViewType.Day, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Month', viewType: ViewType.Month, showAgenda: false, isEventPerspective: false },
             ]
         });
         schedulerData.localeDayjs.locale('en');

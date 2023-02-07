@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types'
 import AddMore from './AddMore'
 import Summary from './Summary'
 import SelectedArea from './SelectedArea'
-import { CellUnits, DATETIME_FORMAT, SummaryPos } from './index'
+import { CellUnit, DATETIME_FORMAT, SummaryPos } from './index'
 import { getPos } from './Util'
 import { DnDTypes } from './DnDTypes'
 const supportTouch = 'ontouchstart' in window;
@@ -172,7 +172,7 @@ class ResourceEvents extends Component {
 
         let startTime = headers[leftIndex].time;
         let endTime = resourceEvents.headerItems[rightIndex - 1].end;
-        if (cellUnit !== CellUnits.Hour)
+        if (cellUnit !== CellUnit.Hour)
             endTime = localeDayjs(new Date(resourceEvents.headerItems[rightIndex - 1].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
         let slotId = resourceEvents.slotId;
         let slotName = resourceEvents.slotName;
@@ -268,7 +268,7 @@ class ResourceEvents extends Component {
                     if (idx < renderEventsMaxIndex && evt !== undefined && evt.render) {
                         let durationStart = localeDayjs(new Date(startDate));
                         let durationEnd = localeDayjs(endDate).add(1, 'days');
-                        if (cellUnit === CellUnits.Hour) {
+                        if (cellUnit === CellUnit.Hour) {
                             durationStart = localeDayjs(new Date(startDate)).add(config.dayStartFrom, 'hours');
                             durationEnd = localeDayjs(endDate).add(config.dayStopTo + 1, 'hours');
                         }

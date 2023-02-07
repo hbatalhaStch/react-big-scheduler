@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import dayjs from 'dayjs'
-import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -9,7 +9,7 @@ class AddResource extends Component {
     constructor(props) {
         super(props);
         let today = dayjs().format(DATE_FORMAT);
-        let schedulerData = new SchedulerData(today, ViewTypes.Week);
+        let schedulerData = new SchedulerData(today, ViewType.Week);
         schedulerData.localeDayjs.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);

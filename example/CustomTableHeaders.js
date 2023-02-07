@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import Scheduler, { DemoData, SchedulerData, ViewTypes } from '../src/index'
+import Scheduler, { DemoData, SchedulerData, ViewType } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -9,7 +9,7 @@ class CustomHeaders extends Component {
   constructor(props) {
     super(props);
 
-    let schedulerData = new SchedulerData(Date.now(), ViewTypes.Week, false, false, {
+    let schedulerData = new SchedulerData(Date.now(), ViewType.Week, false, false, {
       calendarPopoverEnabled: false,
     });
     schedulerData.localeDayjs.locale('en');
@@ -24,7 +24,7 @@ class CustomHeaders extends Component {
     let datetime = schedulerData.localeDayjs(item.time);
     let isCurrentDate = false;
 
-    if (schedulerData.viewType === ViewTypes.Day) {
+    if (schedulerData.viewType === ViewType.Day) {
       isCurrentDate = datetime.isSame(new Date(), 'hour');
     }
     else {

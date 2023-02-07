@@ -1,6 +1,6 @@
-const CellUnits = {
+const CellUnit = {
     Day: 0,
     Hour: 1
 };
 
-export default CellUnits
+export default CellUnit

@@ -1,4 +1,4 @@
-import ViewTypes from './ViewTypes'
+import ViewType from './ViewType'
 import SummaryPos from './SummaryPos'
 
 export default {
@@ -79,10 +79,10 @@ export default {
     minuteStep: 30,
 
     views: [
-        { viewName: 'Day', viewType: ViewTypes.Day, showAgenda: false, isEventPerspective: false },
-        { viewName: 'Week', viewType: ViewTypes.Week, showAgenda: false, isEventPerspective: false },
-        { viewName: 'Month', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false },
-        { viewName: 'Quarter', viewType: ViewTypes.Quarter, showAgenda: false, isEventPerspective: false },
-        { viewName: 'Year', viewType: ViewTypes.Year, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Day', viewType: ViewType.Day, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Week', viewType: ViewType.Week, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Month', viewType: ViewType.Month, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Quarter', viewType: ViewType.Quarter, showAgenda: false, isEventPerspective: false },
+        { viewName: 'Year', viewType: ViewType.Year, showAgenda: false, isEventPerspective: false },
     ],
 }

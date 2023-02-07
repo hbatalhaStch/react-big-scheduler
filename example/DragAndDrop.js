@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { Col, Row } from 'antd'
-import Scheduler, { SchedulerData, ViewTypes, DnDSource, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DnDSource, DemoData } from '../src/index'
 import { DnDTypes } from './DnDTypes'
 import TaskItem from './TaskItem'
 import TaskList from './TaskList'
@@ -15,13 +15,13 @@ class DragAndDrop extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Month, false, false, {
+        let schedulerData = new SchedulerData('2017-12-18', ViewType.Month, false, false, {
             schedulerWidth: '80%',
             schedulerMaxHeight: 500,
             views: [
-                { viewName: 'Agenda View', viewType: ViewTypes.Month, showAgenda: true, isEventPerspective: false },
-                { viewName: 'Resource View', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false },
-                { viewName: 'Task View', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: true },
+                { viewName: 'Agenda View', viewType: ViewType.Month, showAgenda: true, isEventPerspective: false },
+                { viewName: 'Resource View', viewType: ViewType.Month, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Task View', viewType: ViewType.Month, showAgenda: false, isEventPerspective: true },
             ]
         });
         schedulerData.localeDayjs.locale('en');

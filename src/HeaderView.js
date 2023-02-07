@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import { CellUnits } from './index'
+import { CellUnit } from './index'
 
 class HeaderView extends Component {
 
@@ -22,7 +22,7 @@ class HeaderView extends Component {
 
         let headerList = [];
         let style = {};
-        if (cellUnit === CellUnits.Hour) {
+        if (cellUnit === CellUnit.Hour) {
             headers.forEach((item, index) => {
                 if (index % minuteStepsInHour === 0) {
                     let datetime = localeDayjs(new Date(item.time));

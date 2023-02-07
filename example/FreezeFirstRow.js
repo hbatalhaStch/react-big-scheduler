@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import Scheduler, { SchedulerData, ViewTypes, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -9,7 +9,7 @@ class FreezeFirstRow extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Month, false, false, {
+        let schedulerData = new SchedulerData('2017-12-18', ViewType.Month, false, false, {
             schedulerMaxHeight: 400,
         });
         schedulerData.localeDayjs.locale('en');

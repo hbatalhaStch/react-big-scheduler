@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import dayjs from 'dayjs'
-import Scheduler, { SchedulerData, ViewTypes, CellUnits, DemoData, DATE_FORMAT } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, CellUnit, DemoData, DATE_FORMAT } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -10,13 +10,13 @@ class CustomTimeWindow extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData(dayjs().format(DATE_FORMAT), ViewTypes.Custom, false, false, {
+        let schedulerData = new SchedulerData(dayjs().format(DATE_FORMAT), ViewType.Custom, false, false, {
             customCellWidth: 30,
             nonAgendaDayCellHeaderFormat: 'M/D|HH:mm',
             views: [
-                { viewName: 'Two days', viewType: ViewTypes.Custom, showAgenda: false, isEventPerspective: false },
-                { viewName: 'Two weeks', viewType: ViewTypes.Custom1, showAgenda: false, isEventPerspective: false },
-                { viewName: 'Two months', viewType: ViewTypes.Custom2, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Two days', viewType: ViewType.Custom, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Two weeks', viewType: ViewType.Custom1, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Two months', viewType: ViewType.Custom2, showAgenda: false, isEventPerspective: false },
             ],
         }, {
             getCustomDateFunc: this.getCustomDate,
@@ -76,7 +76,7 @@ class CustomTimeWindow extends Component {
 
     onViewChange = (schedulerData, view) => {
         schedulerData.setViewType(view.viewType, view.showAgenda, view.isEventPerspective);
-        schedulerData.config.customCellWidth = view.viewType === ViewTypes.Custom ? 30 : 80;
+        schedulerData.config.customCellWidth = view.viewType === ViewType.Custom ? 30 : 80;
         schedulerData.setEvents(DemoData.events);
         this.setState({
             viewModel: schedulerData
@@ -163,17 +163,17 @@ class CustomTimeWindow extends Component {
         let startDate = num === 0 ? selectDate :
             schedulerData.localeDayjs(selectDate).add(2 * num, 'days').format(DATE_FORMAT),
             endDate = schedulerData.localeDayjs(startDate).add(1, 'days').format(DATE_FORMAT),
-            cellUnit = CellUnits.Hour;
-        if (viewType === ViewTypes.Custom1) {
+            cellUnit = CellUnit.Hour;
+        if (viewType === ViewType.Custom1) {
             let monday = schedulerData.localeDayjs(selectDate).startOf('week').format(DATE_FORMAT);
             startDate = num === 0 ? monday : schedulerData.localeDayjs(monday).add(2 * num, 'weeks').format(DATE_FORMAT);
             endDate = schedulerData.localeDayjs(startDate).add(1, 'weeks').endOf('week').format(DATE_FORMAT);
-            cellUnit = CellUnits.Day;
-        } else if (viewType === ViewTypes.Custom2) {
+            cellUnit = CellUnit.Day;
+        } else if (viewType === ViewType.Custom2) {
             let firstDayOfMonth = schedulerData.localeDayjs(selectDate).startOf('month').format(DATE_FORMAT);
             startDate = num === 0 ? firstDayOfMonth : schedulerData.localeDayjs(firstDayOfMonth).add(2 * num, 'months').format(DATE_FORMAT);
             endDate = schedulerData.localeDayjs(startDate).add(1, 'months').endOf('month').format(DATE_FORMAT);
-            cellUnit = CellUnits.Day;
+            cellUnit = CellUnit.Day;
         }
 
         return {
@@ -185,7 +185,7 @@ class CustomTimeWindow extends Component {
 
     isNonWorkingTime = (schedulerData, time) => {
         const { localeDayjs } = schedulerData;
-        if (schedulerData.cellUnit === CellUnits.Hour) {
+        if (schedulerData.cellUnit === CellUnit.Hour) {
             let hour = localeDayjs(time).hour();
             if (hour < 1)
                 return true;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import Scheduler, { SchedulerData, ViewTypes, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -9,12 +9,12 @@ class Basic extends Component {
     constructor(props) {
         super(props);
 
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Month, false, false, {
+        let schedulerData = new SchedulerData('2017-12-18', ViewType.Month, false, false, {
             eventItemPopoverEnabled: false,
             views: [
-                { viewName: 'Agenda View', viewType: ViewTypes.Month, showAgenda: true, isEventPerspective: false },
-                { viewName: 'Resource View', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: false },
-                { viewName: 'Task View', viewType: ViewTypes.Month, showAgenda: false, isEventPerspective: true },
+                { viewName: 'Agenda View', viewType: ViewType.Month, showAgenda: true, isEventPerspective: false },
+                { viewName: 'Resource View', viewType: ViewType.Month, showAgenda: false, isEventPerspective: false },
+                { viewName: 'Task View', viewType: ViewType.Month, showAgenda: false, isEventPerspective: true },
             ]
         });
         schedulerData.localeDayjs.locale('en');

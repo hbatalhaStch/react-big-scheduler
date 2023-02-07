@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { Popover } from 'antd'
 import EventItemPopover from './EventItemPopover'
-import { CellUnits, DATETIME_FORMAT } from './index'
+import { CellUnit, DATETIME_FORMAT } from './index'
 import { DnDTypes } from './DnDTypes'
 const supportTouch = 'ontouchstart' in window;
 
@@ -175,8 +175,8 @@ class EventItem extends Component {
             count = rightIndex - leftIndex - 1;
         else if (newWidth > maxWidth)
             count = -leftIndex;
-        let newStart = localeDayjs(new Date(eventItem.start)).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
-        if (count !== 0 && cellUnit !== CellUnits.Hour && config.displayWeekend === false) {
+        let newStart = localeDayjs(new Date(eventItem.start)).add(cellUnit === CellUnit.Hour ? count * config.minuteStep : count, cellUnit === CellUnit.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
+        if (count !== 0 && cellUnit !== CellUnit.Hour && config.displayWeekend === false) {
             if (count > 0) {
                 let tempCount = 0, i = 0;
                 while (true) {
@@ -379,8 +379,8 @@ class EventItem extends Component {
             count = leftIndex - rightIndex + 1;
         else if (newWidth > maxWidth)
             count = headers.length - rightIndex;
-        let newEnd = localeDayjs(new Date(eventItem.end)).add(cellUnit === CellUnits.Hour ? count * config.minuteStep : count, cellUnit === CellUnits.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
-        if (count !== 0 && cellUnit !== CellUnits.Hour && config.displayWeekend === false) {
+        let newEnd = localeDayjs(new Date(eventItem.end)).add(cellUnit === CellUnit.Hour ? count * config.minuteStep : count, cellUnit === CellUnit.Hour ? 'minutes' : 'days').format(DATETIME_FORMAT);
+        if (count !== 0 && cellUnit !== CellUnit.Hour && config.displayWeekend === false) {
             if (count > 0) {
                 let tempCount = 0, i = 0;
                 while (true) {

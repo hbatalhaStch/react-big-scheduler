@@ -1,8 +1,8 @@
 import { DropTarget } from 'react-dnd'
 import { getPos } from './Util'
 import { DnDTypes } from './DnDTypes'
-import { CellUnits, DATETIME_FORMAT } from './index'
-import { ViewTypes } from './ViewTypes'
+import { CellUnit, DATETIME_FORMAT } from './index'
+import { ViewType } from './ViewType'
 
 export default class DnDContext {
     constructor(sources, DecoratedComponent) {
@@ -27,14 +27,14 @@ export default class DnDContext {
                     let initialLeftIndex = Math.floor((initialPoint.x - pos.x) / cellWidth);
                     initialStartTime = resourceEvents.headerItems[initialLeftIndex].start;
                     initialEndTime = resourceEvents.headerItems[initialLeftIndex].end;
-                    if (cellUnit !== CellUnits.Hour)
+                    if (cellUnit !== CellUnit.Hour)
                         initialEndTime = localeDayjs(new Date(resourceEvents.headerItems[initialLeftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 }
                 const point = monitor.getClientOffset();
                 let leftIndex = Math.floor((point.x - pos.x) / cellWidth);
                 let startTime = resourceEvents.headerItems[leftIndex].start;
                 let endTime = resourceEvents.headerItems[leftIndex].end;
-                if (cellUnit !== CellUnits.Hour)
+                if (cellUnit !== CellUnit.Hour)
                     endTime = localeDayjs(new Date(resourceEvents.headerItems[leftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
 
                 return {
@@ -62,7 +62,7 @@ export default class DnDContext {
                     let initialLeftIndex = Math.floor((initialPoint.x - pos.x) / cellWidth);
                     initialStart = resourceEvents.headerItems[initialLeftIndex].start;
                     initialEnd = resourceEvents.headerItems[initialLeftIndex].end;
-                    if (cellUnit !== CellUnits.Hour)
+                    if (cellUnit !== CellUnit.Hour)
                         initialEnd = localeDayjs(new Date(resourceEvents.headerItems[initialLeftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 }
                 const point = monitor.getClientOffset();
@@ -72,7 +72,7 @@ export default class DnDContext {
                 }
                 let newStart = resourceEvents.headerItems[leftIndex].start;
                 let newEnd = resourceEvents.headerItems[leftIndex].end;
-                if (cellUnit !== CellUnits.Hour)
+                if (cellUnit !== CellUnit.Hour)
                     newEnd = localeDayjs(new Date(resourceEvents.headerItems[leftIndex].start)).hour(23).minute(59).second(59).format(DATETIME_FORMAT);
                 let slotId = resourceEvents.slotId, slotName = resourceEvents.slotName;
                 let action = 'New';
@@ -82,7 +82,7 @@ export default class DnDContext {
                     if (config.relativeMove) {
                         newStart = localeDayjs(event.start).add(localeDayjs(newStart).diff(localeDayjs(new Date(initialStart))), 'ms').format(DATETIME_FORMAT);
                     } else {
-                        if (viewType !== ViewTypes.Day) {
+                        if (viewType !== ViewType.Day) {
                             let tmpDayjs = localeDayjs(newStart);
                             newStart = localeDayjs(event.start).year(tmpDayjs.year()).month(tmpDayjs.month()).date(tmpDayjs.date()).format(DATETIME_FORMAT);
                         }

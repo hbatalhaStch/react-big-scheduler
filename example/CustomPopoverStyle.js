@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types'
 //import dayjs from 'dayjs'
 //import 'dayjs/locale/zh-cn';
 import { Col, Row, Button } from 'antd'
-import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
 import ViewSrcCode from './ViewSrcCode'
 import withDragDropContext from './withDnDContext'
@@ -12,8 +12,8 @@ class CustomPopoverStyle extends Component {
     constructor(props) {
         super(props);
 
-        //let schedulerData = new SchedulerData(new dayjs("2017-12-18").format(DATE_FORMAT), ViewTypes.Week);
-        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week);
+        //let schedulerData = new SchedulerData(new dayjs("2017-12-18").format(DATE_FORMAT), ViewType.Week);
+        let schedulerData = new SchedulerData('2017-12-18', ViewType.Week);
         schedulerData.localeDayjs.locale('en');
         schedulerData.setResources(DemoData.resources);
         schedulerData.setEvents(DemoData.events);
