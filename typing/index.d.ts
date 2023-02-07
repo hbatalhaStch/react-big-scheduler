@@ -4,7 +4,8 @@ import React, { CSSProperties } from "react";
 declare module 'react-big-scheduler-stch'
 {
     export default class Scheduler extends React.Component<SchedulerProps, any> { }
-    export default class AddMorePopover extends React.Component<AddMorePopoverProps, any> { }
+    
+    export class AddMorePopover extends React.Component<AddMorePopoverProps, any> { }
 
     export interface SchedulerProps {
         schedulerData: SchedulerData;
