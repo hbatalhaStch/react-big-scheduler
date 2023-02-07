@@ -32,7 +32,7 @@ import dayjs from 'dayjs'
 //2. create the view model, put it in the props obj
 let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewType.Week);
 //set locale dayjs to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States).
-schedulerData.setSchedulerLocale('pt-br'); // this uses dayjs [List of supported locales](https://github.com/iamkun/dayjs/tree/dev/src/locale)
+schedulerData.setSchedulerLocale('pt-br'); // this uses dayjs, but it doesn't require dayjs to be installed as its called dynamically
 schedulerData.setCalendarPopoverLocale('pt_BR'); // this uses antd [List of supported locales](https://ant.design/docs/react/i18n#supported-languages)
 //set resources here or later
 let resources = [
