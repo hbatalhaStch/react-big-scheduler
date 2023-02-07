@@ -2,8 +2,8 @@ import React from 'react'
 import { Modal, Form, Input } from 'antd';
 const FormItem = Form.Item;
 
-const AddResourceForm = (
-    (props) => {
+const AddResourceForm = React.forwardRef(
+    (props, ref) => {
         const { visible, onCancel, onCreate } = props;
         return (
             <Modal
@@ -13,7 +13,7 @@ const AddResourceForm = (
                 onCancel={onCancel}
                 onOk={onCreate}
             >
-                <Form layout="vertical" >
+                <Form ref={ref} layout="vertical" >
                     <FormItem label="Name" name='name' rules={[{ required: true, message: 'Please input the name of the resource!' }]}>
                         <Input />
                     </FormItem>
