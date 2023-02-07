@@ -26,10 +26,7 @@ class AddResource extends Component {
     }
     handleCreate = () => {
         const form = this.form;
-        form.validateFields((err, values) => {
-            if (err) {
-                return;
-            }
+        form.validateFields().then((values) => {            
             this.addResource(values.name)
             form.resetFields();
             this.setState({ visible: false });
