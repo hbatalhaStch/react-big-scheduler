@@ -52,17 +52,19 @@ class ResourceEvents extends Component {
         }
     }
 
-    UNSAFE_componentWillReceiveProps(np) {
-        if (supportTouch) {
-            // this.eventContainer.removeEventListener('touchstart', this.initDrag, false);
-        } else {
-            this.eventContainer.removeEventListener('mousedown', this.initDrag, false);
-        }
-        if (np.schedulerData.config.creatable) {
+    componentDidUpdate(prevProps, nextProps) {
+        if (prevProps !== this.props) {
             if (supportTouch) {
-                // this.eventContainer.addEventListener('touchstart', this.initDrag, false);
+                // this.eventContainer.removeEventListener('touchstart', this.initDrag, false);
             } else {
-                this.eventContainer.addEventListener('mousedown', this.initDrag, false);
+                this.eventContainer.removeEventListener('mousedown', this.initDrag, false);
+            }
+            if (this.props.schedulerData.config.creatable) {
+                if (supportTouch) {
+                    // this.eventContainer.addEventListener('touchstart', this.initDrag, false);
+                } else {
+                    this.eventContainer.addEventListener('mousedown', this.initDrag, false);
+                }
             }
         }
     }

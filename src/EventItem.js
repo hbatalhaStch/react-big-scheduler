@@ -47,15 +47,17 @@ class EventItem extends Component {
         eventItemTemplateResolver: PropTypes.func,
     }
 
-    UNSAFE_componentWillReceiveProps(np) {
-        const { left, top, width } = np;
-        this.setState({
-            left: left,
-            top: top,
-            width: width,
-        });
+    componentDidUpdate(prevProps, nextProps) {
+        if (prevProps !== this.props) {
+            const { left, top, width } = this.props;
+            this.setState({
+                left: left,
+                top: top,
+                width: width,
+            });
 
-        this.subscribeResizeEvent(np);
+            this.subscribeResizeEvent(this.props);
+        }
     }
 
     componentDidMount() {
