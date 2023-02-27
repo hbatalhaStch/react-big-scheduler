@@ -69,7 +69,7 @@ export interface AddMorePopoverProps {
     left: number,
     top: number,
     height: number,
-    closeAction: PropTypes.func.isRequired,
+    closeAction: (newState: State) => void,
     subtitleGetter?: SchedulerProps['subtitleGetter'];
     moveEvent?: SchedulerProps['moveEvent'];
     eventItemClick?: SchedulerProps['eventItemClick'];
@@ -284,5 +284,4 @@ export interface SchedulerDataBehaviors {
     getDateLabel: (schedulerData: SchedulerData, viewType: ViewType, startDate: string | Date, endDate: string | Date) => string;
     getScrollSpecialDayjs: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
     getSummaryFunc: undefined;
-    getCustomDateFunc: undefined;
 }
