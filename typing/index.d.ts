@@ -143,7 +143,7 @@ export interface View {
     isEventPerspective: boolean;
 }
 
-export interface Event {
+export interface EventItem {
     id: number;
     start: string;
     end: string;
