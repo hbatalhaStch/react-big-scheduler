@@ -50,7 +50,7 @@ class SchedulerHeader extends Component {
                     style={{ margin: "0px 8px" }}>{item.viewName}</span></RadioButton>
         })
         return (
-            <Row type="flex" align="middle" justify="space-between" style={{ marginBottom: '24px' }}>
+            <Row gutter={[10,10]} type="flex" align="middle" justify="space-between" style={{ marginBottom: '24px' }}>
                 {leftCustomHeader}
                 <Col>
                     <div className='header2-text'>
