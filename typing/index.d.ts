@@ -111,6 +111,13 @@ export class SchedulerData {
     setCalendarPopoverLocale(lang: string): void;
 }
 
+export class DnDContext {
+    constructor(
+        sources: DnDSource[],
+        DecoratedComponent: React.ReactNode
+    );
+}
+
 export class DnDSource {
     constructor(
         resolveDragObjFunc: (props: {}) => any,
@@ -285,3 +292,7 @@ export interface SchedulerDataBehaviors {
     getScrollSpecialDayjs: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
     getSummaryFunc: undefined;
 }
+
+export const DATE_FORMAT = 'YYYY-MM-DD';
+
+export const DATETIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
