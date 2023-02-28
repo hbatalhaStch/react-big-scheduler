@@ -25,7 +25,7 @@ Inspired by [Full Calendar Scheduler](https://fullcalendar.io/scheduler/).
 //1. import
 import Scheduler, {SchedulerData, ViewType, DATE_FORMAT} from 'react-big-scheduler-stch'
 //include `react-big-scheduler/lib/css/style.css` for styles, link it in html or import it here
-import 'react-big-scheduler/lib/css/style.css'
+import 'react-big-scheduler-stch/lib/css/style.css'
 import dayjs from 'dayjs'
 ...
 
