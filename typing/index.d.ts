@@ -60,22 +60,23 @@ export interface SchedulerProps {
     ) => void;
     leftCustomHeader?: React.ReactNode;
     rightCustomHeader?: React.ReactNode;
-    dndSources?: DnDSource[],
+    dndSources?: DnDSource[];
+    responsiveByParentWidth?: number;
 }
 
 export interface AddMorePopoverProps {
     schedulerData: SchedulerData
-    headerItem: HeaderItem,
-    left: number,
-    top: number,
-    height: number,
-    closeAction: (newState: State) => void,
+    headerItem: HeaderItem;
+    left: number;
+    top: number;
+    height: number;
+    closeAction: (newState: State) => void;
     subtitleGetter?: SchedulerProps['subtitleGetter'];
     moveEvent?: SchedulerProps['moveEvent'];
     eventItemClick?: SchedulerProps['eventItemClick'];
     viewEventClick?: SchedulerProps['viewEventClick'];
-    viewEventText?: string,
-    viewEvent2Text?: string,
+    viewEventText?: string;
+    viewEvent2Text?: string;
     viewEvent2Click?: SchedulerProps['viewEvent2Click'];
     eventItemTemplateResolver?: SchedulerProps['eventItemTemplateResolver'];
 }
@@ -96,10 +97,10 @@ export class SchedulerData {
     );
 
     setResources(resources: Resource[]): void;
-    setEvents(events: Event[]): void;
+    setEvents(events: EventItem[]): void;
     prev(): void;
     next(): void;
-    setViewType(viewType?: View, showAgenda?: boolean, isEventPerspective?: boolean): void;
+    setViewType(viewType?: ViewType, showAgenda?: boolean, isEventPerspective?: boolean): void;
     setDate(date?: string): void;
     toggleExpandStatus(slotId: string): void;
     removeEventById(eventId: string): void;
@@ -188,8 +189,8 @@ export interface HeaderItem {
     time: string;
     start: string;
     end: string;
-    addMore: number,
-    addMoreIndex: number,
+    addMore: number;
+    addMoreIndex: number;
     count: number;
     nonWorkingTime: boolean;
     events: Event[];
@@ -197,13 +198,13 @@ export interface HeaderItem {
 
 export interface State {
     headerItem: HeaderItem;
-    left: number,
-    top: number,
+    left: number;
+    top: number;
     height: number;
 }
 
 export interface SchedulerDataConfig {
-    schedulerWidth?: string | number;
+    schedulerWidth?: `${number}%`;
     besidesWidth?: number;
     schedulerMaxHeight?: number;
     tableHeaderHeight?: number;
