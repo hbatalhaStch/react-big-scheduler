@@ -87,12 +87,12 @@ export class SchedulerData {
     startDate: string;
 
     constructor(
-        date?: string,
+        date?: string | Dayjs,
         viewType?: ViewType,
         showAgenda?: boolean,
         isEventPerspective?: boolean,
         newConfig?: SchedulerDataConfig,
-        newBehaviours?: object
+        newBehaviours?: SchedulerDataBehaviors
     );
 
     setResources(resources: Resource[]): void;
