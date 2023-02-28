@@ -99,7 +99,7 @@ export class SchedulerData {
     setEvents(events: Event[]): void;
     prev(): void;
     next(): void;
-    setViewType(viewType?: ViewType, showAgenda?: boolean, isEventPerspective?: boolean): void;
+    setViewType(viewType?: View, showAgenda?: boolean, isEventPerspective?: boolean): void;
     setDate(date?: string): void;
     toggleExpandStatus(slotId: string): void;
     removeEventById(eventId: string): void;
@@ -143,7 +143,7 @@ export interface View {
     isEventPerspective: boolean;
 }
 
-export interface Event {
+export interface EventItem {
     id: number;
     start: string;
     end: string;
