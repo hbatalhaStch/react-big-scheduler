@@ -46,7 +46,7 @@ class Scheduler extends Component {
     constructor(props) {
         super(props);
 
-        const { schedulerData, dndSources } = props;
+        const { schedulerData, dndSources, responsiveByParentWidth } = props;
         let sources = [];
         sources.push(new DnDSource((props) => {
             return props.eventItem;
@@ -57,7 +57,8 @@ class Scheduler extends Component {
         let dndContext = new DnDContext(sources, ResourceEvents);
 
         this.currentArea = -1;
-        schedulerData._setDocumentWidth(document.documentElement.clientWidth);
+        const initialDocWidth = responsiveByParentWidth === undefined ? document.documentElement.clientWidth : responsiveByParentWidth
+        schedulerData._setDocumentWidth(initialDocWidth);
         this.state = {
             dndContext: dndContext,
             contentScrollbarHeight: 17,
@@ -70,7 +71,7 @@ class Scheduler extends Component {
         this.scrollLeft = 0;
         this.scrollTop = 0;
 
-        if (schedulerData.isSchedulerResponsive())
+        if (schedulerData.isSchedulerResponsive() && responsiveByParentWidth === undefined)
             window.onresize = this.onWindowResize;
     }
 
