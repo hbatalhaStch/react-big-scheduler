@@ -433,10 +433,16 @@ Used to resolve the locale string of date label of Scheduler component.(Refer to
 
 #### schedulerWidth
 
-The width of Scheduler. If schedulerWidth is a number, Scheduler will use fixed width layout, while if schedulerWidth is a percentage,
-Scheduler will use responsive layout. And in the responsive layout:
+The width of Scheduler. Scheduler uses responsive layout so schedulerWidth should be a percentage,
+Scheduler in the responsive layout:
 `actual width of Scheduler = (SchedulerData.documentWidth - SchedulerData.config.besidesWidth) * SchedulerData.config.schedulerWidth`
 `SchedulerData.documentWidth` is the window width of browser and will change automatically when resized.
+
+### responsiveByParentWidth
+
+When this prop is set, Scheduler will disable resposiveness when window width of browser changes. Instead: 
+`SchedulerData.documentWidth` will be determined by responsiveByParentWidth and the parent is reponsable for updating it 
+when the parent size changes
 
 #### schedulerMaxHeight
 
