@@ -1,7 +1,7 @@
 # react-big-scheduler ![npm](https://img.shields.io/npm/v/react-big-scheduler.svg?style=plastic)
 
 A scheduler and resource planning component built for React and made for modern browsers.  
-**From the npm version 0.2.6, Scheduler will use responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
+**Scheduler uses responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
 
 ## Changes (still needing more tests)
 This forks uses the latest antd and react versions and improves the performance significantly as well as some other changes such as:
@@ -19,13 +19,11 @@ Inspired by [Full Calendar Scheduler](https://fullcalendar.io/scheduler/).
 
 ## Use and Setup
 
-`npm install react-big-scheduler --save`
+`npm i react-big-scheduler-stch`
 
 ```js
 //1. import
 import Scheduler, {SchedulerData, ViewType, DATE_FORMAT} from 'react-big-scheduler-stch'
-//include `react-big-scheduler/lib/css/style.css` for styles, link it in html or import it here
-import 'react-big-scheduler-stch/lib/css/style.css'
 import dayjs from 'dayjs'
 ...
 
@@ -438,7 +436,7 @@ Scheduler in the responsive layout:
 `actual width of Scheduler = (SchedulerData.documentWidth - SchedulerData.config.besidesWidth) * SchedulerData.config.schedulerWidth`
 `SchedulerData.documentWidth` is the window width of browser and will change automatically when resized.
 
-### responsiveByParentWidth
+#### responsiveByParentWidth
 
 When this prop is set, Scheduler will disable resposiveness when window width of browser changes. Instead: 
 `SchedulerData.documentWidth` will be determined by responsiveByParentWidth and the parent is reponsable for updating it 
