@@ -434,13 +434,16 @@ Used to resolve the locale string of date label of Scheduler component.(Refer to
 The width of Scheduler. Scheduler uses responsive layout so schedulerWidth should be a percentage,
 Scheduler in the responsive layout:
 `actual width of Scheduler = (SchedulerData.documentWidth - SchedulerData.config.besidesWidth) * SchedulerData.config.schedulerWidth`
-`SchedulerData.documentWidth` is the window width of browser and will change automatically when resized.
+`SchedulerData.documentWidth` is the window width of browser (or the the parent width in case SchedulerData.config.responsiveByParent
+ and Scheduler component prop parentRef is passed) and will change automatically when resized.
 
-#### responsiveByParentWidth
+#### responsiveByParent
 
-When this prop is set, Scheduler will disable resposiveness when window width of browser changes. Instead: 
-`SchedulerData.documentWidth` will be determined by responsiveByParentWidth and the parent is reponsable for updating it 
-when the parent size changes
+When true, Scheduler resposiveness will not be determined by the window width of browser but instead by the 
+width of the of the parent (the parent ref must be passed to the Scheduler component prop named `parentRef`,
+in case it is not passed resposiveness will fall back to be determined by the window width). 
+Meaning: 
+`SchedulerData.documentWidth` is the width of the parent and will change automatically when resized
 
 #### schedulerMaxHeight
 
@@ -666,6 +669,14 @@ schedulerData: PropTypes.object.isRequired;
 ```
 
 View model of the Scheduler component, provides data.
+
+#### parentRef
+
+```js
+parentRef: PropTypes.object;
+```
+
+ref of the component that is the parent of the Scheduler component
 
 #### prevClick
 

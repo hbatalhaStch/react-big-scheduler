@@ -61,7 +61,7 @@ export interface SchedulerProps {
     leftCustomHeader?: React.ReactNode;
     rightCustomHeader?: React.ReactNode;
     dndSources?: DnDSource[];
-    responsiveByParentWidth?: number;
+    parentRef?: React.RefObject<any>;
 }
 
 export interface AddMorePopoverProps {
@@ -270,6 +270,7 @@ export interface SchedulerDataConfig {
     nonAgendaOtherCellHeaderFormat?: string;
     minuteStep?: number;
     views?: View[];
+    responsiveByParent?: boolean
 }
 
 export enum SummaryPos {
