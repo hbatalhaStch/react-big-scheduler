@@ -22,16 +22,7 @@ async function build() {
   const targetDir = path.resolve(root, 'lib');
   const jsTarget = targetDir;
   const cssTarget = path.resolve(targetDir, 'css');
-  const hackFileName = 'antd-globals-hiding-hack'
-  const hackFileSource = path.resolve(
-    sourceDir,
-    'less',
-    hackFileName + '.less'
-  );
-  const hackFileOutputPath = path.resolve(
-    cssTarget,
-    hackFileName + '.css'
-  );
+
 
   try {
     // clean
@@ -47,6 +38,24 @@ async function build() {
 
     process.stdout.write('Copying library style definitions... \n');
     await fs.copy(`${root}/typing/index.d.ts`, `${targetDir}/index.d.ts`);
+
+    // local (for hbatalhaStch only)
+    if (fs.existsSync(`${targetDir}/DemoData-dev.js`)) {
+      process.stdout.write('Removing a dev file... \n');
+      fs.unlinkSync(`${targetDir}/DemoData-dev.js`)
+    }
+
+    process.stdout.write('Adding css to index.js... \n');
+    await fs.appendFile(
+      `${targetDir}/index.js`,
+      [
+        '',
+        '',
+        '// this line has been added by scripts/build.js',
+        "require('./css/style.css');",
+        '',
+      ].join('\n')
+    );
 
     process.stdout.write('Success! \n');
   } catch (e) {
