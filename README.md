@@ -165,10 +165,10 @@ constructor(date=dayjs().format(DATE_FORMAT), viewType = ViewType.Week,
   `groupName` property to every event object, so that the events having the same `groupId` will belong to the same big task and
   be rendered in the same slot in task view. If `groupId` and `groupName` are not provided, SchedulerData will take
   the `id` as the `groupId`, and take the `title` as the `groupName`. See the `eventsForTaskView` in the
-  [DemoData.js](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/DemoData.js) for details.
-- `newConfig` is a config object, used to override the [default config](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/config.js)
+  [DemoData.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/DemoData.js) for details.
+- `newConfig` is a config object, used to override the [default config](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/config.js)
   fully or partly.
-- `newBehaviors` is a config object, used to override the [default behaviors](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/behaviors.js)
+- `newBehaviors` is a config object, used to override the [default behaviors](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js)
   fully or partly.
 - `localeDayjs` is a locale dayjs object, which is unified used in react-big-scheduler. If not provided, Scheduler will come
   with English(en, United States) locale strings.
@@ -195,7 +195,7 @@ setResources(resources);
 ```
 
 Used to set the resources(the slots in resource view), make sure that there are no duplicated `resource.id` in the `resources`.
-See the demo `resources` in the [DemoData.js](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/DemoData.js).
+See the demo `resources` in the [DemoData.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/DemoData.js).
 
 #### setEvents
 
@@ -204,9 +204,9 @@ setEvents(events);
 ```
 
 Used to set the events. the event array should be sorted in ascending order by event.start property.
-See the demo `events` in the [DemoData.js](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/DemoData.js).
+See the demo `events` in the [DemoData.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/DemoData.js).
 If we use the task view, we'd better add the `groupId` and the `groupName` property to each event object, see the
-`eventsForTaskView` in the [DemoData.js](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/DemoData.js) for details.
+`eventsForTaskView` in the [DemoData.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/DemoData.js) for details.
 
 #### prev
 
@@ -427,9 +427,9 @@ The locale string of non-agenda view cell header format of other view types.
 
 #### SchedulerData.behaviors.getDateLabelFunc
 
-Used to resolve the locale string of date label of Scheduler component.(Refer to the [getDateLabel](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/behaviors.js) func for example)
+Used to resolve the locale string of date label of Scheduler component.(Refer to the [getDateLabel](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js) func for example)
 
-### 3.SchedulerData.config(See the [config.js](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/config.js) for details.)
+### 3.SchedulerData.config(See the [config.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/config.js) for details.)
 
 #### schedulerWidth
 
@@ -509,7 +509,7 @@ Selected cells color in resource view and task view, cells are selectable only w
 #### nonWorkingTimeHeadColor
 
 Color of non-working time head cells. Modify `SchedulerData.behaviors.isNonWorkingTimeFunc` to re-define non-working time.
-Refer the `isNonWorkingTime` func in the [behaviors.js](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/behaviors.js).
+Refer the `isNonWorkingTime` func in the [behaviors.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js).
 
 #### nonWorkingTimeHeadBgColor
 
@@ -522,7 +522,7 @@ Background color of non-working time body cells.
 #### summaryColor
 
 Color of cell summary. Modify `SchedulerData.behaviors.getSummaryFunc` to display summary in a cell.
-Refer the `getSummary` func in the [behaviors.js](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/behaviors.js).
+Refer the `getSummary` func in the [behaviors.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js).
 
 #### summaryPos
 
@@ -603,7 +603,7 @@ Minute step for day view type in non-agenda view, can be 10, 12, 15, 20, 30, 60,
 
 Array of view that Scheduler will support.
 
-### 4.SchedulerData.behaviors(See the [behaviors.js](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/behaviors.js) for details.)
+### 4.SchedulerData.behaviors(See the [behaviors.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js) for details.)
 
 #### getEventTextFunc
 
@@ -890,7 +890,7 @@ to [this example](https://stephenchou1017.github.io/scheduler/#/resourceclickabl
 dndSources: PropTypes.array;
 ```
 
-DnDSource array that registered to Scheduler. Use [DnDSource](https://github.com/StephenChou1017/react-big-scheduler/blob/master/src/DnDSource.js),
+DnDSource array that registered to Scheduler. Use [DnDSource](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/DnDSource.js),
 we can simplify the drag and drop coding in React-Big-Scheduler. Refer
 to [this example](https://stephenchou1017.github.io/scheduler/#/draganddrop).
 
