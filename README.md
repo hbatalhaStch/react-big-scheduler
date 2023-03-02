@@ -1,5 +1,7 @@
 # react-big-scheduler-stch
 
+Fork of [react-big-scheduler](https://www.npmjs.com/package/react-big-scheduler)
+
 A scheduler and resource planning component built for React and made for modern browsers.  
 **Scheduler uses responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
 
@@ -441,7 +443,7 @@ Scheduler in the responsive layout:
 
 When true, Scheduler resposiveness will not be determined by the window width of browser but instead by the 
 width of the of the parent (the parent ref must be passed to the Scheduler component prop named `parentRef`,
-in case it is not passed resposiveness will fall back to be determined by the window width). 
+in case it is not passed resposiveness will fall back to being determined by the window width). 
 Meaning: 
 `SchedulerData.documentWidth` is the width of the parent and will change automatically when resized
 
