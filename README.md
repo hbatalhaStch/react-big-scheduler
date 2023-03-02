@@ -1,4 +1,4 @@
-# react-big-scheduler ![npm](https://img.shields.io/npm/v/react-big-scheduler.svg?style=plastic)
+# react-big-scheduler-stch
 
 A scheduler and resource planning component built for React and made for modern browsers.  
 **Scheduler uses responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
