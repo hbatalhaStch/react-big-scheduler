@@ -11,10 +11,10 @@ export interface SchedulerProps {
     nextClick(schedulerData: SchedulerData): void;
     onSelectDate(schedulerData: SchedulerData, date: string): void;
     onViewChange(schedulerData: SchedulerData, view: View): void;
-    eventItemClick?(schedulerData: SchedulerData, event: Event): void;
+    eventItemClick?(schedulerData: SchedulerData, event: EventItem): void;
     eventItemTemplateResolver?(
         schedulerData: SchedulerData,
-        event: Event,
+        event: EventItem,
         bgColor: string,
         isStart: boolean,
         isEnd: boolean,
@@ -24,7 +24,7 @@ export interface SchedulerProps {
     ): void;
     eventItemPopoverTemplateResolver?(
         schedulerData: SchedulerData,
-        eventItem: Event,
+        eventItem: EventItem,
         title: string,
         start: Dayjs,
         end: Dayjs,
@@ -34,23 +34,23 @@ export interface SchedulerProps {
         schedulerData: SchedulerData,
         slotId: string
     ) => void;
-    viewEventClick?: (schedulerData: SchedulerData, event: Event) => void;
+    viewEventClick?: (schedulerData: SchedulerData, event: EventItem) => void;
     viewEventText?: string;
     viewEvent2Text?: string;
-    viewEvent2Click?: (schedulerData: SchedulerData, event: Event) => void;
-    updateEventStart?: (schedulerData: SchedulerData, event: Event, newStart: string) => void;
-    updateEventEnd?: (schedulerData: SchedulerData, event: Event, newEnd: string) => void;
-    moveEvent?: (schedulerData: SchedulerData, event: Event, slotId: string, slotName: string, start: string, end: string) => void;
-    newEvent?: (schedulerData: SchedulerData, slotId: string, slotName: string, start: string, end: string, type: string, item: Event) => void;
+    viewEvent2Click?: (schedulerData: SchedulerData, event: EventItem) => void;
+    updateEventStart?: (schedulerData: SchedulerData, event: EventItem, newStart: string) => void;
+    updateEventEnd?: (schedulerData: SchedulerData, event: EventItem, newEnd: string) => void;
+    moveEvent?: (schedulerData: SchedulerData, event: EventItem, slotId: string, slotName: string, start: string, end: string) => void;
+    newEvent?: (schedulerData: SchedulerData, slotId: string, slotName: string, start: string, end: string, type: string, item: EventItem) => void;
     onScrollLeft?: (schedulerData: Scheduler, schedulerContent: React.ReactNode, maxScrollLeft: number) => void;
     onScrollRight?: (schedulerData: Scheduler, schedulerContent: React.ReactNode, maxScrollLeft: number) => void;
     onScrollTop?: (schedulerData: Scheduler, schedulerContent: React.ReactNode, maxScrollTop: number) => void;
     onScrollBottom?: (schedulerData: Scheduler, schedulerContent: React.ReactNode, maxScrollTop: number) => void;
     onSetAddMoreState?: (newState: State) => void;
-    conflictOccurred?: (schedulerData: SchedulerData, action: string, item: Event, type: string, slotId: string, slotName, newStart: string, newEnd: string) => void;
-    nonAgendaCellHeaderTemplateResolver?: (schedulerData: Scheduler, item: Event, formattedDateItems: string[], style: CSSProperties) => void;
-    subtitleGetter?: (schedulerData: SchedulerData, event: Event) => void;
-    movingEvent?: (schedulerData: SchedulerData, slotId: string, slotName: string, newStart: string, newEnd: string, action: string, type: string, item: Event) => void;
+    conflictOccurred?: (schedulerData: SchedulerData, action: string, item: EventItem, type: string, slotId: string, slotName: string, newStart: string, newEnd: string) => void;
+    nonAgendaCellHeaderTemplateResolver?: (schedulerData: Scheduler, item: EventItem, formattedDateItems: string[], style: CSSProperties) => void;
+    subtitleGetter?: (schedulerData: SchedulerData, event: EventItem) => void;
+    movingEvent?: (schedulerData: SchedulerData, slotId: string, slotName: string, newStart: string, newEnd: string, action: string, type: string, item: EventItem) => void;
     slotClickedFunc?: (schedulerData: SchedulerData, slot: ResourceEvent) => void;
     slotItemTemplateResolver?: (
         schedulerData: SchedulerData,
@@ -104,9 +104,9 @@ export class SchedulerData {
     setDate(date?: string): void;
     toggleExpandStatus(slotId: string): void;
     removeEventById(eventId: string): void;
-    removeEvent(event: Event): void;
+    removeEvent(event: EventItem): void;
     isEventInTimeWindow(eventStart: Date | Dayjs, eventEnd: Date | Dayjs, windowStart: Date | Dayjs, windowEnd: Date | Dayjs): boolean;
-    addEvent(newEvent: Event): void;
+    addEvent(newEvent: EventItem): void;
     getResourceById(resourceId: string): ResourceEvent;
     setSchedulerLocale(lang: string): void;
     setCalendarPopoverLocale(lang: string): void;
@@ -173,7 +173,7 @@ export interface ResourceEvent {
     groupOnly?: boolean;
     hasSummary?: boolean;
     expanded?: boolean;
-    headerItems?: Event[];
+    headerItems?: EventItem[];
     render?: boolean;
     rowHeight: number;
     rowMaxCount: number;
@@ -182,6 +182,7 @@ export interface ResourceEvent {
 export interface Resource {
     id: string;
     name: string;
+    parentId: string;
     groupOnly?: boolean;
 }
 
@@ -193,7 +194,14 @@ export interface HeaderItem {
     addMoreIndex: number;
     count: number;
     nonWorkingTime: boolean;
-    events: Event[];
+    events: EventItem[];
+}
+
+export interface HeaderEvent {
+    render: boolean;
+    span: number;
+    eventItem: EventItem;
+
 }
 
 export interface State {
@@ -289,10 +297,12 @@ export interface SchedulerDataBehaviors {
         num: number,
         date?: string,
     ): { startDate: string; endDate: string; cellUnit: CellUnit };
-    getEventTextFunc: (schedulerData: SchedulerData, event: Event) => string;
+    getEventTextFunc: (schedulerData: SchedulerData, event: EventItem) => string;
     getDateLabel: (schedulerData: SchedulerData, viewType: ViewType, startDate: string | Date, endDate: string | Date) => string;
     getScrollSpecialDayjs: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
-    getSummaryFunc: undefined;
+    getSummaryFunc?: (schedulerData: SchedulerData, headerEvents: HeaderEvent[], slotId: string, slotName: string, headerStart: string, headerEnd: string) =>
+        { text: string, color: string, fontSize: string };
+    getNonAgendaViewBodyCellBgColorFunc?: (schedulerData: SchedulerData, slotId: string, header: { nonWorkingTime: boolean, time: string }) => string;
 }
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
