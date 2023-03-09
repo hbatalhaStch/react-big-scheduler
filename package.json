@@ -1,6 +1,6 @@
 {
   "name": "react-big-scheduler-stch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A scheduler and resource planning component built for React and made for modern browsers",
   "keywords": [
     "react-scheduler",
