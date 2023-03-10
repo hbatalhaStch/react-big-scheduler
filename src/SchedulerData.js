@@ -378,6 +378,21 @@ export default class SchedulerData {
         return this.selectDate.format(DATE_FORMAT)
     }
 
+    getViewStartDate() {
+        return this.startDate;
+    }
+    
+    getViewEndDate() {
+        return this.endDate;
+    }
+
+    getViewDates() {
+        return {
+            startDate: this.startDate,
+            endDate: this.endDate
+        }
+    }
+
     getDateLabel() {
         let start = this.localeDayjs(new Date(this.startDate));
         let end = this.localeDayjs(new Date(this.endDate));
@@ -1050,5 +1065,3 @@ export default class SchedulerData {
         return this.resizing;
     }
 }
-
-
