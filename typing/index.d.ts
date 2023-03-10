@@ -182,7 +182,7 @@ export interface ResourceEvent {
 export interface Resource {
     id: string;
     name: string;
-    parentId: string;
+    parentId?: string;
     groupOnly?: boolean;
 }
 
