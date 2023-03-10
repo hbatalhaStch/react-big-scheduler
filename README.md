@@ -5,6 +5,22 @@ Fork of [react-big-scheduler](https://www.npmjs.com/package/react-big-scheduler)
 A scheduler and resource planning component built for React and made for modern browsers.  
 **Scheduler uses responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
 
+[Online demo](https://stephenchou1017.github.io/scheduler/#/)
+
+<!-- MANPAGE: BEGIN EXCLUDED SECTION -->
+* [Main Changes](#main-changes)
+* [Use and Setup](#use-and-setup)
+    * [Install](#npm)
+    * [Example code](#example-code)
+* [Run examples locally](#run-examples-locally)
+* [API](#api)
+    * [SchedulerData](#schedulerdata)
+    * [Locale support](#locale-supportrefer-to-this-example-for-details)
+    * [SchedulerData.config](#schedulerdataconfigsee-the-configjs-for-details)
+    * [SchedulerData.behaviors](#schedulerdatabehaviorssee-the-behaviorsjs-for-details)
+    * [Scheduler.propTypes](#schedulerproptypes)
+<!-- MANPAGE: END EXCLUDED SECTION -->
+
 ## Main Changes
 This forks uses the latest antd and react versions and improves the performance significantly as well as some other changes such as:
 - Add Spin when changing view and selecting date through SchedulerData config option `viewChangeSpinEnabled` and `dateChangeSpinEnabled` (both true by default)
@@ -15,14 +31,13 @@ This forks uses the latest antd and react versions and improves the performance 
 - Drop IE support
 - Upgrade react-dnd to v14.0.5 leading to [changes in how we write the `withDnDContext`](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/example/withDnDContext.js) wrapper
 
-[Online demo](https://stephenchou1017.github.io/scheduler/#/)
-
-Inspired by [Full Calendar Scheduler](https://fullcalendar.io/scheduler/).
-
 ## Use and Setup
 
+#### npm
 `npm i react-big-scheduler-stch`
 
+
+#### Example code
 ```js
 //1. import
 import Scheduler, {SchedulerData, ViewType, DATE_FORMAT} from 'react-big-scheduler-stch'
@@ -133,9 +148,9 @@ const {schedulerData} = this.props;
 
 If you fail to execute the `npm install` command, remove the package-lock.json file and try again.
 
-## API
+# API
 
-### 1.SchedulerData
+### SchedulerData
 
 SchedulerData is the view model of Scheduler, we can modify it to control the view of the Scheduler.
 
@@ -384,8 +399,6 @@ Returns the slot by `slotId`, returns `undefined` if not found.
 getResourceById(resourceId);
 ```
 
-Returns the resource by `resourceId`, returns `undefined` if not found.
-
 #### isEventInTimeWindow
 
 ```js
@@ -395,7 +408,34 @@ isEventInTimeWindow(eventStart, eventEnd, windowStart, windowEnd);
 Returns whether an event is in the time window or not, remind that `eventStart`, `eventEnd`, `windowStart`, `windowEnd`
 are all dayjs | Date objects.
 
-### 2.Locale support(Refer to [this example](https://stephenchou1017.github.io/scheduler/#/locale) for details.)
+#### getViewDates
+
+```js
+getViewDates();
+```
+
+Returns an object with the startDate and endDate of the currently selected view ({ startDate: Dayjs, endDate: Dayjs }).
+
+#### getViewStartDate
+
+```js
+getViewStartDate();
+```
+
+Returns a dayjs object with the startDate of the currently selected view.
+
+#### getViewEndDate
+
+```js
+getViewEndDate();
+```
+
+Returns a dayjs object with the endDate of the currently selected view.
+
+
+
+
+### Locale support(Refer to [this example](https://stephenchou1017.github.io/scheduler/#/locale) for details.)
 
 #### SchedulerData.config.resourceName
 
@@ -429,7 +469,7 @@ The locale string of non-agenda view cell header format of other view types.
 
 Used to resolve the locale string of date label of Scheduler component.(Refer to the [getDateLabel](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js) func for example)
 
-### 3.SchedulerData.config(See the [config.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/config.js) for details.)
+### SchedulerData.config(See the [config.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/config.js) for details.)
 
 #### schedulerWidth
 
@@ -607,7 +647,7 @@ Array of view that Scheduler will support.
 
 Controls whether the dragAndDrop funcionality is enabled. If false there's no need for the [withDnDContext wrapper](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/example/withDnDContext.js).
 
-### 4.SchedulerData.behaviors(See the [behaviors.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js) for details.)
+### SchedulerData.behaviors(See the [behaviors.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js) for details.)
 
 #### getEventTextFunc
 
@@ -666,7 +706,7 @@ getScrollSpecialDayjs(schedulerData, startDayjs, endDayjs);
 
 Method that defines the special dayjs Scheduler will scroll to automatically, when the time window contains that dayjs.
 
-### 5.Scheduler.propTypes
+### Scheduler.propTypes
 
 #### schedulerData
 
