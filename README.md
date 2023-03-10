@@ -5,7 +5,7 @@ Fork of [react-big-scheduler](https://www.npmjs.com/package/react-big-scheduler)
 A scheduler and resource planning component built for React and made for modern browsers.  
 **Scheduler uses responsive layout by default(set SchedulerData.config.schedulerWidth to a percentage instead of a number).**
 
-## Changes (still needing more tests)
+## Main Changes
 This forks uses the latest antd and react versions and improves the performance significantly as well as some other changes such as:
 - Add Spin when changing view and selecting date through SchedulerData config option `viewChangeSpinEnabled` and `dateChangeSpinEnabled` (both true by default)
 - Replace Dayjs.js with Day.js
@@ -602,6 +602,10 @@ Minute step for day view type in non-agenda view, can be 10, 12, 15, 20, 30, 60,
 #### views
 
 Array of view that Scheduler will support.
+
+#### dragAndDropEnabled 
+
+Controls whether the dragAndDrop funcionality is enabled. If false there's no need for the [withDnDContext wrapper](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/example/withDnDContext.js).
 
 ### 4.SchedulerData.behaviors(See the [behaviors.js](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/src/behaviors.js) for details.)
 
