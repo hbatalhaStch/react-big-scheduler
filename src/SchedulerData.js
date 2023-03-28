@@ -381,7 +381,7 @@ export default class SchedulerData {
     getViewStartDate() {
         return this.startDate;
     }
-    
+
     getViewEndDate() {
         return this.endDate;
     }
@@ -874,6 +874,9 @@ export default class SchedulerData {
             const windowStart = new Date(this.startDate);
             const startDate = windowStart < start ? start : windowStart
             span = Math.ceil(timeBetween(startDate, end, 'days'));
+        } else if (this.viewType === ViewType.Month) {
+            const endDate = start.getMonth() === end.getMonth() ? end : dayjs(start).endOf('month').toDate()
+            span = Math.ceil(timeBetween(start, endDate, 'days'));
         } else {
             span = Math.ceil(timeBetween(start, end, 'days'));
         }
