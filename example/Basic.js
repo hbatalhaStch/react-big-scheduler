@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types'
 //import moment from 'moment'
 //import 'moment/locale/zh-cn';
 // import 'antd/lib/style/index.less';     //Add this code for locally example
-import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT, DemoData } from '../src/index'
+import Scheduler, { SchedulerData, ViewType, DATE_FORMAT, DemoData } from '../src/index'
 import Nav from './Nav'
 import Tips from './Tips'
 import ViewSrcCode from './ViewSrcCode'
@@ -14,7 +14,7 @@ class Basic extends Component {
         super(props);
 
         //let schedulerData = new SchedulerData(new moment("2017-12-18").format(DATE_FORMAT), ViewTypes.Week);
-        let schedulerData = new SchedulerData('2017-01-02', ViewTypes.Month, false, false,
+        let schedulerData = new SchedulerData('2017-12-02', ViewType.Month, false, false,
             { // for tests
                 dayMaxEvents: 99,
                 weekMaxEvents: 9669,
@@ -168,7 +168,7 @@ class Basic extends Component {
     }
 
     onScrollRight = (schedulerData, schedulerContent, maxScrollLeft) => {
-        if (schedulerData.ViewTypes === ViewTypes.Day) {
+        if (schedulerData.ViewTypes === ViewType.Day) {
             schedulerData.next();
             schedulerData.setEvents(DemoData.events);
             this.setState({
@@ -180,7 +180,7 @@ class Basic extends Component {
     }
 
     onScrollLeft = (schedulerData, schedulerContent, maxScrollLeft) => {
-        if (schedulerData.ViewTypes === ViewTypes.Day) {
+        if (schedulerData.ViewTypes === ViewType.Day) {
             schedulerData.prev();
             schedulerData.setEvents(DemoData.events);
             this.setState({
