@@ -289,6 +289,7 @@ export interface SchedulerDataConfig {
     viewChangeSpinEnabled?: boolean;
     dateChangeSpinEnabled?: boolean;
     headerEnabled?: boolean;
+    resourceViewEnabled?: boolean;
     displayWeekend?: boolean;
     relativeMove?: boolean;
     defaultExpanded?: boolean;

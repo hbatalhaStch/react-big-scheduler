@@ -64,6 +64,7 @@ export default {
     viewChangeSpinEnabled: true,
     dateChangeSpinEnabled: true,
     headerEnabled: true,
+    resourceViewEnabled: true,
     displayWeekend: true,
     relativeMove: true,
     defaultExpanded: true,

@@ -120,7 +120,7 @@ class Scheduler extends Component {
 
     componentDidMount(props, state) {
         const { schedulerData, parentRef } = this.props;
-        
+
         this.resolveScrollbarSize();
 
         if (parentRef !== undefined) {
@@ -181,7 +181,7 @@ class Scheduler extends Component {
         }
         else {
             let resourceTableWidth = schedulerData.getResourceTableWidth();
-            let schedulerContainerWidth = width - resourceTableWidth + 1;
+            let schedulerContainerWidth = width - (config.resourceViewEnabled ? resourceTableWidth : 0);
             let schedulerWidth = schedulerData.getContentTableWidth() - 1;
             let DndResourceEvents = this.state.dndContext.getDropTarget(config.dragAndDropEnabled);
             let eventDndSource = this.state.dndContext.getDndSource();
@@ -230,7 +230,7 @@ class Scheduler extends Component {
             let resourceName = schedulerData.isEventPerspective ? config.taskName : config.resourceName;
             tbodyContent = (
                 <tr>
-                    <td style={{ width: resourceTableWidth, verticalAlign: 'top' }}>
+                    <td style={{ display: config.resourceViewEnabled ? undefined : 'none', width: resourceTableWidth, verticalAlign: 'top' }}>
                         <div className="resource-view">
                             <div style={{ overflow: "hidden", borderBottom: "1px solid #e9e9e9", height: config.tableHeaderHeight }}>
                                 <div style={{ overflowX: "scroll", overflowY: "hidden", margin: `0px 0px -${contentScrollbarHeight}px` }}>
@@ -398,8 +398,10 @@ class Scheduler extends Component {
     }
 
     onSchedulerResourceScroll = (proxy, event) => {
-        if ((this.currentArea === 1 || this.currentArea === -1) && this.schedulerContent.scrollTop != this.schedulerResource.scrollTop)
-            this.schedulerContent.scrollTop = this.schedulerResource.scrollTop;
+        if (!!this.schedulerResource) {
+            if ((this.currentArea === 1 || this.currentArea === -1) && this.schedulerContent.scrollTop != this.schedulerResource.scrollTop)
+                this.schedulerContent.scrollTop = this.schedulerResource.scrollTop;
+        }
     }
 
     schedulerContentRef = (element) => {
@@ -419,11 +421,13 @@ class Scheduler extends Component {
     }
 
     onSchedulerContentScroll = (proxy, event) => {
-        if (this.currentArea === 0 || this.currentArea === -1) {
-            if (this.schedulerHead.scrollLeft != this.schedulerContent.scrollLeft)
-                this.schedulerHead.scrollLeft = this.schedulerContent.scrollLeft;
-            if (this.schedulerResource.scrollTop != this.schedulerContent.scrollTop)
-                this.schedulerResource.scrollTop = this.schedulerContent.scrollTop;
+        if (!!this.schedulerResource) {
+            if (this.currentArea === 0 || this.currentArea === -1) {
+                if (this.schedulerHead.scrollLeft != this.schedulerContent.scrollLeft)
+                    this.schedulerHead.scrollLeft = this.schedulerContent.scrollLeft;
+                if (this.schedulerResource.scrollTop != this.schedulerContent.scrollTop)
+                    this.schedulerResource.scrollTop = this.schedulerContent.scrollTop;
+            }
         }
 
         const { schedulerData, onScrollLeft, onScrollRight, onScrollTop, onScrollBottom } = this.props;

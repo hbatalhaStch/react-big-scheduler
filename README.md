@@ -636,6 +636,10 @@ property with the value `templateEvent.id`.
 
 Controls Scheduler whether to display header, default `true`.
 
+#### resourceViewEnabled
+
+Controls Scheduler whether to display resource view, default `true`.
+
 #### displayWeekend
 
 Controls Scheduler whether to display weekends in non-agenda view, default `true`.
