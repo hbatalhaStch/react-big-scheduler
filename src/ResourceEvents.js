@@ -6,7 +6,6 @@ import SelectedArea from './SelectedArea'
 import { CellUnit, DATETIME_FORMAT, SummaryPos } from './index'
 import { getPos } from './Util'
 import { DnDTypes } from './DnDTypes'
-const supportTouch = 'ontouchstart' in window;
 
 class ResourceEvents extends Component {
 
@@ -18,6 +17,7 @@ class ResourceEvents extends Component {
             left: 0,
             width: 0,
         }
+        this.supportTouch = 'ontouchstart' in window;
     }
 
     static propTypes = {
@@ -44,7 +44,7 @@ class ResourceEvents extends Component {
         const { schedulerData } = this.props;
         const { config } = schedulerData;
         if (config.creatable === true) {
-            if (supportTouch) {
+            if (this.supportTouch) {
                 // this.eventContainer.addEventListener('touchstart', this.initDrag, false);
             } else {
                 this.eventContainer.addEventListener('mousedown', this.initDrag, false);
@@ -54,13 +54,13 @@ class ResourceEvents extends Component {
 
     componentDidUpdate(prevProps, nextProps) {
         if (prevProps !== this.props) {
-            if (supportTouch) {
+            if (this.supportTouch) {
                 // this.eventContainer.removeEventListener('touchstart', this.initDrag, false);
             } else {
                 this.eventContainer.removeEventListener('mousedown', this.initDrag, false);
             }
             if (this.props.schedulerData.config.creatable) {
-                if (supportTouch) {
+                if (this.supportTouch) {
                     // this.eventContainer.addEventListener('touchstart', this.initDrag, false);
                 } else {
                     this.eventContainer.addEventListener('mousedown', this.initDrag, false);
@@ -79,7 +79,7 @@ class ResourceEvents extends Component {
         const { resourceEvents } = this.props;
         if (resourceEvents.groupOnly) return;
         let clientX = 0;
-        if (supportTouch) {
+        if (this.supportTouch) {
             if (ev.changedTouches.length == 0) return;
             const touch = ev.changedTouches[0];
             clientX = touch.pageX;
@@ -106,7 +106,7 @@ class ResourceEvents extends Component {
             isSelecting: true
         });
 
-        if (supportTouch) {
+        if (this.supportTouch) {
             document.documentElement.addEventListener('touchmove', this.doDrag, false);
             document.documentElement.addEventListener('touchend', this.stopDrag, false);
             document.documentElement.addEventListener('touchcancel', this.cancelDrag, false);
@@ -126,7 +126,7 @@ class ResourceEvents extends Component {
         ev.stopPropagation();
 
         let clientX = 0;
-        if (supportTouch) {
+        if (this.supportTouch) {
             if (ev.changedTouches.length == 0) return;
             const touch = ev.changedTouches[0];
             clientX = touch.pageX;
@@ -161,7 +161,7 @@ class ResourceEvents extends Component {
         const { schedulerData, newEvent, resourceEvents } = this.props;
         const { headers, events, config, cellUnit, localeDayjs } = schedulerData;
         const { leftIndex, rightIndex } = this.state;
-        if (supportTouch) {
+        if (this.supportTouch) {
             document.documentElement.removeEventListener('touchmove', this.doDrag, false);
             document.documentElement.removeEventListener('touchend', this.stopDrag, false);
             document.documentElement.removeEventListener('touchcancel', this.cancelDrag, false);

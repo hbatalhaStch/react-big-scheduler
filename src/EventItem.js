@@ -4,7 +4,6 @@ import { Popover } from 'antd'
 import EventItemPopover from './EventItemPopover'
 import { CellUnit, DATETIME_FORMAT } from './index'
 import { DnDTypes } from './DnDTypes'
-const supportTouch = 'ontouchstart' in window;
 
 class EventItem extends Component {
     constructor(props) {
@@ -18,6 +17,8 @@ class EventItem extends Component {
         };
         this.startResizer = null;
         this.endResizer = null;
+        
+        this.supportTouch = 'ontouchstart' in window;
     }
 
     static propTypes = {
@@ -73,7 +74,7 @@ class EventItem extends Component {
 
         ev.stopPropagation();
         let clientX = 0;
-        if (supportTouch) {
+        if (this.supportTouch) {
             if (ev.changedTouches.length == 0) return;
             const touch = ev.changedTouches[0];
             clientX = touch.pageX;
@@ -85,7 +86,8 @@ class EventItem extends Component {
             startX: clientX
         });
         schedulerData._startResizing();
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             this.startResizer.addEventListener('touchmove', this.doStartDrag, false);
             this.startResizer.addEventListener('touchend', this.stopStartDrag, false);
             this.startResizer.addEventListener('touchcancel', this.cancelStartDrag, false);
@@ -105,7 +107,8 @@ class EventItem extends Component {
         ev.stopPropagation();
 
         let clientX = 0;
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             if (ev.changedTouches.length == 0) return;
             const touch = ev.changedTouches[0];
             clientX = touch.pageX;
@@ -134,7 +137,8 @@ class EventItem extends Component {
 
     stopStartDrag = (ev) => {
         ev.stopPropagation();
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             this.startResizer.removeEventListener('touchmove', this.doStartDrag, false);
             this.startResizer.removeEventListener('touchend', this.stopStartDrag, false);
             this.startResizer.removeEventListener('touchcancel', this.cancelStartDrag, false);
@@ -149,7 +153,8 @@ class EventItem extends Component {
         if (this.state.width === width) return;
 
         let clientX = 0;
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             if (ev.changedTouches.length == 0) {
                 this.setState({
                     left: left,
@@ -278,7 +283,8 @@ class EventItem extends Component {
 
         ev.stopPropagation();
         let clientX = 0;
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             if (ev.changedTouches.length == 0) return;
             const touch = ev.changedTouches[0];
             clientX = touch.pageX;
@@ -291,7 +297,8 @@ class EventItem extends Component {
         });
 
         schedulerData._startResizing();
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             this.endResizer.addEventListener('touchmove', this.doEndDrag, false);
             this.endResizer.addEventListener('touchend', this.stopEndDrag, false);
             this.endResizer.addEventListener('touchcancel', this.cancelEndDrag, false);
@@ -310,7 +317,8 @@ class EventItem extends Component {
     doEndDrag = (ev) => {
         ev.stopPropagation();
         let clientX = 0;
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             if (ev.changedTouches.length == 0) return;
             const touch = ev.changedTouches[0];
             clientX = touch.pageX;
@@ -337,7 +345,8 @@ class EventItem extends Component {
     stopEndDrag = (ev) => {
         ev.stopPropagation();
 
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             this.endResizer.removeEventListener('touchmove', this.doEndDrag, false);
             this.endResizer.removeEventListener('touchend', this.stopEndDrag, false);
             this.endResizer.removeEventListener('touchcancel', this.cancelEndDrag, false);
@@ -352,7 +361,8 @@ class EventItem extends Component {
         if (this.state.width === width) return;
 
         let clientX = 0;
-        if (supportTouch) {
+        if (this.supportTouch) {
+            console.log('touchEvents');
             if (ev.changedTouches.length == 0) {
                 this.setState({
                     left: left,
@@ -560,7 +570,7 @@ class EventItem extends Component {
 
     subscribeResizeEvent = (props) => {
         if (this.startResizer != undefined) {
-            if (supportTouch) {
+            if (this.supportTouch) {
                 // this.startResizer.removeEventListener('touchstart', this.initStartDrag, false);
                 // if (this.startResizable(props))
                 //     this.startResizer.addEventListener('touchstart', this.initStartDrag, false);
@@ -571,7 +581,7 @@ class EventItem extends Component {
             }
         }
         if (this.endResizer != undefined) {
-            if (supportTouch) {
+            if (this.supportTouch) {
                 // this.endResizer.removeEventListener('touchstart', this.initEndDrag, false);
                 // if (this.endResizable(props))
                 //     this.endResizer.addEventListener('touchstart', this.initEndDrag, false);
