@@ -611,6 +611,15 @@ to tell Scheduler what time the special dayjs is.
 
 Controls Scheduler whether to display event item popover when moving mouse on an event item, default `true`.
 
+#### eventItemPopoverTrigger
+
+Controls Scheduler event item popover trigger, default `hover`.
+Controls Scheduler whether to display event item popover when moving mouse on an event item, default `true`.
+
+#### eventItemPopoverPlacement
+
+Controls Scheduler event item popover placement ('top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'), default `bottomLeft`.
+
 #### calendarPopoverEnabled
 
 Controls Scheduler whether to display calendar popover when clicking on a date label in header, default `true`.

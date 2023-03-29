@@ -529,7 +529,7 @@ class EventItem extends Component {
                         : a
                     }
                 </div> :
-                <Popover placement="bottomLeft" content={content} trigger={config.eventItemPopoverTrigger}>
+                <Popover placement={config.eventItemPopoverPlacement} content={content} trigger={config.eventItemPopoverTrigger}>
                     {
                         config.dragAndDropEnabled ?
                             connectDragPreview(

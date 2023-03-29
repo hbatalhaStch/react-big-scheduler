@@ -262,6 +262,7 @@ export interface SchedulerDataConfig {
     yearMaxEvents?: number;
     customMaxEvents?: number;
     eventItemPopoverTrigger?: 'hover' | 'click';
+    eventItemPopoverPlacement?: 'top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'
     eventItemHeight?: number;
     eventItemLineHeight?: number;
     nonAgendaSlotMinHeight?: number;
