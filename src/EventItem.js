@@ -17,7 +17,7 @@ class EventItem extends Component {
         };
         this.startResizer = null;
         this.endResizer = null;
-        
+
         this.supportTouch = 'ontouchstart' in window;
     }
 
@@ -529,24 +529,15 @@ class EventItem extends Component {
             {endResizeDiv}
         </a>;
 
+        const aItem = config.dragAndDropEnabled ? connectDragPreview(connectDragSource(a)) : a;
+
         return (
             isDragging ? null : (schedulerData._isResizing() || config.eventItemPopoverEnabled == false || eventItem.showPopover == false ?
                 <div>
-                    {config.dragAndDropEnabled ?
-                        connectDragPreview(
-                            connectDragSource(a)
-                        )
-                        : a
-                    }
+                    {aItem}
                 </div> :
                 <Popover placement={config.eventItemPopoverPlacement} content={content} trigger={config.eventItemPopoverTrigger}>
-                    {
-                        config.dragAndDropEnabled ?
-                            connectDragPreview(
-                                connectDragSource(a)
-                            )
-                            : a
-                    }
+                    {aItem}
                 </Popover>
             )
         );
