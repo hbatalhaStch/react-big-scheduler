@@ -1,6 +1,11 @@
 ## Coming npm version
 
-## npm v0.2.7
+## npm v1.2.1
+
+### 2023-03-31
+* Remove css from build for compatibility (thanks [asyndesis](https://github.com/asyndesis))
+
+## npm v1.2.0
 
 ### 2023-03-31
 * Remove the need to dynamically import Scheduler in nextjs
