@@ -71,7 +71,10 @@ class Scheduler extends Component {
 
         if ((schedulerData.isSchedulerResponsive() && !schedulerData.config.responsiveByParent) || parentRef === undefined) {
             schedulerData._setDocumentWidth(document.documentElement.clientWidth);
-            window.onresize = this.onWindowResize;
+            // Skip this binding if window object is not available. (Allows this to work in Next.js)
+            if (typeof window !== 'undefined'){
+                window.onresize = this.onWindowResize;
+            }
         }
     }
 
