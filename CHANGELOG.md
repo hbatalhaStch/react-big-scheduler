@@ -1,7 +1,14 @@
 ## Coming npm version
 
-### Some day
-* An add-more data bug
+## npm v0.2.7
+
+### 2023-03-31
+* Remove the need to dynamically import Scheduler in nextjs
+* Add option to change event item popover placement
+* Add option to hide resource view
+* Upgrade antd to v5.3.3
+* Update/fix TS typings
+* Fix event span for day viewType
 
 ## npm v0.2.7
 
