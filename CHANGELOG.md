@@ -1,4 +1,7 @@
-## Coming npm version
+## npm v1.2.2
+
+### 2023-03-31
+* Fix TS typing typo
 
 ## npm v1.2.1
 
@@ -13,6 +16,7 @@
 * Add option to hide resource view
 * Upgrade antd to v5.3.3
 * Update/fix TS typings
+* Add generic to Scheduler and SchedulerProps to be able to extend the EventItem type (TS)
 * Fix event span for day viewType
 
 ## npm v0.2.7
