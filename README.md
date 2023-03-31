@@ -8,135 +8,146 @@ A scheduler and resource planning component built for React and made for modern 
 [Online demo](https://stephenchou1017.github.io/scheduler/#/)
 
 <!-- MANPAGE: BEGIN EXCLUDED SECTION -->
-* [Main Changes](#main-changes)
-* [Use and Setup](#use-and-setup)
-    * [Install](#npm)
-    * [Example code](#example-code)
-* [Run examples locally](#run-examples-locally)
-* [API](#api)
-    * [SchedulerData](#schedulerdata)
-    * [Locale support](#locale-supportrefer-to-this-example-for-details)
-    * [SchedulerData.config](#schedulerdataconfigsee-the-configjs-for-details)
-    * [SchedulerData.behaviors](#schedulerdatabehaviorssee-the-behaviorsjs-for-details)
-    * [Scheduler.propTypes](#schedulerproptypes)
+
+- [Main Changes](#main-changes)
+- [Use and Setup](#use-and-setup)
+  - [Install](#npm)
+  - [Example code](#example-code)
+- [Run examples locally](#run-examples-locally)
+- [API](#api)
+_ [SchedulerData](#schedulerdata)
+_ [Locale support](#locale-supportrefer-to-this-example-for-details)
+_ [SchedulerData.config](#schedulerdataconfigsee-the-configjs-for-details)
+_ [SchedulerData.behaviors](#schedulerdatabehaviorssee-the-behaviorsjs-for-details) \* [Scheduler.propTypes](#schedulerproptypes)
 <!-- MANPAGE: END EXCLUDED SECTION -->
 
 ## Main Changes
+
 This forks uses the latest antd and react versions and improves the performance significantly as well as some other changes such as:
+
 - Add Spin when changing view and selecting date through SchedulerData config option `viewChangeSpinEnabled` and `dateChangeSpinEnabled` (both true by default)
 - Replace Dayjs.js with Day.js
 - Change event item popover trigger through SchedulerData config option `eventItemPopoverTrigger` ('hover' | 'click'), 'hover' by default
 - Set a fixed height for the scheduler through the SchedulerData config option `schedulerContentHeight` ('500px' by default)
-- Enable/disable react dnd through SchedulerData config option `dragAndDropEnabled` (true by default) 
+- Enable/disable react dnd through SchedulerData config option `dragAndDropEnabled` (true by default)
 - Drop IE support
 - Upgrade react-dnd to v14.0.5 leading to [changes in how we write the `withDnDContext`](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/example/withDnDContext.js) wrapper
 
 ## Use and Setup
 
-#### npm
+#### 1.) Install
+
 `npm i react-big-scheduler-stch`
 
+#### 2.) Import dependencies
 
-#### Example code
 ```js
-//1. import
-import Scheduler, {SchedulerData, ViewType, DATE_FORMAT} from 'react-big-scheduler-stch'
-import dayjs from 'dayjs'
-...
+import Scheduler, {
+  SchedulerData,
+  ViewType,
+  DATE_FORMAT,
+} from "react-big-scheduler-stch";
+import "react-big-scheduler-stch/lib/css/style.css";
+import dayjs from "dayjs";
+```
 
-//2. create the view model, put it in the props obj
-let schedulerData = new SchedulerData(new dayjs().format(DATE_FORMAT), ViewType.Week);
+#### 2.) Basic usage
+
+```js
+const schedulerData = new SchedulerData(
+  new dayjs().format(DATE_FORMAT),
+  ViewType.Week
+);
+
 //set locale dayjs to the schedulerData, if your locale isn't English. By default, Scheduler comes with English(en, United States).
-schedulerData.setSchedulerLocale('pt-br'); // this uses dayjs, but it doesn't require dayjs to be installed as its called dynamically
-schedulerData.setCalendarPopoverLocale('pt_BR'); // this uses antd [List of supported locales](https://ant.design/docs/react/i18n#supported-languages)
-//set resources here or later
-let resources = [
-                    {
-                       id: 'r0',
-                       name: 'Resource0',
-                       groupOnly: true
-                    },
-                    {
-                       id: 'r1',
-                       name: 'Resource1'
-                    },
-                    {
-                       id: 'r2',
-                       name: 'Resource2',
-                       parentId: 'r0'
-                    },
-                    {
-                       id: 'r3',
-                       name: 'Resource3',
-                       parentId: 'r4'
-                    },
-                    {
-                       id: 'r4',
-                       name: 'Resource4',
-                       parentId: 'r2'
-                    },
-                ];
-schedulerData.setResources(resources);
-//set events here or later,
-//the event array should be sorted in ascending order by event.start property, otherwise there will be some rendering errors
-let events = [
-                {
-                     id: 1,
-                     start: '2017-12-18 09:30:00',
-                     end: '2017-12-19 23:30:00',
-                     resourceId: 'r1',
-                     title: 'I am finished',
-                     bgColor: '#D9D9D9'
-                 },
-                 {
-                     id: 2,
-                     start: '2017-12-18 12:30:00',
-                     end: '2017-12-26 23:30:00',
-                     resourceId: 'r2',
-                     title: 'I am not resizable',
-                     resizable: false
-                 },
-                 {
-                     id: 3,
-                     start: '2017-12-19 12:30:00',
-                     end: '2017-12-20 23:30:00',
-                     resourceId: 'r3',
-                     title: 'I am not movable',
-                     movable: false
-                 },
-                 {
-                     id: 4,
-                     start: '2017-12-19 14:30:00',
-                     end: '2017-12-20 23:30:00',
-                     resourceId: 'r1',
-                     title: 'I am not start-resizable',
-                     startResizable: false
-                 },
-                 {
-                     id: 5,
-                     start: '2017-12-19 15:30:00',
-                     end: '2017-12-20 23:30:00',
-                     resourceId: 'r2',
-                     title: 'R2 has recurring tasks every week on Tuesday, Friday',
-                     rrule: 'FREQ=WEEKLY;DTSTART=20171219T013000Z;BYDAY=TU,FR',
-                     bgColor: '#f759ab'
-                 }
-             ];
-schedulerData.setEvents(events);
+schedulerData.setSchedulerLocale("pt-br"); // this uses dayjs, but it doesn't require dayjs to be installed as its called dynamically
+schedulerData.setCalendarPopoverLocale("pt_BR"); // this uses antd [List of supported locales](https://ant.design/docs/react/i18n#supported-languages)
 
-...
+schedulerData.setResources([
+  {
+    id: "r0",
+    name: "Resource0",
+    groupOnly: true,
+  },
+  {
+    id: "r1",
+    name: "Resource1",
+  },
+  {
+    id: "r2",
+    name: "Resource2",
+    parentId: "r0",
+  },
+  {
+    id: "r3",
+    name: "Resource3",
+    parentId: "r4",
+  },
+  {
+    id: "r4",
+    name: "Resource4",
+    parentId: "r2",
+  },
+]);
+
+// the event array should be sorted in ascending order by event.start property
+// otherwise there will be some rendering errors
+schedulerData.setEvents([
+  {
+    id: 1,
+    start: "2017-12-18 09:30:00",
+    end: "2017-12-19 23:30:00",
+    resourceId: "r1",
+    title: "I am finished",
+    bgColor: "#D9D9D9",
+  },
+  {
+    id: 2,
+    start: "2017-12-18 12:30:00",
+    end: "2017-12-26 23:30:00",
+    resourceId: "r2",
+    title: "I am not resizable",
+    resizable: false,
+  },
+  {
+    id: 3,
+    start: "2017-12-19 12:30:00",
+    end: "2017-12-20 23:30:00",
+    resourceId: "r3",
+    title: "I am not movable",
+    movable: false,
+  },
+  {
+    id: 4,
+    start: "2017-12-19 14:30:00",
+    end: "2017-12-20 23:30:00",
+    resourceId: "r1",
+    title: "I am not start-resizable",
+    startResizable: false,
+  },
+  {
+    id: 5,
+    start: "2017-12-19 15:30:00",
+    end: "2017-12-20 23:30:00",
+    resourceId: "r2",
+    title: "R2 has recurring tasks every week on Tuesday, Friday",
+    rrule: "FREQ=WEEKLY;DTSTART=20171219T013000Z;BYDAY=TU,FR",
+    bgColor: "#f759ab",
+  },
+]);
+
+// ...
 
 //3. render the scheduler component, mind that the Scheduler component should be placed in a DragDropContext(father or ancestor).
-...
-const {schedulerData} = this.props;
-<Scheduler schedulerData={schedulerData}
-           prevClick={this.prevClick}
-           nextClick={this.nextClick}
-           onSelectDate={this.onSelectDate}
-           onViewChange={this.onViewChange}
-           eventItemClick={this.eventClicked}
-/>
-...
+
+<Scheduler
+  schedulerData={schedulerData}
+  prevClick={this.prevClick}
+  nextClick={this.nextClick}
+  onSelectDate={this.onSelectDate}
+  onViewChange={this.onViewChange}
+  eventItemClick={this.eventClicked}
+/>;
 ```
 
 ## Run examples locally
@@ -202,7 +213,9 @@ If your locale isn't English. By default, Scheduler comes with English(en, Unite
 ```js
 setCalendarPopoverLocale(lang);
 ```
+
 Used to set locale to the calendar popover. it uses antd locales ([List of supported locales](https://ant.design/docs/react/i18n#supported-languages). By default, it comes with English(en, United States)
+
 #### setResources
 
 ```js
@@ -432,9 +445,6 @@ getViewEndDate();
 
 Returns a dayjs object with the endDate of the currently selected view.
 
-
-
-
 ### Locale support(Refer to [this example](https://stephenchou1017.github.io/scheduler/#/locale) for details.)
 
 #### SchedulerData.config.resourceName
@@ -477,14 +487,14 @@ The width of Scheduler. Scheduler uses responsive layout so schedulerWidth shoul
 Scheduler in the responsive layout:
 `actual width of Scheduler = (SchedulerData.documentWidth - SchedulerData.config.besidesWidth) * SchedulerData.config.schedulerWidth`
 `SchedulerData.documentWidth` is the window width of browser (or the the parent width in case SchedulerData.config.responsiveByParent
- and Scheduler component prop parentRef is passed) and will change automatically when resized.
+and Scheduler component prop parentRef is passed) and will change automatically when resized.
 
 #### responsiveByParent
 
-When true, Scheduler resposiveness will not be determined by the window width of browser but instead by the 
+When true, Scheduler resposiveness will not be determined by the window width of browser but instead by the
 width of the of the parent (the parent ref must be passed to the Scheduler component prop named `parentRef`,
-in case it is not passed resposiveness will fall back to being determined by the window width). 
-Meaning: 
+in case it is not passed resposiveness will fall back to being determined by the window width).
+Meaning:
 `SchedulerData.documentWidth` is the width of the parent and will change automatically when resized
 
 #### schedulerMaxHeight
@@ -656,7 +666,7 @@ Minute step for day view type in non-agenda view, can be 10, 12, 15, 20, 30, 60,
 
 Array of view that Scheduler will support.
 
-#### dragAndDropEnabled 
+#### dragAndDropEnabled
 
 Controls whether the dragAndDrop funcionality is enabled. If false there's no need for the [withDnDContext wrapper](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/example/withDnDContext.js).
 
