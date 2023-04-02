@@ -204,7 +204,7 @@ export default class SchedulerData {
 
                     let now = this.localeDayjs();
                     if (now >= start && now < end) {
-                        date = now;
+                        date = now.startOf('day');
                     }
 
                     if (viewType === ViewType.Day) {
