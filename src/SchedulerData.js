@@ -852,33 +852,55 @@ export default class SchedulerData {
             return diff < 0 ? 0 : diff;
         }
 
-        let start = (new Date(startTime)),
-            end = (new Date(endTime)),
-            span = 0;
+        let eventStart = (new Date(startTime)),
+            eventEnd = (new Date(endTime)),
+            span = 0,
+            windowStart = new Date(this.startDate),
+            windowEnd = new Date(this.endDate);
 
-        if (this.cellUnit === CellUnit.Hour) {
+        if (this.viewType === ViewType.Day) {
             if (headers.length > 0) {
                 const day = new Date(headers[0].time);
-                if (day.getDate() > start.getDate() && day.getDate() < end.getDate()) {
+                if (day.getDate() > eventStart.getDate() && day.getDate() < eventEnd.getDate()) {
                     span = 1440 / this.config.minuteStep;
-                } else if (day.getDate() > start.getDate() && day.getDate() === end.getDate()) {
-                    span = Math.ceil(timeBetween(day, end, 'minutes') / this.config.minuteStep);
-                } else if (day.getDate() === start.getDate() && day.getDate() < end.getDate()) {
+                } else if (day.getDate() > eventStart.getDate() && day.getDate() === eventEnd.getDate()) {
+                    span = Math.ceil(timeBetween(day, eventEnd, 'minutes') / this.config.minuteStep);
+                } else if (day.getDate() === eventStart.getDate() && day.getDate() < eventEnd.getDate()) {
                     day.setHours(23, 59, 59)
-                    span = Math.ceil(timeBetween(start, day, 'minutes') / this.config.minuteStep);
-                } else if ((day.getDate() === start.getDate() && day.getDate() === end.getDate()) || end.getDate() === start.getDate()) {
-                    span = Math.ceil(timeBetween(start, end, 'minutes') / this.config.minuteStep);
+                    span = Math.ceil(timeBetween(eventStart, day, 'minutes') / this.config.minuteStep);
+                } else if ((day.getDate() === eventStart.getDate() && day.getDate() === eventEnd.getDate()) || eventEnd.getDate() === eventStart.getDate()) {
+                    span = Math.ceil(timeBetween(eventStart, eventEnd, 'minutes') / this.config.minuteStep);
                 }
             }
         } else if (this.viewType === ViewType.Week) {
-            const windowStart = new Date(this.startDate);
-            const startDate = windowStart < start ? start : windowStart
-            span = Math.ceil(timeBetween(startDate, end, 'days'));
+            const startDate = windowStart < eventStart ? eventStart : windowStart
+            span = Math.ceil(timeBetween(startDate, eventEnd, 'days'));
         } else if (this.viewType === ViewType.Month) {
-            const endDate = start.getMonth() === end.getMonth() ? end : dayjs(start).endOf('month').toDate()
-            span = Math.ceil(timeBetween(start, endDate, 'days'));
+            const endDate = eventStart.getMonth() === eventEnd.getMonth() ? eventEnd : dayjs(eventStart).endOf('month').toDate()
+            span = Math.ceil(timeBetween(eventStart, endDate, 'days'));
+        } else if (this.viewType === ViewType.Quarter || this.viewType === ViewType.Year) {
+            span = Math.ceil(timeBetween(eventStart, eventEnd, 'days'));
         } else {
-            span = Math.ceil(timeBetween(start, end, 'days'));
+            windowStart.setHours(0, 0, 0, 0)
+            windowEnd.setHours(23, 59, 59)            
+
+            if (this.cellUnit === CellUnit.Day) {
+                eventEnd.setHours(23, 59, 59)
+                eventStart.setHours(0, 0, 0, 0)
+            }
+            
+            const timeIn = this.cellUnit === CellUnit.Day ? 'days' : 'minutes'
+            const dividedBy = this.cellUnit === CellUnit.Day ? 1 : this.config.minuteStep
+
+            if (windowStart >= eventStart && eventEnd <= windowEnd) {
+                span = Math.ceil(timeBetween(windowStart, eventEnd, timeIn) / dividedBy);
+            } else if (windowStart > eventStart && eventEnd > windowEnd) {
+                span = Math.ceil(timeBetween(windowStart, windowEnd, timeIn) / dividedBy);
+            } else if (windowStart <= eventStart && eventEnd >= windowEnd) {
+                span = Math.ceil(timeBetween(eventStart, windowEnd, timeIn) / dividedBy);
+            } else {
+                span = Math.ceil(timeBetween(eventStart, eventEnd, timeIn) / dividedBy);
+            }
         }
 
         return span;
