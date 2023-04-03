@@ -1,4 +1,6 @@
-## npm v1.2.3 (upcoming)
+## npm v1.2.3
+
+### 2023-04-03
 * Fix scheduler header span for day view
 * Fix custom view event span
 * Update TS typings
