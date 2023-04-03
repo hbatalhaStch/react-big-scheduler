@@ -2,13 +2,6 @@ name: Bug report
 description: Report a bug
 labels: [triage, bug]
 body:
-- type: checkboxes
-    id: checklist
-    attributes:
-      label: Checklist
-      options:
-        - label: I've verified that I'm running react-big-scheduler-stch version **1.2.2**
-          required: true
   - type: textarea
     id: description
     attributes:
