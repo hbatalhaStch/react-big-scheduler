@@ -63,8 +63,8 @@ class Scheduler extends Component {
             contentScrollbarWidth: 17,
             resourceScrollbarHeight: 17,
             resourceScrollbarWidth: 17,
-            documentWidth: document.documentElement.clientWidth,
-            documentHeight: document.documentElement.clientHeight,
+            documentWidth: 0,
+            documentHeight: 0,
         };
         this.scrollLeft = 0;
         this.scrollTop = 0;

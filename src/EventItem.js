@@ -18,7 +18,7 @@ class EventItem extends Component {
         this.startResizer = null;
         this.endResizer = null;
 
-        this.supportTouch = 'ontouchstart' in window;
+        this.supportTouch = false// 'ontouchstart' in window;
     }
 
     static propTypes = {
@@ -62,6 +62,7 @@ class EventItem extends Component {
     }
 
     componentDidMount() {
+        this.supportTouch = 'ontouchstart' in window;
         this.subscribeResizeEvent(this.props);
     }
 

@@ -17,7 +17,7 @@ class ResourceEvents extends Component {
             left: 0,
             width: 0,
         }
-        this.supportTouch = 'ontouchstart' in window;
+        this.supportTouch = false;//'ontouchstart' in window;
     }
 
     static propTypes = {
@@ -43,6 +43,8 @@ class ResourceEvents extends Component {
     componentDidMount() {
         const { schedulerData } = this.props;
         const { config } = schedulerData;
+        this.supportTouch = 'ontouchstart' in window;
+
         if (config.creatable === true) {
             if (this.supportTouch) {
                 // this.eventContainer.addEventListener('touchstart', this.initDrag, false);
