@@ -1,4 +1,4 @@
-import { Dayjs } from "dayjs";
+import { ConfigType, Dayjs, OptionType } from "dayjs";
 import React, { CSSProperties } from "react";
 
 export default class Scheduler<T extends EventItem = EventItem> extends React.Component<SchedulerProps<T>, any> { }
@@ -82,7 +82,10 @@ export interface AddMorePopoverProps {
 }
 
 export class SchedulerData {
-    localeDayjs(date: string): Dayjs;
+    localeDayjs(date?: ConfigType): Dayjs
+    localeDayjs(date?: ConfigType, format?: OptionType, strict?: boolean): Dayjs
+    localeDayjs(date?: ConfigType, format?: OptionType, locale?: string, strict?: boolean): Dayjs
+
     cellUnit: CellUnit;
     viewType: ViewType;
     startDate: string;
@@ -321,8 +324,8 @@ export interface SchedulerDataBehaviors {
     getCustomDateFunc?: (
         schedulerData: SchedulerData,
         num: number,
-        date?: string,
-    ) => { startDate: string; endDate: string; cellUnit: CellUnit };
+        date?: string | Dayjs,
+    ) => { startDate: string | Dayjs; endDate: string | Dayjs; cellUnit: CellUnit };
     getEventTextFunc: (schedulerData: SchedulerData, event: EventItem) => string;
     getDateLabel: (schedulerData: SchedulerData, viewType: ViewType, startDate: string | Date, endDate: string | Date) => string;
     getScrollSpecialDayjs: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
