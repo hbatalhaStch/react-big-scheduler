@@ -1,5 +1,6 @@
 ## npm v1.2.3 (upcoming)
 * Fix scheduler header span for day view
+* Update TS typings
 
 ## npm v1.2.2
 
