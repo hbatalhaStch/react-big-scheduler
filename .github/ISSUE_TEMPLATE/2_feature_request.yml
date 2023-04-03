@@ -1,0 +1,26 @@
+name: Feature request
+description: Request a new functionality
+labels: [triage, enhancement]
+body:
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I've looked through the [README](https://github.com/hbatalhaStch/react-big-scheduler#readme)
+          required: true
+        - label: I've verified that I'm running react-big-scheduler-stch version **1.2.2**
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What problem does this feature solve?      
+      placeholder: Explain your use case, context, and rationale behind this feature request
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: What does the proposed API look like?
+      placeholder: |
+        Provide code samples of how the API would work once implemented.

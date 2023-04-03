@@ -1,0 +1,20 @@
+name: Ask question
+description: Ask react-big-scheduler-stch related question
+labels: [question]
+body:
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I've looked through the [README](https://github.com/hbatalhaStch/react-big-scheduler#readme)
+          required: true
+        - label: I've verified that I'm running react-big-scheduler-stch version **1.2.2**
+          required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Please make sure the question is worded well enough to be understood
+      placeholder: Provide any additional information and as much context and examples as possible
+    validations:
+      required: true
