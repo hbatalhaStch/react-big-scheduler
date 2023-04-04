@@ -13,7 +13,7 @@
 ## npm v1.2.1
 
 ### 2023-03-31
-* Remove css from build for compatibility (thanks [asyndesis](https://github.com/asyndesis))
+* Remove css from build for compatibility (thanks [asyndesis](https://github.com/asyndesis)), so starting from v1.2.1 css has to be [manually imported](https://github.com/hbatalhaStch/react-big-scheduler/blob/master/README.md#2-import-dependencies)
 
 ## npm v1.2.0
 
