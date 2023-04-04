@@ -11,8 +11,9 @@ A scheduler and resource planning component built for React and made for modern 
 
 - [Main Changes](#main-changes)
 - [Use and Setup](#use-and-setup)
-  - [Install](#npm)
-  - [Example code](#example-code)
+  - [Install](#1-install)
+  - [Import dependencies](#2-import-dependencies)
+  - [Basic usage](#2-basic-usage)
 - [Run examples locally](#run-examples-locally)
 - [API](#api)
 _ [SchedulerData](#schedulerdata)
