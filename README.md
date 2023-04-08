@@ -216,7 +216,7 @@ If your locale isn't English. By default, Scheduler comes with English(en, Unite
 setCalendarPopoverLocale(lang);
 ```
 
-Used to set locale to the calendar popover. it uses antd locales ([List of supported locales](https://ant.design/docs/react/i18n#supported-languages). By default, it comes with English(en, United States)
+Used to set locale to the calendar popover. it uses antd locales ([List of supported locales](https://ant.design/docs/react/i18n#supported-languages)). By default, it comes with English(en, United States)
 
 #### setResources
 
