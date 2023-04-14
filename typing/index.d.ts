@@ -48,7 +48,7 @@ export interface SchedulerProps<T extends EventItem = EventItem> {
     onScrollBottom?: (schedulerData: SchedulerData, schedulerContent: React.ReactNode, maxScrollTop: number) => void;
     onSetAddMoreState?: (newState: State) => void;
     conflictOccurred?: (schedulerData: SchedulerData, action: string, item: T, type: string, slotId: string, slotName: string, newStart: string, newEnd: string) => void;
-    nonAgendaCellHeaderTemplateResolver?: (schedulerData: SchedulerData, item: {time: string, nonWorkingTime: boolean}, formattedDateItems: string[], style: CSSProperties) => void;
+    nonAgendaCellHeaderTemplateResolver?: (schedulerData: SchedulerData, item: { time: string, nonWorkingTime: boolean }, formattedDateItems: string[], style: CSSProperties) => void;
     subtitleGetter?: (schedulerData: SchedulerData, event: T) => void;
     movingEvent?: (schedulerData: SchedulerData, slotId: string, slotName: string, newStart: string, newEnd: string, action: string, type: string, item: EventItem) => void;
     slotClickedFunc?: (schedulerData: SchedulerData, slot: ResourceEvent) => void;
@@ -265,7 +265,8 @@ export interface SchedulerDataConfig {
     yearMaxEvents?: number;
     customMaxEvents?: number;
     eventItemPopoverTrigger?: 'hover' | 'click';
-    eventItemPopoverPlacement?: 'top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'
+    eventItemPopoverPlacement?: 'topLeftMousePosition' | 'bottomLeftMousePosition' | 'topRightMousePosition' | 'bottomRightMousePosition' | 'top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'
+    eventItemPopoverWidth?: number;
     eventItemHeight?: number;
     eventItemLineHeight?: number;
     nonAgendaSlotMinHeight?: number;

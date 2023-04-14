@@ -36,6 +36,7 @@ export default {
 
     eventItemPopoverTrigger: 'hover',
     eventItemPopoverPlacement: 'bottomLeft',
+    eventItemPopoverWidth: 300,
 
     eventItemHeight: 22,
     eventItemLineHeight: 24,

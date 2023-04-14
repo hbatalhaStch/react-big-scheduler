@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import { Popover } from 'antd'
+import { ConfigProvider, Popover } from 'antd'
 import EventItemPopover from './EventItemPopover'
 import { CellUnit, DATETIME_FORMAT } from './index'
 import { DnDTypes } from './DnDTypes'
@@ -14,11 +14,16 @@ class EventItem extends Component {
             left: left,
             top: top,
             width: width,
+            contentMousePosX: 0,
+            eventItemLeftRect: 0,
+            eventItemRightRect: 0,
         };
         this.startResizer = null;
         this.endResizer = null;
 
         this.supportTouch = false// 'ontouchstart' in window;
+
+        this.eventItemRef = React.createRef();
     }
 
     static propTypes = {
@@ -481,6 +486,11 @@ class EventItem extends Component {
         const { left, width, top } = this.state;
         let roundCls = isStart ? (isEnd ? 'round-all' : 'round-head') : (isEnd ? 'round-tail' : 'round-none');
         let bgColor = config.defaultEventBgColor;
+        const popoverPlacement = config.eventItemPopoverPlacement;
+        const isPopoverPlacementMousePosition = /(top|bottom)(Right|Left)MousePosition/.test(popoverPlacement)
+        const isMousePositionPlacementLeft = popoverPlacement.includes('Left')
+        const isMousePositionPlacementTop = popoverPlacement.includes('top')
+
         if (!!eventItem.bgColor)
             bgColor = eventItem.bgColor;
 
@@ -513,13 +523,48 @@ class EventItem extends Component {
         if (eventItemTemplateResolver != undefined)
             eventItemTemplate = eventItemTemplateResolver(schedulerData, eventItem, bgColor, isStart, isEnd, 'event-item', config.eventItemHeight, undefined);
 
-        let a = <a className="timeline-event"
-            style={{ left: left, width: width, top: top }}
-            onClick={() => { if (!!eventItemClick) eventItemClick(schedulerData, eventItem); }}>
-            {eventItemTemplate}
-            {startResizeDiv}
-            {endResizeDiv}
-        </a>;
+        let a = (
+            <a
+                className="timeline-event"
+                ref={this.eventItemRef}
+                onMouseMove={isPopoverPlacementMousePosition ? this.handleMouseMove : undefined}
+                style={{ left: left, width: width, top: top }}
+                onClick={() => { if (!!eventItemClick) eventItemClick(schedulerData, eventItem); }}
+            >
+                {eventItemTemplate}
+                {startResizeDiv}
+                {endResizeDiv}
+            </a>
+        );
+
+        if (isPopoverPlacementMousePosition) {
+            const mousePosX = this.state.contentMousePosX;
+            const popoverWidth = config.eventItemPopoverWidth;
+            const eventItemLeftRect = this.state.eventItemLeftRect;
+            const eventItemRightRect = this.state.eventItemRightRect;
+            let eventItemMousePosX = isMousePositionPlacementLeft ? eventItemLeftRect : eventItemRightRect
+            var posAdjustControl = isMousePositionPlacementLeft ? 1 : -1;
+
+            var mousePositionPlacement = popoverPlacement.replace('MousePosition', '');
+
+            if (popoverPlacement.includes('Left')) {
+                if ((mousePosX + popoverWidth) > window.innerWidth) {
+                    mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Right`;
+                    eventItemMousePosX = eventItemRightRect;
+                    posAdjustControl = -1;
+                }
+            } else {
+                if ((mousePosX - popoverWidth) < 0) {
+                    mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Left`;
+                    eventItemMousePosX = eventItemLeftRect;
+                    posAdjustControl = 1;
+                }
+            }
+
+            var popoverOffsetX = mousePosX - eventItemMousePosX - (20 * posAdjustControl);
+        }
+
+        console.log()
 
         const aItem = config.dragAndDropEnabled ? connectDragPreview(connectDragSource(a)) : a;
 
@@ -528,11 +573,32 @@ class EventItem extends Component {
                 <div>
                     {aItem}
                 </div> :
-                <Popover placement={config.eventItemPopoverPlacement} content={content} trigger={config.eventItemPopoverTrigger}>
+                <Popover
+                    transitionName={isPopoverPlacementMousePosition ? '' : undefined}
+                    align={isPopoverPlacementMousePosition ? {
+                        offset: [popoverOffsetX, popoverPlacement.includes('top') ? -10 : 10],
+                        overflow: {
+                            // shiftX: true,
+                            // shiftY: true,
+                        }
+                    } : undefined}
+                    placement={isPopoverPlacementMousePosition ? mousePositionPlacement : popoverPlacement}
+                    content={content}
+                    trigger={config.eventItemPopoverTrigger}
+                >
                     {aItem}
                 </Popover>
             )
         );
+    }
+
+    handleMouseMove = (event) => {
+        const rect = this.eventItemRef.current.getBoundingClientRect();
+        this.setState({
+            contentMousePosX: event.clientX,
+            eventItemLeftRect: rect.left,
+            eventItemRightRect: rect.right,
+        })
     }
 
     startResizable = (props) => {

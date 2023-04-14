@@ -107,7 +107,7 @@ class EventItemPopover extends Component {
 
             let dateFormat = config.eventItemPopoverDateFormat;
             return (
-                <div style={{ width: '300px' }}>
+                <div style={{ width: config.eventItemPopoverWidth }}>
                     <Row type="flex" align="middle">
                         <Col span={2}>
                             <div className="status-dot" style={{ backgroundColor: statusColor }} />
