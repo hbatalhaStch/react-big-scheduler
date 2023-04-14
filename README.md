@@ -16,10 +16,11 @@ A scheduler and resource planning component built for React and made for modern 
   - [Basic usage](#2-basic-usage)
 - [Run examples locally](#run-examples-locally)
 - [API](#api)
-_ [SchedulerData](#schedulerdata)
-_ [Locale support](#locale-supportrefer-to-this-example-for-details)
-_ [SchedulerData.config](#schedulerdataconfigsee-the-configjs-for-details)
-_ [SchedulerData.behaviors](#schedulerdatabehaviorssee-the-behaviorsjs-for-details) \* [Scheduler.propTypes](#schedulerproptypes)
+    * [SchedulerData](#schedulerdata)
+    * [Locale support](#locale-supportrefer-to-this-example-for-details)
+    * [SchedulerData.config](#schedulerdataconfigsee-the-configjs-for-details)
+    * [SchedulerData.behaviors](#schedulerdatabehaviorssee-the-behaviorsjs-for-details)
+    * [Scheduler.propTypes](#schedulerproptypes)
 <!-- MANPAGE: END EXCLUDED SECTION -->
 
 ## Main Changes
@@ -215,7 +216,7 @@ If your locale isn't English. By default, Scheduler comes with English(en, Unite
 setCalendarPopoverLocale(lang);
 ```
 
-Used to set locale to the calendar popover. it uses antd locales ([List of supported locales](https://ant.design/docs/react/i18n#supported-languages). By default, it comes with English(en, United States)
+Used to set locale to the calendar popover. it uses antd locales ([List of supported locales](https://ant.design/docs/react/i18n#supported-languages)). By default, it comes with English(en, United States)
 
 #### setResources
 
