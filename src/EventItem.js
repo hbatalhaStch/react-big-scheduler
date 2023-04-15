@@ -488,8 +488,6 @@ class EventItem extends Component {
         let bgColor = config.defaultEventBgColor;
         const popoverPlacement = config.eventItemPopoverPlacement;
         const isPopoverPlacementMousePosition = /(top|bottom)(Right|Left)MousePosition/.test(popoverPlacement)
-        const isMousePositionPlacementLeft = popoverPlacement.includes('Left')
-        const isMousePositionPlacementTop = popoverPlacement.includes('top')
 
         if (!!eventItem.bgColor)
             bgColor = eventItem.bgColor;
@@ -537,34 +535,45 @@ class EventItem extends Component {
             </a>
         );
 
-        if (isPopoverPlacementMousePosition) {
-            const mousePosX = this.state.contentMousePosX;
-            const popoverWidth = config.eventItemPopoverWidth;
-            const eventItemLeftRect = this.state.eventItemLeftRect;
-            const eventItemRightRect = this.state.eventItemRightRect;
-            let eventItemMousePosX = isMousePositionPlacementLeft ? eventItemLeftRect : eventItemRightRect
-            var posAdjustControl = isMousePositionPlacementLeft ? 1 : -1;
+        const getMousePositionOptionsData = () => {
+            let popoverOffsetX = 0;
+            let mousePositionPlacement = '';
 
-            var mousePositionPlacement = popoverPlacement.replace('MousePosition', '');
+            if (isPopoverPlacementMousePosition) {
+                const isMousePositionPlacementLeft = popoverPlacement.includes('Left')
+                const mousePosX = this.state.contentMousePosX;
+                const popoverWidth = config.eventItemPopoverWidth;
+                const eventItemLeftRect = this.state.eventItemLeftRect;
+                const eventItemRightRect = this.state.eventItemRightRect;
+                let eventItemMousePosX = isMousePositionPlacementLeft ? eventItemLeftRect : eventItemRightRect
+                let posAdjustControl = isMousePositionPlacementLeft ? 1 : -1;
 
-            if (popoverPlacement.includes('Left')) {
-                if ((mousePosX + popoverWidth) > window.innerWidth) {
-                    mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Right`;
-                    eventItemMousePosX = eventItemRightRect;
-                    posAdjustControl = -1;
+                mousePositionPlacement = popoverPlacement.replace('MousePosition', '');
+
+                if (isMousePositionPlacementLeft) {
+                    if ((mousePosX + popoverWidth) > window.innerWidth) {
+                        mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Right`;
+                        eventItemMousePosX = eventItemRightRect;
+                        posAdjustControl = -1;
+                    }
+                } else {
+                    if ((mousePosX - popoverWidth) < 0) {
+                        mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Left`;
+                        eventItemMousePosX = eventItemLeftRect;
+                        posAdjustControl = 1;
+                    }
                 }
-            } else {
-                if ((mousePosX - popoverWidth) < 0) {
-                    mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Left`;
-                    eventItemMousePosX = eventItemLeftRect;
-                    posAdjustControl = 1;
-                }
+
+                popoverOffsetX = mousePosX - eventItemMousePosX - (20 * posAdjustControl);
             }
 
-            var popoverOffsetX = mousePosX - eventItemMousePosX - (20 * posAdjustControl);
+            return {
+                popoverOffsetX: popoverOffsetX,
+                mousePositionPlacement: mousePositionPlacement
+            }
         }
 
-        console.log()
+        const { popoverOffsetX, mousePositionPlacement } = getMousePositionOptionsData()
 
         const aItem = config.dragAndDropEnabled ? connectDragPreview(connectDragSource(a)) : a;
 
