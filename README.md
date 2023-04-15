@@ -630,7 +630,11 @@ Controls Scheduler whether to display event item popover when moving mouse on an
 
 #### eventItemPopoverPlacement
 
-Controls Scheduler event item popover placement ('top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'), default `bottomLeft`.
+Controls Scheduler event item popover placement (`'topLeftMousePosition' | 'bottomLeftMousePosition' | 'topRightMousePosition' | 'bottomRightMousePosition' | 'top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'`), default `bottomLeft`.
+
+#### eventItemPopoverWidth
+
+Controls Scheduler event item popover width. Should be taken into account when you set `eventItemPopoverPlacement` to one of the `...MousePosition` options and you set your own event item popover by setting `eventItemPopoverTemplateResolver` as `eventItemPopoverWidth` is used to determine when the event item popover content goes off the screen so the popover can be adjusted accordingly. Defaults to 300.
 
 #### calendarPopoverEnabled
 
