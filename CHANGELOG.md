@@ -1,3 +1,9 @@
+## npm v...
+
+### 2023-...
+* Add options to place the event item popover at the mouse position by setting `eventItemPopoverPlacement` to one of the options: `'topLeftMousePosition' | 'bottomLeftMousePosition' | 'topRightMousePosition' | 'bottomRightMousePosition'`
+* Making react-big-scheduler-stch compatible with Next.js by not requiring it to be dynamically imported.
+
 ## npm v1.2.3
 
 ### 2023-04-03
