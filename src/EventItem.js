@@ -24,6 +24,7 @@ class EventItem extends Component {
         this.supportTouch = false// 'ontouchstart' in window;
 
         this.eventItemRef = React.createRef();
+        this._isMounted = false;
     }
 
     static propTypes = {
@@ -67,6 +68,7 @@ class EventItem extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.supportTouch = 'ontouchstart' in window;
         this.subscribeResizeEvent(this.props);
     }
@@ -550,7 +552,7 @@ class EventItem extends Component {
 
                 mousePositionPlacement = popoverPlacement.replace('MousePosition', '');
 
-                if (isMousePositionPlacementLeft) {
+                if (isMousePositionPlacementLeft && this._isMounted) {
                     if ((mousePosX + popoverWidth) > window.innerWidth) {
                         mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Right`;
                         eventItemMousePosX = eventItemRightRect;
