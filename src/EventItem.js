@@ -552,14 +552,16 @@ class EventItem extends Component {
 
                 mousePositionPlacement = popoverPlacement.replace('MousePosition', '');
 
+                const distance = 10;
+
                 if (isMousePositionPlacementLeft && this._isMounted) {
-                    if ((mousePosX + popoverWidth) > window.innerWidth) {
+                    if ((mousePosX + popoverWidth + distance) > window.innerWidth) {
                         mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Right`;
                         eventItemMousePosX = eventItemRightRect;
                         posAdjustControl = -1;
                     }
                 } else {
-                    if ((mousePosX - popoverWidth) < 0) {
+                    if ((mousePosX - popoverWidth - distance) < 0) {
                         mousePositionPlacement = `${popoverPlacement.replace(/(Right|Left).*/, '')}Left`;
                         eventItemMousePosX = eventItemLeftRect;
                         posAdjustControl = 1;
