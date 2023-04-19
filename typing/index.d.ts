@@ -99,7 +99,7 @@ export class SchedulerData {
         newBehaviours?: SchedulerDataBehaviors
     );
 
-    setSchedulerLocale(lang: string): void;
+    setSchedulerLocale(preset: string | ILocale, object?: Partial<ILocale>): void;
     setCalendarPopoverLocale(lang: string): void;
     setResources(resources: Resource[]): void;
     setEvents(events: EventItem[]): void;
