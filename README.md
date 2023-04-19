@@ -213,6 +213,13 @@ Used to set locale to the scheduler, it uses dayjs locales ([List of supported l
 
 `object` is an ILocale object that can be used to change chosen properties of the chosen locale when the `preset` is a string.
 
+locale `zh-cn` weekStart is 1, you can change that doing the following:
+```js
+schedulerData.setSchedulerLocale('zh-cn', {
+    weekStart: 0
+});
+```
+
 By default, Scheduler comes with English(en, United States)
 
 #### setCalendarPopoverLocale
