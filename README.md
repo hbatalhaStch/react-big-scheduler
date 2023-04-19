@@ -28,7 +28,7 @@ A scheduler and resource planning component built for React and made for modern 
 This forks uses the latest antd and react versions and improves the performance significantly as well as some other changes such as:
 
 - Add Spin when changing view and selecting date through SchedulerData config option `viewChangeSpinEnabled` and `dateChangeSpinEnabled` (both true by default)
-- Replace Dayjs.js with Day.js
+- Replace moment with Day.js
 - Change event item popover trigger through SchedulerData config option `eventItemPopoverTrigger` ('hover' | 'click'), 'hover' by default
 - Set a fixed height for the scheduler through the SchedulerData config option `schedulerContentHeight` ('500px' by default)
 - Enable/disable react dnd through SchedulerData config option `dragAndDropEnabled` (true by default)
@@ -204,11 +204,16 @@ constructor(date=dayjs().format(DATE_FORMAT), viewType = ViewType.Week,
 #### setSchedulerLocale
 
 ```js
-setSchedulerLocale(lang);
+setSchedulerLocale(preset, object);
 ```
 
-Used to set locale to the scheduler, it uses dayjs locales ([List of supported locales](https://github.com/iamkun/dayjs/tree/dev/src/locale)).
-If your locale isn't English. By default, Scheduler comes with English(en, United States)
+Used to set locale to the scheduler, it uses dayjs locales ([List of supported locales](https://github.com/iamkun/dayjs/tree/dev/src/locale)) and it is loaded on demand.
+
+`preset` can either be a string (e.g `'zh-cn'`) or an [ILocale](https://github.com/iamkun/dayjs/blob/dev/types/locale/types.d.ts) object.
+
+`object` is an ILocale object that can be used to change chosen properties of the chosen locale when the `preset` is a string.
+
+By default, Scheduler comes with English(en, United States)
 
 #### setCalendarPopoverLocale
 
