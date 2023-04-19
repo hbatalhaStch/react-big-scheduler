@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import quarterOfYear from "dayjs/plugin/quarterOfYear";
 import utc from "dayjs/plugin/utc";
+import weekday from "dayjs/plugin/weekday";
 import { RRuleSet, rrulestr } from 'rrule'
 import config from './config'
 import behaviors from './behaviors'
@@ -21,9 +22,11 @@ export default class SchedulerData {
         this.resizing = false;
         this.scrollToSpecialDayjs = false;
         this.documentWidth = 0;
+        this._shouldReloadViewType = false
 
         this.calendarPopoverLocale = undefined;
         dayjs.extend(quarterOfYear)
+        dayjs.extend(weekday)
         dayjs.extend(utc)
         this.localeDayjs = dayjs;
         this.config = newConfig == undefined ? config : { ...config, ...newConfig };
@@ -34,14 +37,21 @@ export default class SchedulerData {
         this._createRenderData();
     }
 
-    setSchedulerLocale(lang) {
-        if (!!lang && typeof lang === 'string') {
-            this.locale = locale;
-            const locale = require(`dayjs/locale/${lang}.js`)
-            dayjs.locale(locale);
-            this._createHeaders();
-            this._createRenderData();
+    setSchedulerLocale(preset, object) {
+        if (!preset) return
+
+        let l = preset
+        if (typeof preset === 'string') {
+            l = require(`dayjs/locale/${preset}.js`)
+
+            if (!!object) {
+                Object.entries(object).forEach(([key, value]) => l[key] = value)
+            }
         }
+
+        this.localeDayjs.locale(l);
+        this._shouldReloadViewType = true;
+        this.setViewType(this.viewType, this.showAgenda, this.isEventPerspective)
     }
 
     setCalendarPopoverLocale(lang) {
@@ -166,7 +176,7 @@ export default class SchedulerData {
         this.isEventPerspective = isEventPerspective;
         this.cellUnit = CellUnit.Day;
 
-        if (this.viewType !== viewType) {
+        if (this.viewType !== viewType || this._shouldReloadViewType) {
             let date = this.startDate;
 
             if (viewType === ViewType.Custom || viewType === ViewType.Custom1 || viewType === ViewType.Custom2) {
@@ -228,6 +238,8 @@ export default class SchedulerData {
 
                 this.viewType = viewType;
             }
+
+            this._shouldReloadViewType = false;
 
             this.events = [];
             this._createHeaders();
@@ -882,13 +894,13 @@ export default class SchedulerData {
             span = Math.ceil(timeBetween(eventStart, eventEnd, 'days'));
         } else {
             windowStart.setHours(0, 0, 0, 0)
-            windowEnd.setHours(23, 59, 59)            
+            windowEnd.setHours(23, 59, 59)
 
             if (this.cellUnit === CellUnit.Day) {
                 eventEnd.setHours(23, 59, 59)
                 eventStart.setHours(0, 0, 0, 0)
             }
-            
+
             const timeIn = this.cellUnit === CellUnit.Day ? 'days' : 'minutes'
             const dividedBy = this.cellUnit === CellUnit.Day ? 1 : this.config.minuteStep
 
