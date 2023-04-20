@@ -40,3 +40,6 @@ test
 
 #vscode
 .vscode
+src/DemoData-dev.js
+exampledist/index.xhtml
+personal TS usage/BigScheduler.tsx
