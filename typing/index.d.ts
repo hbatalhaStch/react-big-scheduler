@@ -90,6 +90,8 @@ export class SchedulerData {
     viewType: ViewType;
     startDate: string;
 
+    config: SchedulerDataConfig;
+
     constructor(
         date?: string | Dayjs,
         viewType?: ViewType,
@@ -327,9 +329,9 @@ export interface SchedulerDataBehaviors {
         num: number,
         date?: string | Dayjs,
     ) => { startDate: string | Dayjs; endDate: string | Dayjs; cellUnit: CellUnit };
-    getEventTextFunc: (schedulerData: SchedulerData, event: EventItem) => string;
-    getDateLabel: (schedulerData: SchedulerData, viewType: ViewType, startDate: string | Date, endDate: string | Date) => string;
-    getScrollSpecialDayjs: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
+    getEventTextFunc?: (schedulerData: SchedulerData, event: EventItem) => string;
+    getDateLabel?: (schedulerData: SchedulerData, viewType: ViewType, startDate: string | Date, endDate: string | Date) => string;
+    getScrollSpecialDayjs?: (schedulerData: SchedulerData, startDayjs: Dayjs, endDays: Dayjs) => Dayjs;
     getSummaryFunc?: (schedulerData: SchedulerData, headerEvents: HeaderEvent[], slotId: string, slotName: string, headerStart: string, headerEnd: string) =>
         { text: string, color: string, fontSize: string };
     getNonAgendaViewBodyCellBgColorFunc?: (schedulerData: SchedulerData, slotId: string, header: { nonWorkingTime: boolean, time: string }) => string;
