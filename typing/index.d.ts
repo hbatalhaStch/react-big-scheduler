@@ -90,6 +90,8 @@ export class SchedulerData {
     viewType: ViewType;
     startDate: string;
 
+    config: SchedulerDataConfig;
+
     constructor(
         date?: string | Dayjs,
         viewType?: ViewType,
