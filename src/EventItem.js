@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import { ConfigProvider, Popover } from 'antd'
+import { Popover } from 'antd'
 import EventItemPopover from './EventItemPopover'
 import { CellUnit, DATETIME_FORMAT } from './index'
 import { DnDTypes } from './DnDTypes'
