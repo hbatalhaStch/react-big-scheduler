@@ -192,6 +192,11 @@ export interface EventItem {
     endResizable?: boolean;
     groupId?: string;
     groupName?: string;
+    /**
+     * @deprecated This property should not be used as EXRULE has been [deprecated in RFC 5545](https://icalendar.org/iCalendar-RFC-5545/a-3-deprecated-features.html) and does not support a DTSTART property
+    */
+    exrule?: string;
+    exdates: string[];
     [x: string]: unknown;
 }
 
