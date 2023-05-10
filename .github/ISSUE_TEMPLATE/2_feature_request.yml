@@ -9,7 +9,7 @@ body:
       options:
         - label: I've looked through the [README](https://github.com/hbatalhaStch/react-big-scheduler#readme)
           required: true
-        - label: I've verified that I'm running react-big-scheduler-stch version **1.2.2**
+        - label: I've verified that I'm running react-big-scheduler-stch version **1.3.0**
           required: true
   - type: textarea
     id: description
