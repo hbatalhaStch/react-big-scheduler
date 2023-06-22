@@ -869,7 +869,8 @@ export default class SchedulerData {
             span = 0,
             windowStart = new Date(this.startDate),
             windowEnd = new Date(this.endDate);
-
+            windowStart.setHours(0, 0, 0, 0);
+            windowEnd.setHours(23, 59, 59);
         if (this.viewType === ViewType.Day) {
             if (headers.length > 0) {
                 const day = new Date(headers[0].time);
@@ -884,18 +885,14 @@ export default class SchedulerData {
                     span = Math.ceil(timeBetween(eventStart, eventEnd, 'minutes') / this.config.minuteStep);
                 }
             }
-        } else if (this.viewType === ViewType.Week) {
-            const startDate = windowStart < eventStart ? eventStart : windowStart
-            span = Math.ceil(timeBetween(startDate, eventEnd, 'days'));
-        } else if (this.viewType === ViewType.Month) {
-            const endDate = eventStart.getMonth() === eventEnd.getMonth() ? eventEnd : dayjs(eventStart).endOf('month').toDate()
-            span = Math.ceil(timeBetween(eventStart, endDate, 'days'));
-        } else if (this.viewType === ViewType.Quarter || this.viewType === ViewType.Year) {
-            span = Math.ceil(timeBetween(eventStart, eventEnd, 'days'));
+        } else if (this.viewType === ViewType.Week ||
+            this.viewType === ViewType.Month ||
+            this.viewType === ViewType.Quarter ||
+            this.viewType === ViewType.Year) {
+            const startDate = windowStart < eventStart ? eventStart : windowStart;
+            const endDate = windowEnd > eventEnd ? eventEnd : windowEnd;
+            span = Math.ceil(timeBetween(startDate, endDate, 'days'));
         } else {
-            windowStart.setHours(0, 0, 0, 0)
-            windowEnd.setHours(23, 59, 59)
-
             if (this.cellUnit === CellUnit.Day) {
                 eventEnd.setHours(23, 59, 59)
                 eventStart.setHours(0, 0, 0, 0)
