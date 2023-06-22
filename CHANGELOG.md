@@ -1,3 +1,9 @@
+## npm v1.3.1
+
+### 2023-06-23
+* Fixes for calculating span and isEnd for events (https://github.com/hbatalhaStch/react-big-scheduler/pull/15) 
+* Update antd to v5.6.2
+
 ## npm v1.3.0
 
 ### 2023-05-10
