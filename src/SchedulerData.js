@@ -869,8 +869,8 @@ export default class SchedulerData {
             span = 0,
             windowStart = new Date(this.startDate),
             windowEnd = new Date(this.endDate);
-            windowStart.setHours(0, 0, 0, 0);
-            windowEnd.setHours(23, 59, 59);
+        windowStart.setHours(0, 0, 0, 0);
+        windowEnd.setHours(23, 59, 59);
         if (this.viewType === ViewType.Day) {
             if (headers.length > 0) {
                 const day = new Date(headers[0].time);
